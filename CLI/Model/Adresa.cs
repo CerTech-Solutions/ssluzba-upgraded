@@ -4,23 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using CLI.DAO;
 using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public class Adresa : ISerializable
+public class Adresa : ISerializable, IAccess
 {
-    public int IdAdr { get; set; }
+    private int _idAdr;
+
+    public int Id
+    {
+        get { return _idAdr; } 
+        set { _idAdr = value; } 
+    }
 
     public string Ulica { get; set; }
-    public string Broj { get; set; }        //jer moze biti 28A
+
+    public string Broj { get; set; }
+
     public string Grad { get; set;}
+
     public string Drzava { get; set; }
 
     public string[] ToCSV()
     {
         string[] csvValues =
         {
+            Id.ToString(),
             Ulica,
             Broj,
             Grad,
@@ -31,7 +42,7 @@ public class Adresa : ISerializable
 
     public void FromCSV(string[] values)
     {
-        IdAdr = int.Parse(values[0]);
+        Id = int.Parse(values[0]);
         Ulica = values[1];
         Broj = values[2];
         Grad = values[3];

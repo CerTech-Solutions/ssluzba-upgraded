@@ -15,9 +15,14 @@ public enum PolozenPredmetEnum
 
 public class StudentSlusaPredmet : ISerializable
 {
+    public int Id { get; set; }
+
     public int IdPred { get; set; } 
+
     public int IdStud { get; set; }
+
     public PolozenPredmetEnum Status {  get; set; }
+
     public string[] ToCSV()
     {
         string[] csvValues =

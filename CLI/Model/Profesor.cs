@@ -5,28 +5,45 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic;
 using CLI.Storage.Serialization;
+using CLI.DAO;
 
 namespace CLI.Model;
 
-public class Profesor : ISerializable
+public class Profesor : ISerializable, IAccess
 {
-    public int IdProf {  get; set; }
+    private int _idProf;
+
+    public int Id 
+    {
+        get { return _idProf; } 
+        set { _idProf = value; }
+    }
+
     public string Ime { get; set; }
+
     public string Prezime { get; set; }
+
     public DateTime DatumRodjenja { get; set; }
+
     public int IdAdr { get; set; }
-    public string BrojTelefona { get; set; } 
-    public string Email { get; set; }   
+
+    public string BrojTelefona { get; set; }
+
+    public string Email { get; set; }
+
     public string BrojLicneKarte { get; set; }
-    public string Zvanje { get; set; }  
+
+    public string Zvanje { get; set; }
+
     public int GodinaStaza { get; set; }
+
     public List<int> IdPred { get; set; }
 
     public string[] ToCSV()
     {
         string[] csvValues =
         {
-            IdProf.ToString(), Ime, Prezime, DatumRodjenja.ToString(),
+            Id.ToString(), Ime, Prezime, DatumRodjenja.ToString(),
             IdAdr.ToString(), BrojTelefona, Email, BrojLicneKarte,
             Zvanje, GodinaStaza.ToString()
         };
@@ -35,7 +52,7 @@ public class Profesor : ISerializable
 
     public void FromCSV(string[] values)
     {
-        IdProf = int.Parse(values[0]);
+        Id = int.Parse(values[0]);
         Ime = values[1];
         Prezime = values[2];
         DatumRodjenja = DateTime.Parse(values[3]);

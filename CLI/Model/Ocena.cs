@@ -3,23 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CLI.DAO;
 using CLI.Storage.Serialization;
 
 namespace CLI.Model;
-public class Ocena : ISerializable
+public class Ocena : ISerializable, IAccess
 {
-    public int IdOcn { get; set; }
+    private int _idOcn;
+
+    public int Id
+    {
+        get { return _idOcn; }
+        set { _idOcn = value; }
+    }
 
     public int IdStudentPolozio { get; set; }
+
     public int IdPredmet { get; set; }
+
     public int OcenaBr { get; set; }
+
     public DateTime DatumPolaganja { get; set; }
 
     public string[] ToCSV()
     {
         string[] csvValues =
         {
-            IdOcn.ToString(),
+            Id.ToString(),
             IdPredmet.ToString(),
             OcenaBr.ToString(),
             DatumPolaganja.ToString()
@@ -29,7 +39,7 @@ public class Ocena : ISerializable
 
     public void FromCSV(string[] values)
     {
-        IdOcn = int.Parse(values[0]);
+        Id = int.Parse(values[0]);
         IdPredmet = int.Parse(values[1]);
         OcenaBr = int.Parse(values[3]);
         DatumPolaganja = DateTime.Parse(values[4]);

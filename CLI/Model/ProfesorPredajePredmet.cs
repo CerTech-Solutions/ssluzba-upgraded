@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CLI.DAO;
 using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-internal class ProfesorPredajePredmet : ISerializable
+internal class ProfesorPredajePredmet : ISerializable, IAccess
 {
+    public int Id { get; set; }
+
     public int IdProf { get; set; }
+    
     public int IdPred { get; set; }
 
     public string[] ToCSV()
