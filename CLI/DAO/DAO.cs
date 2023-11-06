@@ -42,7 +42,7 @@ public class DAO<T> where T : class, IAccess, ISerializable, new()
         if (oldObj is null) 
             return null;
 
-        oldObj.Copy(obj);
+        oldObj = obj;
 
         _storage.Save(_objects);
         return oldObj;

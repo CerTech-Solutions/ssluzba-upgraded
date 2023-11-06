@@ -9,5 +9,4 @@ namespace CLI.DAO;
 public interface IAccess
 {
     int Id { get; set; }
-    void Copy(IAccess obj);
 }
