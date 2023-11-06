@@ -3,42 +3,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public class Student
+public class Student : ISerializable
 {
-    public enum Status
+    public enum StatusEnum
     {
-        B,                  //budzet
-        S                   //samofinansiranje
+        B,                  // budzet
+        S                   // samofinansiranje
     }
 
+    public int IdStud {  get; set; }
+    public string Ime { get; set; }
+    public string Prezime { get; set; }
+    public DateTime DatumRodjenja { get; set; }
+    public int IdAdr { get; set; }
+    public string BrojTelefona { get; set; }
+    public string Email { get; set; }
+    public int IdInd { get; set; }
+    public int TrenutnaGodina { get; set; }
+    public StatusEnum Status { get; set; }
+    public List<int> IdOcnPolozeni { get; set; }
+    public List<int> IdOcnNepolozeni { get; set; }
+    public double ProsecnaOcena {  get; set; }
 
-    public string ime { get; set; }
-    public string prezime { get; set; }
-    public DateTime datum_rodj { get; set; }
-    public Adresa adresa { get; set; }
-    public string br_telefona { get; set; }
-    public string email { get; set; }
-    public Indeks indeks { get; set; }
-    public int trenutna_god { get; set; }
-    public Status status { get; set; }
-    public Ocena[] polozeni_predmeti { get; set; }
-    public Ocena[] nepolozeni_predmeti { get; set; }
-    public double prosecna_ocena
-    { 
-            get 
-            {
-                int suma = 0;
-                foreach (Ocena o in polozeni_predmeti)
-                {
-                    suma += o.ocena;
-                }
-                suma = suma / polozeni_predmeti.Length;
-                return suma;
-            }
-            set { prosecna_ocena = value; }    
-    }           
+    public string[] ToCSV()
+    {
+        string[] csvValues =
+        {
+            Ime, Prezime, DatumRodjenja.ToString(),
+            IdAdr.ToString(), BrojTelefona, Email,
+            IdInd.ToString(), TrenutnaGodina.ToString(),
+            Status.ToString(), ProsecnaOcena.ToString()
+        };
+        return csvValues;
+    }
+
+    public void FromCSV(string[] values)
+    {
+        IdStud = int.Parse(values[0]);
+        Ime = values[1];
+        Prezime = values[2];
+        DatumRodjenja = DateTime.Parse(values[3]);
+        IdAdr = int.Parse(values[4]);
+        BrojTelefona = values[5];
+        Email = values[6];
+        IdInd = int.Parse(values[7]);
+        TrenutnaGodina = int.Parse(values[8]);
+
+        if (values[9] == "B")
+            Status = StatusEnum.B;
+        else
+            Status = StatusEnum.S;
+
+        ProsecnaOcena = double.Parse(values[10]);
+    }
 }
 

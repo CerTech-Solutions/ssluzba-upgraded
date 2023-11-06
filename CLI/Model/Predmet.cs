@@ -6,22 +6,52 @@ using System.Threading.Tasks;
 
 namespace CLI.Model;
 
+public enum SemestarEnum
+{
+    letnji,
+    zimski
+}
+
 public class Predmet
 {
-    public enum Semestar
+    public int IdPred { get; set; } 
+
+    public string Sifra { get; set; }
+    public string Naziv { get; set; }
+    public SemestarEnum Semestar { get; set; }
+    public int GodStudija { get; set; } 
+    public int IdProfesor { get; set; }
+    public int Espb { get; set; }
+    public List<int> IdStudentiPolozili = new List<int>();
+    public List<int> IdStudentiNisuPolozili = new List<int>();
+    public string[] ToCSV()
     {
-        letnji,
-        zimski
+        string[] csvValues =
+        {
+            IdPred.ToString(),
+            Sifra,
+            Naziv,
+            Semestar.ToString(),
+            GodStudija.ToString(),
+            IdProfesor.ToString(),
+            Espb.ToString(),
+        };
+        return csvValues;
     }
 
-    public string sifra { get; set; }
-    public string naziv { get; set; }
-    public Semestar semestar { get; set; }
-    public int god_studija { get; set; } 
-    public Profesor profesor { get; set; }
-    public int espb { get; set; }
-    public Student[] studenti_polozili { get; set; }
-    public Student[] studenti_nisu_polozili { get; set; }
+    public void FromCSV(string[] values)
+    {
+        IdPred = int.Parse(values[0]);
+        Sifra = values[1];
+        Naziv = values[2];
 
+        if(values[3] == "letnji")
+            Semestar = SemestarEnum.letnji;
+        else
+            Semestar = SemestarEnum.zimski;
 
+        GodStudija = int.Parse(values[4]);
+        IdProfesor = int.Parse(values[5]);
+        Espb = int.Parse(values[6]);
+    }
 }
