@@ -1,4 +1,5 @@
-﻿using CLI.DAO;
+﻿using CLI.Console;
+using CLI.DAO;
 using CLI.Storage.Serialization;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CLI.Model;
 
-public class PredajeNaKatedri : ISerializable, IAccess
+public class PredajeNaKatedri : ISerializable, IAccess, IConsoleWR
 {
     public int Id { get; set; }
 
@@ -30,5 +31,16 @@ public class PredajeNaKatedri : ISerializable, IAccess
     {
         IdProf = int.Parse(values[0]);
         IdKat = int.Parse(values[1]);
+    }
+
+    //za Console Write
+    public string GenerateClassHeader()
+    {
+        return "Predaje na Katedri: \n" + $"{"ID",6} | {"IdProf",10} | {"IdKat",10} |";
+    }
+
+    public override string ToString()
+    {
+        return $"{Id,6} | {IdProf,10} | {IdKat,10} |";
     }
 }

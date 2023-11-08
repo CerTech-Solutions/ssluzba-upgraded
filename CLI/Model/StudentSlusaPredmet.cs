@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CLI.Console;
+using CLI.DAO;
 using CLI.Storage.Serialization;
 
 namespace CLI.Model;
@@ -13,7 +15,7 @@ public enum PolozenPredmetEnum
     nijePolozio
 }
 
-public class StudentSlusaPredmet : ISerializable
+public class StudentSlusaPredmet : ISerializable, IAccess, IConsoleWR
 {
     public int Id { get; set; }
 
@@ -43,5 +45,16 @@ public class StudentSlusaPredmet : ISerializable
             Status = PolozenPredmetEnum.polozio;
         else
             Status = PolozenPredmetEnum.nijePolozio;
+    }
+
+    //za Console Write
+    public string GenerateClassHeader()
+    {
+        return "Adrese: \n" + $"{"ID",6} | {"IdPred",6} | {"IdStud",6} |";
+    }
+
+    public override string ToString()
+    {
+        return $"{Id,6} | {IdPred,6} | {IdStud,6} |";
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CLI.Console;
 using CLI.DAO;
 using CLI.Storage.Serialization;
 namespace CLI.Model;
@@ -13,7 +14,7 @@ public enum StatusEnum
     S                   // samofinansiranje
 }
 
-public class Student : ISerializable, IAccess
+public class Student : ISerializable, IAccess, IConsoleWR
 {
     private int _idStud;
 
@@ -77,6 +78,17 @@ public class Student : ISerializable, IAccess
             Status = StatusEnum.S;
 
         ProsecnaOcena = double.Parse(values[10]);
+    }
+
+    //za Console Write
+    public string GenerateClassHeader()
+    {
+        return "Adrese: \n" + $@"{"Id",6} | {"Ime",10} | {"Prezime",15} | {"DatumRodjenja",13} | {"IdAdr",6} | {"BrojTelefona",12} | {"Email",30} | {"IdInd",6} | {"TrenutnaGodina",14} | {"Status",6} |";
+    }
+
+    public override string ToString()
+    {
+        return $@"{Id,6} | {Ime,10} | {Prezime,15} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {IdAdr,6} | {BrojTelefona,12} | {Email,30} | {IdInd,6} | {TrenutnaGodina,14} | {Status,6} |";
     }
 }
 

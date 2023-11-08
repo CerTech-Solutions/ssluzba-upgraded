@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using CLI.Console;
 using CLI.DAO;
 using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public class Adresa : ISerializable, IAccess
+public class Adresa : ISerializable, IAccess, IConsoleWR
 {
     private int _idAdr;
 
@@ -47,6 +48,17 @@ public class Adresa : ISerializable, IAccess
         Broj = values[2];
         Grad = values[3];
         Drzava = values[4];
+    }
+
+    //za Console Write
+    public string GenerateClassHeader()
+    {
+        return "Adrese: \n" + $"{"Id",6} | {"Ulica",25} | {"Broj",10} | {"Grad",25} | {"Drzava",25} |";
+    }
+
+    public override string ToString()
+    {
+        return $"{Id,6} | {Ulica,25} | {Broj,10} | {Grad,25} | {Drzava,25} |";
     }
 }
 

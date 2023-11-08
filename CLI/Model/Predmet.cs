@@ -1,4 +1,5 @@
-﻿using CLI.DAO;
+﻿using CLI.Console;
+using CLI.DAO;
 using CLI.Storage.Serialization;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ public enum SemestarEnum
     zimski
 }
 
-public class Predmet : ISerializable, IAccess
+public class Predmet : ISerializable, IAccess, IConsoleWR
 {
     private int _idPred;
 
@@ -69,5 +70,15 @@ public class Predmet : ISerializable, IAccess
         GodStudija = int.Parse(values[4]);
         IdProfesor = int.Parse(values[5]);
         Espb = int.Parse(values[6]);
+    }
+
+    //za Console Write
+    public string GenerateClassHeader()
+    {
+        return "Predmeti: \n" + $"{"ID",6} | {"Sifra",8} | {"Naziv",20} | {"Semestar",6} | {"GodStudija",8} | {"IdProfesora",6} | {"Espb",6}";
+    }
+    public override string ToString()
+    {
+        return $"{Id,6} | {Sifra,8} | {Naziv,20} | {Semestar,6} | {GodStudija,8} | {IdProfesor,6} | {Espb, 6} |";
     }
 }

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CLI.Console;
 using CLI.DAO;
 using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public class Indeks : ISerializable, IAccess
+public class Indeks : ISerializable, IAccess, IConsoleWR
 {
     private int _idInd;
 
@@ -42,5 +43,15 @@ public class Indeks : ISerializable, IAccess
         OznakaSmera = values[1];
         BrUpisa = int.Parse(values[2]);
         GodUpisa = int.Parse(values[3]);
+    }
+
+    //za Console Write
+    public string GenerateClassHeader()
+    {
+        return "Indeksi: \n" + $"{"ID",6} | {"OznakaSmera",11} | {"BrUpisa",7} | {"Godina",6} |";
+    }
+    public override string ToString()
+    {
+        return $"{Id,6} | {OznakaSmera,11} | {BrUpisa,7} | {GodUpisa,6} |";
     }
 }
