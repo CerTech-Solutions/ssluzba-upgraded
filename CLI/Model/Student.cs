@@ -19,7 +19,8 @@ public class Student : ISerializable, IAccess
 
     public Student() { }
 
-    public Student(int idStud, string ime, string prezime, DateTime datumRodjenja, int idAdr, string brojTelefona, string email, int idInd, int trenutnaGodina, StatusEnum status, double prosecnaOcena)
+    public Student(int idStud, string ime, string prezime, DateTime datumRodjenja, int idAdr, 
+        string brojTelefona, string email, int idInd, int trenutnaGodina, StatusEnum status, double prosecnaOcena, Indeks indeks)
     {
         Id = idStud;
         Ime = ime;
@@ -32,6 +33,7 @@ public class Student : ISerializable, IAccess
         TrenutnaGodina = trenutnaGodina;
         Status = status;
         ProsecnaOcena = prosecnaOcena;
+        Indeks = indeks;
     }
 
     public int Id
@@ -64,6 +66,8 @@ public class Student : ISerializable, IAccess
 
     public double ProsecnaOcena {  get; set; }
 
+    public Indeks Indeks { get; set; }
+
     public string[] ToCSV()
     {
         string[] csvValues =
@@ -73,7 +77,9 @@ public class Student : ISerializable, IAccess
             IdInd.ToString(), TrenutnaGodina.ToString(),
             Status.ToString(), ProsecnaOcena.ToString()
         };
-        return csvValues;
+
+        string[] result = csvValues.Concat(Indeks.ToCSV()).ToArray();   
+        return result;
     }
 
     public void FromCSV(string[] values)
@@ -87,13 +93,11 @@ public class Student : ISerializable, IAccess
         Email = values[6];
         IdInd = int.Parse(values[7]);
         TrenutnaGodina = int.Parse(values[8]);
-
-        if (values[9] == "B")
-            Status = StatusEnum.B;
-        else
-            Status = StatusEnum.S;
-
+        Status = Enum.Parse<StatusEnum>(values[9]);
         ProsecnaOcena = double.Parse(values[10]);
+
+        Indeks = new Indeks();
+        Indeks.FromCSV(values[11..]);
     }
 }
 

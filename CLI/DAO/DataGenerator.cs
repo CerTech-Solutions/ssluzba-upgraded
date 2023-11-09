@@ -57,8 +57,10 @@ public class DataGenerator
 
         // Possibly could change
         DAO<Student> daoStudent = new DAO<Student>();
-        Student s0 = new Student(0, "Nikola", "Kuslakovic", DateTime.Parse("2/2/2002"), 3, "123456789", "kuslakovic.ra8.2021@uns.ac.rs", 0, 3, StatusEnum.B, 0.0);
-        Student s1 = new Student(1, "Nemanja", "Zekanovic", DateTime.Parse("2/2/2002"), 4, "123456789", "zekanovic.ra73.2021@uns.ac.rs", 1, 3, StatusEnum.S, 0.0);
+        Student s0 = new Student(0, "Nikola", "Kuslakovic", DateTime.Parse("2/2/2002"), 3, "123456789", "kuslakovic.ra8.2021@uns.ac.rs", 0, 3, StatusEnum.B, 0.0, new Indeks("RA", 8, 2021));
+        Student s1 = new Student(1, "Nemanja", "Zekanovic", DateTime.Parse("2/2/2002"), 4, "123456789", "zekanovic.ra73.2021@uns.ac.rs", 1, 3, StatusEnum.S, 0.0, new Indeks("RA", 73, 2021));
+        daoStudent.AddObject(s0);
+        daoStudent.AddObject(s1);
 
         // Possibly could change
         DAO<StudentSlusaPredmet> daoStudentSlusaPredmet = new DAO<StudentSlusaPredmet>();

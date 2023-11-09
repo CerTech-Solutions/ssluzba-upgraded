@@ -8,39 +8,38 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public class Indeks : ISerializable, IAccess
+public class Indeks : ISerializable
 {
-    private int _idInd;
+    public Indeks() { }
 
-    public int Id
+    public Indeks(string oznakaSmera, int brojUpisa, int godinaUpisa)
     {
-        get { return _idInd; } 
-        set { _idInd = value; } 
+        OznakaSmera = oznakaSmera;
+        BrojUpisa = brojUpisa;
+        GodinaUpisa = godinaUpisa;
     }
 
     public string OznakaSmera { get; set; }
 
-    public int BrUpisa { get; set; }   
+    public int BrojUpisa { get; set; }   
 
-    public int GodUpisa { get; set; }
+    public int GodinaUpisa { get; set; }
 
     public string[] ToCSV()
     {
         string[] csvValues =
         {
-            Id.ToString(),
             OznakaSmera,
-            BrUpisa.ToString(),
-            GodUpisa.ToString()
+            BrojUpisa.ToString(),
+            GodinaUpisa.ToString()
         };
         return csvValues;
     }
 
     public void FromCSV(string[] values)
     {
-        Id = int.Parse(values[0]);
-        OznakaSmera = values[1];
-        BrUpisa = int.Parse(values[2]);
-        GodUpisa = int.Parse(values[3]);
+        OznakaSmera = values[0];
+        BrojUpisa = int.Parse(values[1]);
+        GodinaUpisa = int.Parse(values[2]);
     }
 }

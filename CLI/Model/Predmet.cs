@@ -73,12 +73,7 @@ public class Predmet : ISerializable, IAccess
         Id = int.Parse(values[0]);
         Sifra = values[1];
         Naziv = values[2];
-
-        if(values[3] == "letnji")
-            Semestar = SemestarEnum.letnji;
-        else
-            Semestar = SemestarEnum.zimski;
-
+        Semestar = Enum.Parse<SemestarEnum>(values[3]);
         GodStudija = int.Parse(values[4]);
         IdProfesor = int.Parse(values[5]);
         Espb = int.Parse(values[6]);
