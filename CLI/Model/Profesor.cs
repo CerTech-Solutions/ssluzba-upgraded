@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.VisualBasic;
 using CLI.Storage.Serialization;
 using CLI.DAO;
+using CLI.Console;
 
 namespace CLI.Model;
 
-public class Profesor : ISerializable, IAccess
+public class Profesor : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idProf;
 
@@ -29,9 +30,9 @@ public class Profesor : ISerializable, IAccess
         GodinaStaza = godinaStaza;
     }
 
-    public int Id 
+    public int Id
     {
-        get { return _idProf; } 
+        get { return _idProf; }
         set { _idProf = value; }
     }
 
@@ -78,5 +79,14 @@ public class Profesor : ISerializable, IAccess
         Zvanje = values[7];
         GodinaStaza = int.Parse(values[8]);
     }
-}
 
+	public string GenerateClassHeader()
+    {
+        return "Profesori: \n" + $"{"ID",6} | {"Ime",20} | {"Prezime",20} | {"DatumRodjenja",13} | {"IdAdr",6} | {"BrojTelefona",12} | {"Email", 20} | {"BrojLicneKarte",20} | {"Zvanje",20} | {"GodinaStaza",12} |";
+    }
+
+    public override string ToString()
+    {
+        return $"{Id,6} | {Ime,20} | {Prezime,20} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {IdAdr,6} | {BrojTelefona,12} | {Email,20} | {BrojLicneKarte,20} | {Zvanje,20} | {GodinaStaza,12} |";
+    }
+}

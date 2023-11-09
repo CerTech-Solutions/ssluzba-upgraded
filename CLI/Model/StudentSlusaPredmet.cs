@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CLI.Console;
 using CLI.DAO;
 using CLI.Storage.Serialization;
 
@@ -14,7 +15,7 @@ public enum PolozenPredmetEnum
     nijePolozio
 }
 
-public class StudentSlusaPredmet : ISerializable, IAccess
+public class StudentSlusaPredmet : ISerializable, IAccess, IConsoleWriteRead
 {
     public StudentSlusaPredmet() { }
 
@@ -28,7 +29,7 @@ public class StudentSlusaPredmet : ISerializable, IAccess
 
     public int Id { get; set; }
 
-    public int IdPred { get; set; } 
+    public int IdPred { get; set; }
 
     public int IdStud { get; set; }
 
@@ -38,6 +39,7 @@ public class StudentSlusaPredmet : ISerializable, IAccess
     {
         string[] csvValues =
         {
+			Id.ToString(),
             IdStud.ToString(),
             IdPred.ToString(),
             Status.ToString(),
@@ -47,12 +49,19 @@ public class StudentSlusaPredmet : ISerializable, IAccess
 
     public void FromCSV(string[] values)
     {
-        IdStud = int.Parse(values[0]);
-        IdPred = int.Parse(values[1]);
+        Id = int.Parse(values[0]);
+        IdStud = int.Parse(values[1]);
+        IdPred = int.Parse(values[2]);
+		Status = Enum.Parse<PolozenPredmetEnum>(values[3]);
+    }
 
-        if (values[2] == "polozio")
-            Status = PolozenPredmetEnum.polozio;
-        else
-            Status = PolozenPredmetEnum.nijePolozio;
+    public string GenerateClassHeader()
+    {
+        return "Adrese: \n" + $"{"ID",6} | {"IdPred",6} | {"IdStud",6} |";
+    }
+
+    public override string ToString()
+    {
+        return $"{Id,6} | {IdPred,6} | {IdStud,6} |";
     }
 }

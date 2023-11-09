@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CLI.Console;
 using CLI.DAO;
 using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public class Katedra : ISerializable, IAccess
+public class Katedra : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idKat;
 
     public Katedra() { }
 
-    public Katedra(int idkat, string sifra, string naziv, int idSefKatedre) 
+    public Katedra(int idKat, string sifra, string naziv, int idSefKatedre)
     {
-        Id = idkat;
-        Sifra = sifra; Naziv = naziv;
+        Id = idKat;
+        Sifra = sifra;
+        Naziv = naziv;
         IdSefKatedre = idSefKatedre;
     }
 
@@ -32,8 +34,6 @@ public class Katedra : ISerializable, IAccess
     public string Naziv { get; set; }
 
     public int IdSefKatedre { get; set; }
-
-    //public List<int> IdProfesori = new List<int>();
 
     public string[] ToCSV()
     {
@@ -52,7 +52,16 @@ public class Katedra : ISerializable, IAccess
         Id = int.Parse(values[0]);
         Sifra = values[1];
         Naziv = values[2];
-        IdSefKatedre = int.Parse(values[3]);    
+        IdSefKatedre = int.Parse(values[3]);
+    }
+
+    public string GenerateClassHeader()
+    {
+        return "Katedre: \n" + $"{"Id",6} | {"Sifra",20} | {"Naziv",20} | {"IdSefKatedre",12} |";
+    }
+
+    public override string ToString()
+    {
+        return $"{Id,6} | {Sifra,20} |  {Naziv,20} | {IdSefKatedre,12} |";
     }
 }
-

@@ -1,4 +1,5 @@
-﻿using CLI.DAO;
+﻿using CLI.Console;
+using CLI.DAO;
 using CLI.Storage.Serialization;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CLI.Model;
 
-public class ProfesorRadiNaKatedri : ISerializable, IAccess
+public class ProfesorRadiNaKatedri : ISerializable, IAccess, IConsoleWriteRead
 {
     public ProfesorRadiNaKatedri() { }
 
@@ -39,7 +40,17 @@ public class ProfesorRadiNaKatedri : ISerializable, IAccess
     public void FromCSV(string[] values)
     {
         Id = int.Parse(values[0]);
-        IdProf = int.Parse(values[2]);
-        IdKat = int.Parse(values[3]);
+        IdProf = int.Parse(values[1]);
+        IdKat = int.Parse(values[2]);
+    }
+
+    public string GenerateClassHeader()
+    {
+        return "Predaje na Katedri: \n" + $"{"ID",6} | {"IdProf",10} | {"IdKat",10} |";
+    }
+
+    public override string ToString()
+    {
+        return $"{Id,6} | {IdProf,10} | {IdKat,10} |";
     }
 }

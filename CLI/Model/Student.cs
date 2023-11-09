@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CLI.Console;
 using CLI.DAO;
 using CLI.Storage.Serialization;
 namespace CLI.Model;
@@ -13,13 +14,13 @@ public enum StatusEnum
     S                   // samofinansiranje
 }
 
-public class Student : ISerializable, IAccess
+public class Student : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idStud;
 
     public Student() { }
 
-    public Student(int idStud, string ime, string prezime, DateTime datumRodjenja, int idAdr, 
+    public Student(int idStud, string ime, string prezime, DateTime datumRodjenja, int idAdr,
         string brojTelefona, string email, int idInd, int trenutnaGodina, StatusEnum status, double prosecnaOcena, Indeks indeks)
     {
         Id = idStud;
@@ -78,7 +79,7 @@ public class Student : ISerializable, IAccess
             Status.ToString(), ProsecnaOcena.ToString()
         };
 
-        string[] result = csvValues.Concat(Indeks.ToCSV()).ToArray();   
+        string[] result = csvValues.Concat(Indeks.ToCSV()).ToArray();
         return result;
     }
 
@@ -93,11 +94,20 @@ public class Student : ISerializable, IAccess
         Email = values[6];
         IdInd = int.Parse(values[7]);
         TrenutnaGodina = int.Parse(values[8]);
-        Status = Enum.Parse<StatusEnum>(values[9]);
+		Status = Enum.Parse<StatusEnum>(values[9]);
         ProsecnaOcena = double.Parse(values[10]);
 
         Indeks = new Indeks();
         Indeks.FromCSV(values[11..]);
     }
-}
 
+    public string GenerateClassHeader()
+    {
+        return "Adrese: \n" + $@"{"Id",6} | {"Ime",10} | {"Prezime",15} | {"DatumRodjenja",13} | {"IdAdr",6} | {"BrojTelefona",12} | {"Email",30} | {"IdInd",6} | {"TrenutnaGodina",14} | {"Status",6} |";
+    }
+
+    public override string ToString()
+    {
+        return $@"{Id,6} | {Ime,10} | {Prezime,15} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {IdAdr,6} | {BrojTelefona,12} | {Email,30} | {IdInd,6} | {TrenutnaGodina,14} | {Status,6} |";
+    }
+}
