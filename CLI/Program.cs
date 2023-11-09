@@ -1,14 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-using CLI.Console;
-using CLI.DAO;
+﻿using CLI.DAO;
 using CLI.Model;
 
-class Program
-{
-    static void Main()
-    {
-        //Console.SetWindowSize(200, 80);
-        ConsoleViewSelector cvs = new ConsoleViewSelector();
-        cvs.RunSelector();
-    }
-}
+// Uncomment when creating data for the first time
+//DataGenerator.Generate();
+
+// See https://aka.ms/new-console-template for more information
+Console.WriteLine("Hello, World!");

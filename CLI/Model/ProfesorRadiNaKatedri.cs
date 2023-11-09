@@ -9,8 +9,17 @@ using System.Threading.Tasks;
 
 namespace CLI.Model;
 
-public class PredajeNaKatedri : ISerializable, IAccess, IConsoleWriteRead
+public class ProfesorRadiNaKatedri : ISerializable, IAccess, IConsoleWriteRead
 {
+    public ProfesorRadiNaKatedri() { }
+
+    public ProfesorRadiNaKatedri(int id, int idProf, int idKat)
+    {
+        Id = id;
+        IdProf = idProf;
+        IdKat = idKat;
+    }
+
     public int Id { get; set; }
 
     public int IdProf {  get; set; }
@@ -21,6 +30,7 @@ public class PredajeNaKatedri : ISerializable, IAccess, IConsoleWriteRead
     {
         string[] csvValues =
         {
+            Id.ToString(),
             IdProf.ToString(),
             IdKat.ToString(),
         };
@@ -29,11 +39,11 @@ public class PredajeNaKatedri : ISerializable, IAccess, IConsoleWriteRead
 
     public void FromCSV(string[] values)
     {
-        IdProf = int.Parse(values[0]);
-        IdKat = int.Parse(values[1]);
+        Id = int.Parse(values[0]);
+        IdProf = int.Parse(values[2]);
+        IdKat = int.Parse(values[3]);
     }
 
-    //za Console Write
     public string GenerateClassHeader()
     {
         return "Predaje na Katedri: \n" + $"{"ID",6} | {"IdProf",10} | {"IdKat",10} |";

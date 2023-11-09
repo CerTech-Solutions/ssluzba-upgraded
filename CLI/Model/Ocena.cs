@@ -46,14 +46,13 @@ public class Ocena : ISerializable, IAccess, IConsoleWriteRead
         DatumPolaganja = DateTime.Parse(values[4]);
     }
 
-    //za Console Write
     public string GenerateClassHeader()
     {
         return "Ocene: \n" + $"{"Id",6} | {"IdStudentPolozio",20} | {"IdPredmet",20} | {"OcenaBr",20} | {"DatumPolaganja",20} |";
     }
+
     public override string ToString()
     {
         return $"{Id,6} | {IdStudentPolozio,20} | {IdPredmet,20} | {OcenaBr,20} | {DatumPolaganja,20} |";
     }
 }
-

@@ -25,8 +25,6 @@ public class Katedra : ISerializable, IAccess, IConsoleWriteRead
 
     public int IdSefKatedre { get; set; }
 
-    public List<int> IdProfesori = new List<int>();
-
     public string[] ToCSV()
     {
         string[] csvValues =
@@ -43,10 +41,9 @@ public class Katedra : ISerializable, IAccess, IConsoleWriteRead
     {
         Id = int.Parse(values[0]);
         Sifra = values[1];
-        IdSefKatedre = int.Parse(values[2]);    
+        IdSefKatedre = int.Parse(values[2]);
     }
 
-    //za Console Write
     public string GenerateClassHeader()
     {
         return "Katedre: \n" + $"{"Id",6} | {"Sifra",20} | {"Naziv",20} | {"IdSefKatedre",12} |";
@@ -57,4 +54,3 @@ public class Katedra : ISerializable, IAccess, IConsoleWriteRead
         return $"{Id,6} | {Sifra,20} |  {Naziv,20} | {IdSefKatedre,12} |";
     }
 }
-

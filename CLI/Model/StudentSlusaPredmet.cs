@@ -17,9 +17,19 @@ public enum PolozenPredmetEnum
 
 public class StudentSlusaPredmet : ISerializable, IAccess, IConsoleWriteRead
 {
+    public StudentSlusaPredmet() { }
+
+    public StudentSlusaPredmet(int id, int idStud, int idPred, PolozenPredmetEnum status)
+    {
+        Id = id;
+        IdPred = idPred;
+        IdStud = idStud;
+        Status = status;
+    }
+
     public int Id { get; set; }
 
-    public int IdPred { get; set; } 
+    public int IdPred { get; set; }
 
     public int IdStud { get; set; }
 
@@ -29,8 +39,9 @@ public class StudentSlusaPredmet : ISerializable, IAccess, IConsoleWriteRead
     {
         string[] csvValues =
         {
-            IdPred.ToString(),
+			Id.ToString(),
             IdStud.ToString(),
+            IdPred.ToString(),
             Status.ToString(),
         };
         return csvValues;
@@ -38,16 +49,12 @@ public class StudentSlusaPredmet : ISerializable, IAccess, IConsoleWriteRead
 
     public void FromCSV(string[] values)
     {
-        IdPred = int.Parse(values[0]);
+		Id = int.Parse(value[0])
         IdStud = int.Parse(values[1]);
-
-        if (values[2] == "polozio")
-            Status = PolozenPredmetEnum.polozio;
-        else
-            Status = PolozenPredmetEnum.nijePolozio;
+        IdPred = int.Parse(values[2]);
+		Status = Enum.Parse<PolozenPredmetEnum>(values[3]);
     }
 
-    //za Console Write
     public string GenerateClassHeader()
     {
         return "Adrese: \n" + $"{"ID",6} | {"IdPred",6} | {"IdStud",6} |";

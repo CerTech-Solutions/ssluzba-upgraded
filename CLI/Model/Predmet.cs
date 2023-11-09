@@ -19,11 +19,24 @@ public class Predmet : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idPred;
 
-    public int Id 
+    public Predmet() { }
+
+    public Predmet(int idPred, string sifra, string naziv, SemestarEnum semestar, int godStudija, int idProfesor, int espb)
+    {
+        Id = idPred;
+        Sifra = sifra;
+        Naziv = naziv;
+        Semestar = semestar;
+        GodStudija = godStudija;
+        IdProfesor = idProfesor;
+        Espb = espb;
+    }
+
+    public int Id
     {
         get { return _idPred; }
         set { _idPred = value; }
-    } 
+    }
 
     public string Sifra { get; set; }
 
@@ -37,9 +50,9 @@ public class Predmet : ISerializable, IAccess, IConsoleWriteRead
 
     public int Espb { get; set; }
 
-    public List<int> IdStudentiPolozili = new List<int>();
+    //public List<int> IdStudentiPolozili = new List<int>();
 
-    public List<int> IdStudentiNisuPolozili = new List<int>();
+    //public List<int> IdStudentiNisuPolozili = new List<int>();
 
     public string[] ToCSV()
     {
@@ -61,22 +74,17 @@ public class Predmet : ISerializable, IAccess, IConsoleWriteRead
         Id = int.Parse(values[0]);
         Sifra = values[1];
         Naziv = values[2];
-
-        if(values[3] == "letnji")
-            Semestar = SemestarEnum.letnji;
-        else
-            Semestar = SemestarEnum.zimski;
-
+        Semestar = Enum.Parse<SemestarEnum>(values[3]);
         GodStudija = int.Parse(values[4]);
         IdProfesor = int.Parse(values[5]);
         Espb = int.Parse(values[6]);
     }
 
-    //za Console Write
     public string GenerateClassHeader()
     {
         return "Predmeti: \n" + $"{"ID",6} | {"Sifra",8} | {"Naziv",20} | {"Semestar",8} | {"GodStudija",8} | {"IdProfesora",8} | {"Espb",6}";
     }
+
     public override string ToString()
     {
         return $"{Id,6} | {Sifra,8} | {Naziv,20} | {Semestar,8} | {GodStudija,8} | {IdProfesor,8} |  {Espb, 6} |";

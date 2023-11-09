@@ -14,9 +14,25 @@ public class Profesor : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idProf;
 
-    public int Id 
+    public Profesor() { }
+
+    public Profesor(int idProf, string ime, string prezime, DateTime datumRodjenja, int idAdr, string brojTelefona, string email, string brojLicneKarte, string zvanje, int godinaStaza)
     {
-        get { return _idProf; } 
+        Id = idProf;
+        Ime = ime;
+        Prezime = prezime;
+        DatumRodjenja = datumRodjenja;
+        IdAdr = idAdr;
+        BrojTelefona = brojTelefona;
+        Email = email;
+        BrojLicneKarte = brojLicneKarte;
+        Zvanje = zvanje;
+        GodinaStaza = godinaStaza;
+    }
+
+    public int Id
+    {
+        get { return _idProf; }
         set { _idProf = value; }
     }
 
@@ -38,13 +54,13 @@ public class Profesor : ISerializable, IAccess, IConsoleWriteRead
 
     public int GodinaStaza { get; set; }
 
-    public List<int> IdPred { get; set; }
+    //public List<int> IdPred { get; set; }
 
     public string[] ToCSV()
     {
         string[] csvValues =
         {
-            Id.ToString(), Ime, Prezime, DatumRodjenja.ToString(),
+            Id.ToString(), Ime, Prezime, DatumRodjenja.ToString("dd-MM-yyyy"),
             IdAdr.ToString(), BrojTelefona, Email, BrojLicneKarte,
             Zvanje, GodinaStaza.ToString()
         };
@@ -60,13 +76,11 @@ public class Profesor : ISerializable, IAccess, IConsoleWriteRead
         IdAdr = int.Parse(values[4]);
         BrojTelefona = values[5];
         Email = values[6];
-        BrojLicneKarte = values[7];
-        Zvanje = values[8];
-        GodinaStaza = int.Parse(values[9]);
+        Zvanje = values[7];
+        GodinaStaza = int.Parse(values[8]);
     }
 
-    //za Console Write
-    public string GenerateClassHeader()
+	public string GenerateClassHeader()
     {
         return "Profesori: \n" + $"{"ID",6} | {"Ime",20} | {"Prezime",20} | {"DatumRodjenja",13} | {"IdAdr",6} | {"BrojTelefona",12} | {"Email", 20} | {"BrojLicneKarte",20} | {"Zvanje",20} | {"GodinaStaza",12} |";
     }
@@ -76,4 +90,3 @@ public class Profesor : ISerializable, IAccess, IConsoleWriteRead
         return $"{Id,6} | {Ime,20} | {Prezime,20} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {IdAdr,6} | {BrojTelefona,12} | {Email,20} | {BrojLicneKarte,20} | {Zvanje,20} | {GodinaStaza,12} |";
     }
 }
-

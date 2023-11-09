@@ -14,9 +14,10 @@ public class DAO<T> where T : class, IAccess, ISerializable, new()
     private readonly List<T> _objects;
     private readonly Storage<T> _storage;
 
-    public DAO(string path)
+    public DAO()
     {
-        _storage = new Storage<T>(path);
+        string fileName = typeof(T).Name + ".csv";
+        _storage = new Storage<T>(fileName);
         _objects = _storage.Load();
     }
 
