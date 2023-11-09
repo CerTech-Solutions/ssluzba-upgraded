@@ -13,6 +13,17 @@ public class Adresa : ISerializable, IAccess
 {
     private int _idAdr;
 
+    public Adresa() { }
+
+    public Adresa(int idAdr, string ulica, string broj, string grad, string drzava)
+    {
+        Id = idAdr;
+        Ulica = ulica;
+        Broj = broj;
+        Grad = grad;
+        Drzava = drzava;
+    }
+
     public int Id
     {
         get { return _idAdr; } 
