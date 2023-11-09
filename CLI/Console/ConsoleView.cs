@@ -12,7 +12,7 @@ namespace CLI.Console;
 
 internal class ConsoleView<T> where T : class, IAccess, ISerializable, IConsoleWriteRead, new()
 {
-    private readonly DAO<T> _daoObjs = new DAO<T>("data.csv");
+    private readonly DAO<T> _daoObjs = new DAO<T>();
     
     public ConsoleView(DAO<T> daoObjs)
     {

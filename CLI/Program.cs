@@ -1,8 +1,9 @@
-﻿using CLI.DAO;
+﻿using CLI.Console;
+using CLI.DAO;
 using CLI.Model;
 
 // Uncomment when creating data for the first time
-//DataGenerator.Generate();
+// DataGenerator.Generate();
 
-// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+ConsoleViewSelector console = new ConsoleViewSelector();
+console.RunSelector();

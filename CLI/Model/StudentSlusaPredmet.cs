@@ -49,7 +49,7 @@ public class StudentSlusaPredmet : ISerializable, IAccess, IConsoleWriteRead
 
     public void FromCSV(string[] values)
     {
-		Id = int.Parse(value[0])
+        Id = int.Parse(values[0]);
         IdStud = int.Parse(values[1]);
         IdPred = int.Parse(values[2]);
 		Status = Enum.Parse<PolozenPredmetEnum>(values[3]);

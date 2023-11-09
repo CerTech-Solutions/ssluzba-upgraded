@@ -13,6 +13,16 @@ public class Katedra : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idKat;
 
+    public Katedra() { }
+
+    public Katedra(int idKat, string sifra, string naziv, int idSefKatedre)
+    {
+        Id = idKat;
+        Sifra = sifra;
+        Naziv = naziv;
+        IdSefKatedre = idSefKatedre;
+    }
+
     public int Id
     {
         get { return _idKat; }
@@ -41,7 +51,8 @@ public class Katedra : ISerializable, IAccess, IConsoleWriteRead
     {
         Id = int.Parse(values[0]);
         Sifra = values[1];
-        IdSefKatedre = int.Parse(values[2]);
+        Naziv = values[2];
+        IdSefKatedre = int.Parse(values[3]);
     }
 
     public string GenerateClassHeader()

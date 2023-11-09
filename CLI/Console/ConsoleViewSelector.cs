@@ -28,15 +28,14 @@ public class ConsoleViewSelector
     {
         System.Console.WriteLine("\nChoose an option: ");
         System.Console.WriteLine("  1: Adresa");
-        System.Console.WriteLine("  2: Indeks");
-        System.Console.WriteLine("  3: Katedra");
-        System.Console.WriteLine("  4: Ocena");
-        System.Console.WriteLine("  5: Predaje Na Katedri");
-        System.Console.WriteLine("  6: Predmet");
-        System.Console.WriteLine("  7: Profesor");
-        System.Console.WriteLine("  8: Profesor Predaje Predmet");
-        System.Console.WriteLine("  9: Student");
-        System.Console.WriteLine("  10: Student Slusa Predmet");
+        System.Console.WriteLine("  2: Katedra");
+        System.Console.WriteLine("  3: Ocena");
+        System.Console.WriteLine("  4: Profesor predaje na katedri");
+        System.Console.WriteLine("  5: Predmet");
+        System.Console.WriteLine("  6: Profesor");
+        System.Console.WriteLine("  7: Profesor predaje predmet");
+        System.Console.WriteLine("  8: Student");
+        System.Console.WriteLine("  9: Student slusa predmet");
         System.Console.WriteLine("  0: Close");
     }
 
@@ -48,112 +47,91 @@ public class ConsoleViewSelector
                 AdresaChoosen();
                 break;
             case "2":
-                IndeksChoosen();
-                break;
-            case "3":
                 KatedraChoosen();
                 break;
-            case "4":
+            case "3":
                 OcenaChoosen();
                 break;
-            case "5":
-                PredajeNaKatedriChoosen();
+            case "4":
+                ProfesorRadiNaKatedriChoosen();
                 break;
-            case "6":
+            case "5":
                 PredmetChoosen();
                 break;
-            case "7":
+            case "6":
                 ProfesorChoosen();
                 break;
-            case "8":
+            case "7":
                 ProfesorPredajePredmetChoosen();
                 break;
-            case "9":
+            case "8":
                 StudentChoosen();
                 break;
-            case "10":
+            case "9":
                 StudentSlusaPredmetChoosen();
                 break;     
         }
     }
 
-    string path1 = "Adrese.csv";
-    string path2 = "Indeksi.csv";
-    string path3 = "Katedre.csv";
-    string path4 = "Ocene.csv";
-    string path5 = "PredajeNaKatedri.csv";
-    string path6 = "Predmeti.csv";
-    string path7 = "Profesori.csv";
-    string path8 = "ProfesoriPredajuPredmet.csv";
-    string path9 = "Studenti.csv";
-    string path10 = "StudentiSlusajuPredmet.csv";
-
     private void AdresaChoosen()
     {
-        DAO<Adresa> da = new DAO<Adresa>(path1);
+        DAO<Adresa> da = new DAO<Adresa>();
         ConsoleView<Adresa> cv = new ConsoleView<Adresa>(da);
-        cv.RunMenu();
-    }
-
-    private void IndeksChoosen()
-    {
-        DAO<Indeks> di = new DAO<Indeks>(path2);
-        ConsoleView<Indeks> cv = new ConsoleView<Indeks>(di);
         cv.RunMenu();
     }
 
     private void KatedraChoosen()
     {
-        DAO<Katedra> dk = new DAO<Katedra>(path3);
+        DAO<Katedra> dk = new DAO<Katedra>();
         ConsoleView<Katedra> cv = new ConsoleView<Katedra>(dk);
         cv.RunMenu();
     }
 
     private void OcenaChoosen()
     {
-        DAO<Ocena> doc = new DAO<Ocena>(path4);
+        DAO<Ocena> doc = new DAO<Ocena>();
         ConsoleView<Ocena> cv = new ConsoleView<Ocena>(doc);
         cv.RunMenu();
     }
 
-    private void PredajeNaKatedriChoosen()
+    private void ProfesorRadiNaKatedriChoosen()
     {
-        DAO<PredajeNaKatedri> dpnk = new DAO<PredajeNaKatedri>(path5);
-        ConsoleView<PredajeNaKatedri> cv = new ConsoleView<PredajeNaKatedri>(dpnk);
+        DAO<ProfesorRadiNaKatedri> dpnk = new DAO<ProfesorRadiNaKatedri>();
+        ConsoleView<ProfesorRadiNaKatedri> cv = new ConsoleView<ProfesorRadiNaKatedri>(dpnk);
         cv.RunMenu();
     }
 
     private void PredmetChoosen()
     {
-        DAO<Predmet> dp = new DAO<Predmet>(path6);
+        DAO<Predmet> dp = new DAO<Predmet>();
         ConsoleView<Predmet> cv = new ConsoleView<Predmet>(dp);
         cv.RunMenu();
     }
 
     private void ProfesorChoosen()
     {
-        DAO<Profesor> dpr = new DAO<Profesor>(path7);
+        DAO<Profesor> dpr = new DAO<Profesor>();
         ConsoleView<Profesor> cv = new ConsoleView<Profesor>(dpr);
         cv.RunMenu();
     }
 
     private void ProfesorPredajePredmetChoosen()
     {
-        DAO<ProfesorPredajePredmet> dppp = new DAO<ProfesorPredajePredmet>(path8);
+        DAO<ProfesorPredajePredmet> dppp = new DAO<ProfesorPredajePredmet>();
         ConsoleView<ProfesorPredajePredmet> cv = new ConsoleView<ProfesorPredajePredmet>(dppp);
         cv.RunMenu();
     }
 
     private void StudentChoosen()
     {
-        DAO<Student> dst = new DAO<Student>(path9);
+        DAO<Student> dst = new DAO<Student>();
         ConsoleView<Student> cv = new ConsoleView<Student>(dst);
         cv.RunMenu();
     }
 
     private void StudentSlusaPredmetChoosen()
     {
-        DAO<StudentSlusaPredmet> dssp = new DAO<StudentSlusaPredmet>(path10);
+        DAO<StudentSlusaPredmet> dssp = new DAO<StudentSlusaPredmet>();
         ConsoleView<StudentSlusaPredmet> cv = new ConsoleView<StudentSlusaPredmet>(dssp);
         cv.RunMenu();
     }

@@ -39,7 +39,7 @@ internal class ProfesorPredajePredmet : ISerializable, IAccess, IConsoleWriteRea
 
     public void FromCSV(string[] values)
     {
-		Id = int.Parse(values[0])
+        Id = int.Parse(values[0]);
         IdProf = int.Parse(values[1]);
         IdPred = int.Parse(values[2]);
     }

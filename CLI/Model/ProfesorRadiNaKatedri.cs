@@ -40,8 +40,8 @@ public class ProfesorRadiNaKatedri : ISerializable, IAccess, IConsoleWriteRead
     public void FromCSV(string[] values)
     {
         Id = int.Parse(values[0]);
-        IdProf = int.Parse(values[2]);
-        IdKat = int.Parse(values[3]);
+        IdProf = int.Parse(values[1]);
+        IdKat = int.Parse(values[2]);
     }
 
     public string GenerateClassHeader()
