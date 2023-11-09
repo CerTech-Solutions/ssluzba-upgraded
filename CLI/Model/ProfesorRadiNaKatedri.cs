@@ -8,8 +8,17 @@ using System.Threading.Tasks;
 
 namespace CLI.Model;
 
-public class PredajeNaKatedri : ISerializable, IAccess
+public class ProfesorRadiNaKatedri : ISerializable, IAccess
 {
+    public ProfesorRadiNaKatedri() { }
+
+    public ProfesorRadiNaKatedri(int id, int idProf, int idKat)
+    {
+        Id = id;
+        IdProf = idProf;
+        IdKat = idKat;
+    }
+
     public int Id { get; set; }
 
     public int IdProf {  get; set; }
@@ -20,6 +29,7 @@ public class PredajeNaKatedri : ISerializable, IAccess
     {
         string[] csvValues =
         {
+            Id.ToString(),
             IdProf.ToString(),
             IdKat.ToString(),
         };
@@ -28,7 +38,8 @@ public class PredajeNaKatedri : ISerializable, IAccess
 
     public void FromCSV(string[] values)
     {
-        IdProf = int.Parse(values[0]);
-        IdKat = int.Parse(values[1]);
+        Id = int.Parse(values[0]);
+        IdProf = int.Parse(values[2]);
+        IdKat = int.Parse(values[3]);
     }
 }

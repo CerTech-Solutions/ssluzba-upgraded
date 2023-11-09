@@ -10,6 +10,15 @@ namespace CLI.Model;
 
 internal class ProfesorPredajePredmet : ISerializable, IAccess
 {
+    public ProfesorPredajePredmet() { }
+
+    public ProfesorPredajePredmet(int id, int idProf, int idPred)
+    {
+        Id = id;
+        IdProf = idProf;
+        IdPred = idPred;
+    }
+
     public int Id { get; set; }
 
     public int IdProf { get; set; }
@@ -20,6 +29,7 @@ internal class ProfesorPredajePredmet : ISerializable, IAccess
     {
         string[] csvValues =
         {
+            Id.ToString(),
             IdProf.ToString(),
             IdPred.ToString(),
         };
@@ -28,7 +38,8 @@ internal class ProfesorPredajePredmet : ISerializable, IAccess
 
     public void FromCSV(string[] values)
     {
-        IdProf = int.Parse(values[0]);
-        IdPred = int.Parse(values[1]);
+        Id = int.Parse(values[0]);
+        IdProf = int.Parse(values[1]);
+        IdPred = int.Parse(values[2]);
     }
 }

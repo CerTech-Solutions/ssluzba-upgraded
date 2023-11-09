@@ -17,6 +17,23 @@ public class Student : ISerializable, IAccess
 {
     private int _idStud;
 
+    public Student() { }
+
+    public Student(int idStud, string ime, string prezime, DateTime datumRodjenja, int idAdr, string brojTelefona, string email, int idInd, int trenutnaGodina, StatusEnum status, double prosecnaOcena)
+    {
+        Id = idStud;
+        Ime = ime;
+        Prezime = prezime;
+        DatumRodjenja = datumRodjenja;
+        IdAdr = idAdr;
+        BrojTelefona = brojTelefona;
+        Email = email;
+        IdInd = idInd;
+        TrenutnaGodina = trenutnaGodina;
+        Status = status;
+        ProsecnaOcena = prosecnaOcena;
+    }
+
     public int Id
     {
         get { return _idStud; }
@@ -41,9 +58,9 @@ public class Student : ISerializable, IAccess
 
     public StatusEnum Status { get; set; }
 
-    public List<int> IdOcnPolozeni { get; set; }
+    //public List<int> IdOcnPolozeni { get; set; }
 
-    public List<int> IdOcnNepolozeni { get; set; }
+    //public List<int> IdOcnNepolozeni { get; set; }
 
     public double ProsecnaOcena {  get; set; }
 
@@ -51,7 +68,7 @@ public class Student : ISerializable, IAccess
     {
         string[] csvValues =
         {
-            Id.ToString(), Ime, Prezime, DatumRodjenja.ToString(),
+            Id.ToString(), Ime, Prezime, DatumRodjenja.ToString("dd-MM-yyyy"),
             IdAdr.ToString(), BrojTelefona, Email,
             IdInd.ToString(), TrenutnaGodina.ToString(),
             Status.ToString(), ProsecnaOcena.ToString()

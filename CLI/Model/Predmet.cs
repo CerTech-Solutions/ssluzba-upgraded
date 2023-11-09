@@ -18,6 +18,19 @@ public class Predmet : ISerializable, IAccess
 {
     private int _idPred;
 
+    public Predmet() { }
+
+    public Predmet(int idPred, string sifra, string naziv, SemestarEnum semestar, int godStudija, int idProfesor, int espb)
+    {
+        Id = idPred;
+        Sifra = sifra;
+        Naziv = naziv;
+        Semestar = semestar;
+        GodStudija = godStudija;
+        IdProfesor = idProfesor;
+        Espb = espb;
+    }
+
     public int Id 
     {
         get { return _idPred; }
@@ -36,9 +49,9 @@ public class Predmet : ISerializable, IAccess
 
     public int Espb { get; set; }
 
-    public List<int> IdStudentiPolozili = new List<int>();
+    //public List<int> IdStudentiPolozili = new List<int>();
 
-    public List<int> IdStudentiNisuPolozili = new List<int>();
+    //public List<int> IdStudentiNisuPolozili = new List<int>();
 
     public string[] ToCSV()
     {

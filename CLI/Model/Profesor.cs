@@ -13,6 +13,22 @@ public class Profesor : ISerializable, IAccess
 {
     private int _idProf;
 
+    public Profesor() { }
+
+    public Profesor(int idProf, string ime, string prezime, DateTime datumRodjenja, int idAdr, string brojTelefona, string email, string brojLicneKarte, string zvanje, int godinaStaza)
+    {
+        Id = idProf;
+        Ime = ime;
+        Prezime = prezime;
+        DatumRodjenja = datumRodjenja;
+        IdAdr = idAdr;
+        BrojTelefona = brojTelefona;
+        Email = email;
+        BrojLicneKarte = brojLicneKarte;
+        Zvanje = zvanje;
+        GodinaStaza = godinaStaza;
+    }
+
     public int Id 
     {
         get { return _idProf; } 
@@ -37,13 +53,13 @@ public class Profesor : ISerializable, IAccess
 
     public int GodinaStaza { get; set; }
 
-    public List<int> IdPred { get; set; }
+    //public List<int> IdPred { get; set; }
 
     public string[] ToCSV()
     {
         string[] csvValues =
         {
-            Id.ToString(), Ime, Prezime, DatumRodjenja.ToString(),
+            Id.ToString(), Ime, Prezime, DatumRodjenja.ToString("dd-MM-yyyy"),
             IdAdr.ToString(), BrojTelefona, Email, BrojLicneKarte,
             Zvanje, GodinaStaza.ToString()
         };
