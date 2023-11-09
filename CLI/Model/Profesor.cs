@@ -10,7 +10,7 @@ using CLI.Console;
 
 namespace CLI.Model;
 
-public class Profesor : ISerializable, IAccess, IConsoleWR
+public class Profesor : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idProf;
 

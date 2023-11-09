@@ -15,7 +15,7 @@ public enum PolozenPredmetEnum
     nijePolozio
 }
 
-public class StudentSlusaPredmet : ISerializable, IAccess, IConsoleWR
+public class StudentSlusaPredmet : ISerializable, IAccess, IConsoleWriteRead
 {
     public int Id { get; set; }
 

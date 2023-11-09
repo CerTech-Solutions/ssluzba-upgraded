@@ -9,7 +9,7 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public class Katedra : ISerializable, IAccess, IConsoleWR
+public class Katedra : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idKat;
 

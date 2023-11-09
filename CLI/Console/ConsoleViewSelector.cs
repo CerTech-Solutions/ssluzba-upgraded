@@ -123,8 +123,8 @@ public class ConsoleViewSelector
 
     private void PredmetChoosen()
     {
-        DAO<Ocena> dp = new DAO<Ocena>(path6);
-        ConsoleView<Ocena> cv = new ConsoleView<Ocena>(dp);
+        DAO<Predmet> dp = new DAO<Predmet>(path6);
+        ConsoleView<Predmet> cv = new ConsoleView<Predmet>(dp);
         cv.RunMenu();
     }
 

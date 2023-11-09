@@ -14,7 +14,7 @@ public enum StatusEnum
     S                   // samofinansiranje
 }
 
-public class Student : ISerializable, IAccess, IConsoleWR
+public class Student : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idStud;
 

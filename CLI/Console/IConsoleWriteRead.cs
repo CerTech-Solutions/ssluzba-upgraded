@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CLI.Console;
 
-public interface IConsoleWR 
+public interface IConsoleWriteRead 
 {
     //Za Write
     public string GenerateClassHeader();

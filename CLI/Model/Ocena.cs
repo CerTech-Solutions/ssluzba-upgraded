@@ -8,7 +8,7 @@ using CLI.DAO;
 using CLI.Storage.Serialization;
 
 namespace CLI.Model;
-public class Ocena : ISerializable, IAccess, IConsoleWR
+public class Ocena : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idOcn;
 

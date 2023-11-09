@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CLI.Model;
 
-public class PredajeNaKatedri : ISerializable, IAccess, IConsoleWR
+public class PredajeNaKatedri : ISerializable, IAccess, IConsoleWriteRead
 {
     public int Id { get; set; }
 

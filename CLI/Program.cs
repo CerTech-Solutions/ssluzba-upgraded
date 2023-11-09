@@ -7,7 +7,7 @@ class Program
 {
     static void Main()
     {
-        Console.SetWindowSize(200, 80);
+        //Console.SetWindowSize(200, 80);
         ConsoleViewSelector cvs = new ConsoleViewSelector();
         cvs.RunSelector();
     }

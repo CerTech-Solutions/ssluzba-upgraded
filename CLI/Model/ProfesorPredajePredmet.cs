@@ -9,7 +9,7 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-internal class ProfesorPredajePredmet : ISerializable, IAccess, IConsoleWR
+internal class ProfesorPredajePredmet : ISerializable, IAccess, IConsoleWriteRead
 {
     public int Id { get; set; }
 

@@ -10,7 +10,7 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public class Adresa : ISerializable, IAccess, IConsoleWR
+public class Adresa : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idAdr;
 

@@ -9,7 +9,7 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public class Indeks : ISerializable, IAccess, IConsoleWR
+public class Indeks : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idInd;
 

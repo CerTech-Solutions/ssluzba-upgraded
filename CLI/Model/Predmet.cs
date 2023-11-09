@@ -15,7 +15,7 @@ public enum SemestarEnum
     zimski
 }
 
-public class Predmet : ISerializable, IAccess, IConsoleWR
+public class Predmet : ISerializable, IAccess, IConsoleWriteRead
 {
     private int _idPred;
 
@@ -75,10 +75,10 @@ public class Predmet : ISerializable, IAccess, IConsoleWR
     //za Console Write
     public string GenerateClassHeader()
     {
-        return "Predmeti: \n" + $"{"ID",6} | {"Sifra",8} | {"Naziv",20} | {"Semestar",6} | {"GodStudija",8} | {"IdProfesora",6} | {"Espb",6}";
+        return "Predmeti: \n" + $"{"ID",6} | {"Sifra",8} | {"Naziv",20} | {"Semestar",8} | {"GodStudija",8} | {"IdProfesora",8} | {"Espb",6}";
     }
     public override string ToString()
     {
-        return $"{Id,6} | {Sifra,8} | {Naziv,20} | {Semestar,6} | {GodStudija,8} | {IdProfesor,6} | {Espb, 6} |";
+        return $"{Id,6} | {Sifra,8} | {Naziv,20} | {Semestar,8} | {GodStudija,8} | {IdProfesor,8} |  {Espb, 6} |";
     }
 }
