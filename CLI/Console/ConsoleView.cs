@@ -30,30 +30,49 @@ internal class ConsoleView<T> where T : class, IAccess, ISerializable, IConsoleW
         }
     }
 
-    private T InputObject()
+    private T? InputObject()
     {
         T obj = new T();
         foreach(var prop in obj.GetType().GetProperties())
         {
             if (prop.Name != "Id")
             {
-                System.Console.WriteLine(prop.Name + " :");
+                System.Console.Write(prop.Name + " : ");
+                string str = System.Console.ReadLine() ?? string.Empty;
+
                 if (prop.PropertyType == typeof(int))
                 {
-                    string str = System.Console.ReadLine() ?? string.Empty;
                     int br = int.Parse(str);
                     prop.SetValue(obj, br);
                 }
                 else if (prop.PropertyType == typeof(string))
                 {
-                    string str = System.Console.ReadLine() ?? string.Empty;
                     prop.SetValue(obj, str);
                 }
                 else if (prop.PropertyType == typeof(DateTime))
                 {
-                    string str = System.Console.ReadLine() ?? string.Empty;
                     DateTime dt = DateTime.Parse(str);
                     prop.SetValue(obj, dt);
+                }
+                else if(prop.PropertyType == typeof(StatusEnum))
+                {
+                    bool success;
+                    StatusEnum status;
+                    success = Enum.TryParse<StatusEnum>(str, out status);
+                    if (!success)
+                        return null;
+
+                    prop.SetValue(obj, status);
+                }
+                else if (prop.PropertyType == typeof(SemestarEnum))
+                {
+                    bool success;
+                    SemestarEnum status;
+                    success = Enum.TryParse<SemestarEnum>(str, out status);
+                    if (!success)
+                        return null;
+
+                    prop.SetValue(obj, status);
                 }
             }
         }
@@ -73,7 +92,9 @@ internal class ConsoleView<T> where T : class, IAccess, ISerializable, IConsoleW
         while (true)
         {
             ShowMenu();
+            System.Console.Write("\nInput: ");
             string userInput = System.Console.ReadLine() ?? "0";
+            ConsoleViewUtils.ConsoleRefresh();
             if (userInput == "0") break;
             HandleMenuInput(userInput);
         }   
@@ -108,9 +129,20 @@ internal class ConsoleView<T> where T : class, IAccess, ISerializable, IConsoleW
 
     private void AddObject()
     {
-        T obj = InputObject();
+        T? obj = InputObject();
+        if (obj is null)
+        {
+            System.Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.WriteLine("Invalid input");
+            System.Console.ResetColor();
+            return;
+        }
+
         _daoObjs.AddObject(obj);
-        System.Console.WriteLine(obj.GetType().ToString() + " added");
+
+        System.Console.ForegroundColor = ConsoleColor.Green;
+        System.Console.WriteLine(typeof(T).Name + " added");
+        System.Console.ResetColor();
     }
 
     private void UpdateObject()
@@ -119,13 +151,13 @@ internal class ConsoleView<T> where T : class, IAccess, ISerializable, IConsoleW
         T obj = InputObject();
         obj.Id = id;
         T? updatedObj = _daoObjs.UpdateObject(obj);
-        if(updatedObj == null)
+        if(updatedObj is null)
         {
-            System.Console.WriteLine(obj.GetType().ToString() + " not found");
+            System.Console.WriteLine(typeof(T).Name + " not found");
             return;
         }
 
-        System.Console.WriteLine(obj.GetType().ToString() + " updated");
+        System.Console.WriteLine(typeof(T).Name + " updated");
     }
 
     private void RemoveObject()
@@ -134,11 +166,11 @@ internal class ConsoleView<T> where T : class, IAccess, ISerializable, IConsoleW
         T? removedObj = _daoObjs.RemoveObject(id);
         if(removedObj == null)
         {
-            System.Console.WriteLine(removedObj.GetType().ToString() + " not found");
+            System.Console.WriteLine(typeof(T).Name + " not found");
             return;
         }
 
-        System.Console.WriteLine(removedObj.GetType().ToString() + " updated");
+        System.Console.WriteLine(typeof(T).Name + " updated");
     }
 
     private void ShowAndSortObjects()
@@ -149,11 +181,11 @@ internal class ConsoleView<T> where T : class, IAccess, ISerializable, IConsoleW
     private void ShowMenu()
     {
             System.Console.WriteLine("\nChoose an option: ");
-            System.Console.WriteLine("1: Show All Objects");
-            System.Console.WriteLine("2: Add Objects");
-            System.Console.WriteLine("3: Update Object");
-            System.Console.WriteLine("4: Remove Object");
-            System.Console.WriteLine("5: Show and sort Objects");
-            System.Console.WriteLine("0: Close");
+            System.Console.WriteLine("  1: Show All objects");
+            System.Console.WriteLine("  2: Add objects");
+            System.Console.WriteLine("  3: Update object");
+            System.Console.WriteLine("  4: Remove object");
+            System.Console.WriteLine("  5: Show and sort objects");
+            System.Console.WriteLine("  0: Back");
     }
 }

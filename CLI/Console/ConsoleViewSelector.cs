@@ -16,7 +16,9 @@ public class ConsoleViewSelector
         while (true)
         {
             ShowSelector();
+            System.Console.Write("\nInput: ");
             string userInput = System.Console.ReadLine() ?? "0";
+            ConsoleViewUtils.ConsoleRefresh();
             if (userInput == "0") break;
             HandleSelector(userInput);
         }
@@ -25,17 +27,17 @@ public class ConsoleViewSelector
     private void ShowSelector()
     {
         System.Console.WriteLine("\nChoose an option: ");
-        System.Console.WriteLine("1: Adresa");
-        System.Console.WriteLine("2: Indeks");
-        System.Console.WriteLine("3: Katedra");
-        System.Console.WriteLine("4: Ocena");
-        System.Console.WriteLine("5: Predaje Na Katedri");
-        System.Console.WriteLine("6: Predmet");
-        System.Console.WriteLine("7: Profesor");
-        System.Console.WriteLine("8: Profesor Predaje Predmet");
-        System.Console.WriteLine("9: Student");
-        System.Console.WriteLine("10: Student Slusa Predmet");
-        System.Console.WriteLine("0: Close");
+        System.Console.WriteLine("  1: Adresa");
+        System.Console.WriteLine("  2: Indeks");
+        System.Console.WriteLine("  3: Katedra");
+        System.Console.WriteLine("  4: Ocena");
+        System.Console.WriteLine("  5: Predaje Na Katedri");
+        System.Console.WriteLine("  6: Predmet");
+        System.Console.WriteLine("  7: Profesor");
+        System.Console.WriteLine("  8: Profesor Predaje Predmet");
+        System.Console.WriteLine("  9: Student");
+        System.Console.WriteLine("  10: Student Slusa Predmet");
+        System.Console.WriteLine("  0: Close");
     }
 
     private void HandleSelector(string input)

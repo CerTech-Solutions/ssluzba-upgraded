@@ -24,4 +24,10 @@ internal class ConsoleViewUtils
         return input;
     }
 
+    public static void ConsoleRefresh()
+    {
+        System.Console.Clear();
+        System.Console.WriteLine("\x1b[3J");
+    }
+
 }
