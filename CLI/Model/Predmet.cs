@@ -15,7 +15,7 @@ public enum SemestarEnum
     zimski
 }
 
-public class Predmet : ISerializable, IAccess, IConsoleWriteRead
+public class Predmet : ISerializable, IAccess<Predmet>, IConsoleWriteRead
 {
     private int _idPred;
 
@@ -53,6 +53,17 @@ public class Predmet : ISerializable, IAccess, IConsoleWriteRead
     //public List<int> IdStudentiPolozili = new List<int>();
 
     //public List<int> IdStudentiNisuPolozili = new List<int>();
+
+    public void Copy(Predmet obj)
+    {
+        Id = obj.Id;
+        Sifra = obj.Sifra;
+        Naziv = obj.Naziv;
+        Semestar = obj.Semestar;
+        GodStudija= obj.GodStudija;
+        IdProfesor= obj.IdProfesor;
+        Espb = obj.Espb;
+    }
 
     public string[] ToCSV()
     {

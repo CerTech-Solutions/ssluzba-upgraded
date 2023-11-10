@@ -15,7 +15,7 @@ public enum PolozenPredmetEnum
     nijePolozio
 }
 
-public class StudentSlusaPredmet : ISerializable, IAccess, IConsoleWriteRead
+public class StudentSlusaPredmet : ISerializable, IAccess<StudentSlusaPredmet>, IConsoleWriteRead
 {
     public StudentSlusaPredmet() { }
 
@@ -34,6 +34,13 @@ public class StudentSlusaPredmet : ISerializable, IAccess, IConsoleWriteRead
     public int IdStud { get; set; }
 
     public PolozenPredmetEnum Status {  get; set; }
+
+    public void Copy(StudentSlusaPredmet obj)
+    {
+        Id = obj.Id;
+        IdPred = obj.IdPred;
+        IdStud = obj.IdStud;
+    }
 
     public string[] ToCSV()
     {

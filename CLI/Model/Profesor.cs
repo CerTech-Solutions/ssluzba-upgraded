@@ -10,7 +10,7 @@ using CLI.Console;
 
 namespace CLI.Model;
 
-public class Profesor : ISerializable, IAccess, IConsoleWriteRead
+public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
 {
     private int _idProf;
 
@@ -56,6 +56,20 @@ public class Profesor : ISerializable, IAccess, IConsoleWriteRead
 
     //public List<int> IdPred { get; set; }
 
+    public void Copy(Profesor obj)
+    {
+        Id = obj.Id;
+        Ime = obj.Ime;
+        Prezime = obj.Prezime;
+        DatumRodjenja = obj.DatumRodjenja;
+        IdAdr = obj.IdAdr;
+        BrojTelefona = obj.BrojTelefona;
+        Email = obj.Email;
+        BrojLicneKarte = obj.BrojLicneKarte;
+        Zvanje = obj.Zvanje;
+        GodinaStaza = obj.GodinaStaza;
+    }
+
     public string[] ToCSV()
     {
         string[] csvValues =
@@ -76,17 +90,18 @@ public class Profesor : ISerializable, IAccess, IConsoleWriteRead
         IdAdr = int.Parse(values[4]);
         BrojTelefona = values[5];
         Email = values[6];
-        Zvanje = values[7];
-        GodinaStaza = int.Parse(values[8]);
+        BrojLicneKarte = values[7];
+        Zvanje = values[8];
+        GodinaStaza = int.Parse(values[9]);
     }
 
 	public string GenerateClassHeader()
     {
-        return "Profesori: \n" + $"{"ID",6} | {"Ime",20} | {"Prezime",20} | {"DatumRodjenja",13} | {"IdAdr",6} | {"BrojTelefona",12} | {"Email", 20} | {"BrojLicneKarte",20} | {"Zvanje",20} | {"GodinaStaza",12} |";
+        return "Profesori: \n" + $"{"ID",6} | {"Ime",20} | {"Prezime",20} | {"DatumRodjenja",13} | {"IdAdr",5} | {"BrojTelefona",12} | {"Email", 25} | {"BrojLicneKarte",20} | {"Zvanje",20} | {"GodinaStaza",12} |";
     }
 
     public override string ToString()
     {
-        return $"{Id,6} | {Ime,20} | {Prezime,20} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {IdAdr,6} | {BrojTelefona,12} | {Email,20} | {BrojLicneKarte,20} | {Zvanje,20} | {GodinaStaza,12} |";
+        return $"{Id,6} | {Ime,20} | {Prezime,20} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {IdAdr,5} | {BrojTelefona,12} | {Email,25} | {BrojLicneKarte,20} | {Zvanje,20} | {GodinaStaza,12} |";
     }
 }

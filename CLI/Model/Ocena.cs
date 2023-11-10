@@ -8,7 +8,7 @@ using CLI.DAO;
 using CLI.Storage.Serialization;
 
 namespace CLI.Model;
-public class Ocena : ISerializable, IAccess, IConsoleWriteRead
+public class Ocena : ISerializable, IAccess<Ocena>, IConsoleWriteRead
 {
     private int _idOcn;
 
@@ -25,6 +25,15 @@ public class Ocena : ISerializable, IAccess, IConsoleWriteRead
     public int OcenaBr { get; set; }
 
     public DateTime DatumPolaganja { get; set; }
+
+    public void Copy(Ocena obj)
+    {
+        Id = obj.Id;
+        IdStudentPolozio = obj.IdStudentPolozio;
+        IdPredmet = obj.IdPredmet;
+        OcenaBr = obj.OcenaBr;
+        DatumPolaganja = obj.DatumPolaganja;
+    }
 
     public string[] ToCSV()
     {

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace CLI.DAO;
 
-public interface IAccess
+public interface IAccess<T>
 {
     int Id { get; set; }
+
+    void Copy(T obj);
 }

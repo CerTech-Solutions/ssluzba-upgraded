@@ -9,7 +9,7 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public class Katedra : ISerializable, IAccess, IConsoleWriteRead
+public class Katedra : ISerializable, IAccess<Katedra>, IConsoleWriteRead
 {
     private int _idKat;
 
@@ -34,6 +34,14 @@ public class Katedra : ISerializable, IAccess, IConsoleWriteRead
     public string Naziv { get; set; }
 
     public int IdSefKatedre { get; set; }
+
+    public void Copy(Katedra obj)
+    {
+        Id = obj.Id;
+        Sifra = obj.Sifra;
+        Naziv = obj.Naziv;
+        IdSefKatedre = obj.IdSefKatedre;
+    }
 
     public string[] ToCSV()
     {

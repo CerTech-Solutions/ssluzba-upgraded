@@ -10,7 +10,7 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public class Adresa : ISerializable, IAccess, IConsoleWriteRead
+public class Adresa : ISerializable, IAccess<Adresa>, IConsoleWriteRead
 {
     private int _idAdr;
 
@@ -39,6 +39,15 @@ public class Adresa : ISerializable, IAccess, IConsoleWriteRead
 
     public string Drzava { get; set; }
 
+    public void Copy(Adresa obj)
+    {
+        Id = obj.Id;
+        Ulica = obj.Ulica;
+        Broj = obj.Broj;
+        Grad = obj.Grad;
+        Drzava = obj.Drzava;
+    }
+
     public string[] ToCSV()
     {
         string[] csvValues =
@@ -61,7 +70,6 @@ public class Adresa : ISerializable, IAccess, IConsoleWriteRead
         Drzava = values[4];
     }
 
-    //za Console Write
     public string GenerateClassHeader()
     {
         return "Adrese: \n" + $"{"Id",6} | {"Ulica",25} | {"Broj",10} | {"Grad",25} | {"Drzava",25} |";

@@ -14,7 +14,7 @@ public enum StatusEnum
     S                   // samofinansiranje
 }
 
-public class Student : ISerializable, IAccess, IConsoleWriteRead
+public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
 {
     private int _idStud;
 
@@ -68,6 +68,22 @@ public class Student : ISerializable, IAccess, IConsoleWriteRead
     public double ProsecnaOcena {  get; set; }
 
     public Indeks Indeks { get; set; }
+
+    public void Copy(Student obj)
+    {
+        Id = obj.Id;
+        Ime = obj.Ime;
+        Prezime = obj.Prezime;
+        DatumRodjenja = obj.DatumRodjenja;
+        IdAdr = obj.IdAdr;
+        BrojTelefona = obj.BrojTelefona;
+        Email = obj.Email;
+        IdInd = obj.IdInd;
+        TrenutnaGodina = obj.TrenutnaGodina;
+        Status = obj.Status;
+        ProsecnaOcena = obj.ProsecnaOcena;
+        Indeks.Copy(obj.Indeks);
+    }
 
     public string[] ToCSV()
     {

@@ -9,7 +9,7 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-internal class ProfesorPredajePredmet : ISerializable, IAccess, IConsoleWriteRead
+internal class ProfesorPredajePredmet : ISerializable, IAccess<ProfesorPredajePredmet>, IConsoleWriteRead
 {
     public ProfesorPredajePredmet() { }
 
@@ -25,6 +25,13 @@ internal class ProfesorPredajePredmet : ISerializable, IAccess, IConsoleWriteRea
     public int IdProf { get; set; }
 
     public int IdPred { get; set; }
+
+    public void Copy(ProfesorPredajePredmet obj)
+    {
+        obj.Id = Id;
+        obj.IdProf = IdProf;
+        obj.IdPred = IdPred;
+    }
 
     public string[] ToCSV()
     {

@@ -24,6 +24,13 @@ public class Indeks : ISerializable
 
     public int GodinaUpisa { get; set; }
 
+    public void Copy(Indeks obj)
+    {
+        OznakaSmera = obj.OznakaSmera;
+        BrojUpisa = obj.BrojUpisa;
+        GodinaUpisa = obj.GodinaUpisa;
+    }
+
     public string[] ToCSV()
     {
         string[] csvValues =
