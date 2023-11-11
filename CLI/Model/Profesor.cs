@@ -107,11 +107,17 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
 
 	public string GenerateClassHeader()
     {
-        return "Profesori: \n" + $"{"ID",6} | {"Ime",20} | {"Prezime",20} | {"DatumRodjenja",13} | {"BrojTelefona",12} | {"Email", 25} | {"BrojLicneKarte",20} | {"Zvanje",20} | {"GodinaStaza",12} |" + Adresa.GenerateClassHeader();
+        return "Profesori: \n" + $"{"ID",6} | {"Ime",12} | {"Prezime",12} | {"DatumRodjenja",13} | {"BrojTelefona",12} | {"Email",20} | {"BrojLicneKarte",16} | {"Zvanje",8} | {"Staza",5} |"; // + Adresa.GenerateClassHeader();
     }
 
     public override string ToString()
     {
-        return $"{Id,6} | {Ime,20} | {Prezime,20} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {BrojTelefona,12} | {Email,25} | {BrojLicneKarte,20} | {Zvanje,20} | {GodinaStaza,12} |" + Adresa.ToString();
+        string str = $"{Id,6} | {Ime,12} | {Prezime,12} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {BrojTelefona,12} | {Email,20} | {BrojLicneKarte,16} | {Zvanje,8} | {GodinaStaza,5} |"; // + Adresa.ToString();
+        str += "\n\t Predaje Predmete: \n";
+        foreach (Predmet p in Predmeti)
+        {
+            str += "\t\t" + p.Sifra + " " + p.Naziv + "\n";
+        }
+        return str + "\n";
     }
 }

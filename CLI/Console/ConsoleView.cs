@@ -26,7 +26,7 @@ internal class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConso
         System.Console.WriteLine(header);
         foreach (T obj in objs) 
         {
-            System.Console.WriteLine(obj);
+            System.Console.WriteLine(obj);      //
         }
     }
 

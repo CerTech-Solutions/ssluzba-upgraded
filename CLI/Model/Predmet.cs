@@ -94,11 +94,22 @@ public class Predmet : ISerializable, IAccess<Predmet>, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {
-        return "Predmeti: \n" + $"{"ID",6} | {"Sifra",8} | {"Naziv",20} | {"Semestar",8} | {"GodStudija",8} | {"Espb",6}" + Profesor.GenerateClassHeader();
+        return "Predmeti: \n" + $"{"ID",6} | {"Sifra",8} | {"Naziv",20} | {"Semestar",8} | {"GodStudija",10} | {"Espb",6} | {"Profesor",29} |";
     }
 
     public override string ToString()
     {
-        return $"{Id,6} | {Sifra,8} | {Naziv,20} | {Semestar,8} | {GodStudija,8} |  {Espb, 6} |" + Profesor.ToString();
+        string str = $"{Id,6} | {Sifra,8} | {Naziv,20} | {Semestar,8} | {GodStudija,10} | {Espb,6} | {Profesor.Ime + " " + Profesor.Prezime,29} |";
+        str += "\n\t Students that passed: \n";
+        foreach (Student p in StudentiPolozili)
+        {
+            str += "\t\t" + p.Ime + " " + p.Prezime + "\n";
+        }
+        str += "\n\t Students that didn't pass: \n";
+        foreach (Student np in StudentiNisuPolozili)
+        {
+            str += "\t\t" + np.Ime + " " + np.Prezime + "\n";
+        }
+        return str + "\n";
     }
 }

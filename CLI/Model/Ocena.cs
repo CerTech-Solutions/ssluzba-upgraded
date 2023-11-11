@@ -75,11 +75,11 @@ public class Ocena : ISerializable, IAccess<Ocena>, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {
-        return "Ocene: \n" + $"{"Id",6} | {"IdStudentPolozio",20} | {"IdPredmet",20} | {"OcenaBr",20} | {"DatumPolaganja",20} |";
+        return "Ocene: \n" + $"{"ID",6} | {"Student",25} | {"Predmet",20} | {"Ocena",5} | {"DatumPolaganja",20} |";
     }
 
     public override string ToString()
     {
-        return $"{Id,6} | {Student.Id,20} | {Predmet.Id,20} | {OcenaBroj,20} | {DatumPolaganja,20} |";
+        return $"{Id,6} | {Student.Ime,12} {Student.Prezime,12} | {Predmet.Naziv,20} | {OcenaBroj,5} | {DatumPolaganja,20} |";
     }
 }

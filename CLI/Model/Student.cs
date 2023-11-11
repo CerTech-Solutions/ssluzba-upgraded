@@ -123,11 +123,22 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {
-        return "Student: \n" + $@"{"Id",6} | {"Ime",10} | {"Prezime",15} | {"DatumRodjenja",13} | {"BrojTelefona",12} | {"Email",30} | {"TrenutnaGodina",14} | {"Status",6} | " + Indeks.GenerateClassHeader();
+        return "Student: \n" + $@"{"I",6} | {"Ime",10} | {"Prezime",15} | {"DatumRodjenja",13} | {"BrojTelefona",12} | {"Email",30} | {"TrenutnaGodina",14} | {"Status",6} | " + Indeks.GenerateClassHeader();
     }
 
     public override string ToString()
     {
-        return $"{Id,6} | {Ime,10} | {Prezime,15} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {BrojTelefona,12} | {Email,30} | {TrenutnaGodina,14} | {Status,6} | " + Indeks.ToString();
+        string str = $"{Id,6} | {Ime,10} | {Prezime,15} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {BrojTelefona,12} | {Email,30} | {TrenutnaGodina,14} | {Status,6} | " + Indeks.ToString();
+        str += "\n\t Nepolozeni predmeti: \n";
+        foreach(Predmet np in NepolozeniPredmeti)
+        {
+            str += "\t\t" + np.Sifra + " " + np.Naziv + "\n";
+        }
+        str += "\n\t Polozeni predmeti: \n";
+        foreach (Predmet np in PolozeniPredmeti)
+        {
+            str += "\t\t" + np.Sifra + " " + np.Naziv + "\n";
+        }
+        return str + "\n";
     }
 }

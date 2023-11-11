@@ -10,14 +10,14 @@ namespace CLI.DAO;
 
 public class HeadDAO
 {
-    private DAO<Student> daoStudent;
-    private DAO<Profesor> daoProfesor;
-    private DAO<Katedra> daoKatedra;
-    private DAO<Ocena> daoOcena;
-    private DAO<Predmet> daoPredmet;
+    public DAO<Student> daoStudent;
+    public DAO<Profesor> daoProfesor;
+    public DAO<Katedra> daoKatedra;
+    public DAO<Ocena> daoOcena;
+    public DAO<Predmet> daoPredmet;
     private DAO<ProfesorPredajePredmet> daoProfesorPredajePredmet;
-    private DAO<ProfesorRadiNaKatedri> daoProfesorRadiNaKatedri;
-    private DAO<StudentSlusaPredmet> daoStudentSlusaPredmet;
+    public DAO<ProfesorRadiNaKatedri> daoProfesorRadiNaKatedri;
+    public DAO<StudentSlusaPredmet> daoStudentSlusaPredmet;
 
     public HeadDAO() 
     {
@@ -81,8 +81,7 @@ public class HeadDAO
         // Povezivanje ocena-predmet-student
         foreach (Ocena o in daoOcena.GetAllObjects())
         {
-            o.Student = daoStudent.GetObjectById(o.Student.Id);
-            o.Predmet = daoPredmet.GetObjectById(o.Predmet.Id);
+            o.Student = daoStudent.GetObjectById(o.Student.Id);            o.Predmet = daoPredmet.GetObjectById(o.Predmet.Id);
         }
     }
 

@@ -60,11 +60,11 @@ public class Adresa : ISerializable, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {
-        return $"| {"Ulica",25} | {"Broj",10} | {"Grad",25} | {"Drzava",25} |";
+        return $" {"Ulica",25} | {"Broj",10} | {"Grad",25} | {"Drzava",25} |";
     }
 
     public override string ToString()
     {
-        return $"| {Ulica,25} | {Broj,10} | {Grad,25} | {Drzava,25} |";
+        return $" {Ulica,25} | {Broj,10} | {Grad,25} | {Drzava,25} |";
     }
 }

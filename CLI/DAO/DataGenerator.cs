@@ -28,8 +28,8 @@ public class DataGenerator
 
         DAO<Profesor> daoProfesor = new DAO<Profesor>();
         Profesor p0 = new Profesor(0, "Veljko", "Petrovic", DateTime.Parse("2/2/1982"), a0, "021/485-4564", "pveljko@uns.ac.rs", "123456789", "doc.", 10);
-        Profesor p1 = new Profesor(1, "Milan", "Rapajic", DateTime.Parse("2/2/1982"), a0, "021/485-4584", "rapaja@uns.ac.rs", "123456789", "prof. dr.", 20);
-        Profesor p2 = new Profesor(2, "Vladimir", "Dimitrieski", DateTime.Parse("2/2/1982"), a1, "021/485-2424", "dimitrieski@uns.ac.rs", "123456789", "vanr. prof. dr", 15);
+        Profesor p1 = new Profesor(1, "Milan", "Rapajic", DateTime.Parse("2/2/1982"), a0, "021/485-4584", "rapaja@uns.ac.rs", "123456789", "prof.", 20);
+        Profesor p2 = new Profesor(2, "Vladimir", "Dimitrieski", DateTime.Parse("2/2/1982"), a1, "021/485-2424", "dimi@uns.ac.rs", "123456789", "prof.", 15);
         daoProfesor.AddObject(p0);
         daoProfesor.AddObject(p1);
         daoProfesor.AddObject(p2);
@@ -42,7 +42,7 @@ public class DataGenerator
 
         DAO<Predmet> daoPredmet = new DAO<Predmet>();
         Predmet pr0 = new Predmet(0, "bp1", "Baze podataka 1", SemestarEnum.zimski, 3, 2, 8);
-        Predmet pr1 = new Predmet(1, "sau", "Sistemi automatskog upravljanja", SemestarEnum.letnji, 2, 1, 8);
+        Predmet pr1 = new Predmet(1, "sau", "SAU", SemestarEnum.letnji, 2, 1, 8);
         Predmet pr2 = new Predmet(2, "os", "Operativni sistemi", SemestarEnum.letnji, 2, 0, 8);
         Predmet pr3 = new Predmet(3, "mo", "Metode optimizacije", SemestarEnum.zimski, 3, 1, 8);
         daoPredmet.AddObject(pr0);

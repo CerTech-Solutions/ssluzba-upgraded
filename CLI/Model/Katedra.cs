@@ -71,11 +71,20 @@ public class Katedra : ISerializable, IAccess<Katedra>, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {
-        return "Katedre: \n" + $"{"Id",6} | {"Sifra",20} | {"Naziv",20} | {"IdSefKatedre",12} |";
+        return "Katedre: \n" + $"{"ID",6} | {"Sifra",20} | {"Naziv",20} |";
     }
 
     public override string ToString()
     {
-        return $"{Id,6} | {Sifra,20} | {Naziv,20} | {SefKatedre.Id,12} |";
+        string str = $"{Id,6} | {Sifra,20} | {Naziv,20} |\n";
+        str += $"\tSef katedre: \n\t{SefKatedre.Id,3} | {SefKatedre.Ime, 10} {SefKatedre.Prezime, 10} \n";
+        str += $"\tProfesori na katedri: \n";
+
+        foreach(Profesor prof in Profesori)
+        {
+            str += $"\t {prof.Id, 3} | {prof.Ime,10} {prof.Prezime,10} \n";
+        }
+
+        return str;
     }
 }
