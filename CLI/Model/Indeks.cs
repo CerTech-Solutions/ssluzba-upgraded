@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CLI.Storage.Serialization;
+using CLI.Console;
 
 namespace CLI.Model;
 
-public class Indeks : ISerializable
+public class Indeks : ISerializable, IConsoleWriteRead
 {
     public Indeks() { }
 
@@ -48,4 +49,17 @@ public class Indeks : ISerializable
         BrojUpisa = int.Parse(values[1]);
         GodinaUpisa = int.Parse(values[2]);
     }
+
+    public string GenerateClassHeader()
+    {     
+        return $"| {"OznakaSmera",11} | {"BrojUpisa",9} | {"GodinaUpisa",11} |";
+    }
+    
+    public string ToString()
+    {
+        return $"| {OznakaSmera,11} | {BrojUpisa,9} | {GodinaUpisa,11} |";
+    }
+
 }
+
+

@@ -10,25 +10,16 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public class Adresa : ISerializable, IAccess<Adresa>, IConsoleWriteRead
+public class Adresa : ISerializable, IConsoleWriteRead
 {
-    private int _idAdr;
-
     public Adresa() { }
 
-    public Adresa(int idAdr, string ulica, string broj, string grad, string drzava)
+    public Adresa(string ulica, string broj, string grad, string drzava)
     {
-        Id = idAdr;
         Ulica = ulica;
         Broj = broj;
         Grad = grad;
         Drzava = drzava;
-    }
-
-    public int Id
-    {
-        get { return _idAdr; }
-        set { _idAdr = value; }
     }
 
     public string Ulica { get; set; }
@@ -41,7 +32,6 @@ public class Adresa : ISerializable, IAccess<Adresa>, IConsoleWriteRead
 
     public void Copy(Adresa obj)
     {
-        Id = obj.Id;
         Ulica = obj.Ulica;
         Broj = obj.Broj;
         Grad = obj.Grad;
@@ -52,7 +42,6 @@ public class Adresa : ISerializable, IAccess<Adresa>, IConsoleWriteRead
     {
         string[] csvValues =
         {
-            Id.ToString(),
             Ulica,
             Broj,
             Grad,
@@ -63,20 +52,19 @@ public class Adresa : ISerializable, IAccess<Adresa>, IConsoleWriteRead
 
     public void FromCSV(string[] values)
     {
-        Id = int.Parse(values[0]);
-        Ulica = values[1];
-        Broj = values[2];
-        Grad = values[3];
-        Drzava = values[4];
+        Ulica = values[0];
+        Broj = values[1];
+        Grad = values[2];
+        Drzava = values[3];
     }
 
     public string GenerateClassHeader()
     {
-        return "Adrese: \n" + $"{"Id",6} | {"Ulica",25} | {"Broj",10} | {"Grad",25} | {"Drzava",25} |";
+        return $"| {"Ulica",25} | {"Broj",10} | {"Grad",25} | {"Drzava",25} |";
     }
 
     public override string ToString()
     {
-        return $"{Id,6} | {Ulica,25} | {Broj,10} | {Grad,25} | {Drzava,25} |";
+        return $"| {Ulica,25} | {Broj,10} | {Grad,25} | {Drzava,25} |";
     }
 }

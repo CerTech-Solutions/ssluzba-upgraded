@@ -8,9 +8,25 @@ using CLI.DAO;
 using CLI.Storage.Serialization;
 
 namespace CLI.Model;
+
 public class Ocena : ISerializable, IAccess<Ocena>, IConsoleWriteRead
 {
     private int _idOcn;
+
+    public Ocena()
+    {
+        Student = new Student();
+        Predmet = new Predmet();
+    }
+
+    public Ocena(int id, Student student, Predmet predmet, int ocenaBroj, DateTime datumPolaganja)
+    {
+        Id = id;
+        Student = student;
+        Predmet = predmet;
+        OcenaBroj = ocenaBroj;  
+        DatumPolaganja = datumPolaganja;
+    }
 
     public int Id
     {
@@ -18,20 +34,20 @@ public class Ocena : ISerializable, IAccess<Ocena>, IConsoleWriteRead
         set { _idOcn = value; }
     }
 
-    public int IdStudentPolozio { get; set; }
+    public Student Student { get; set; }
 
-    public int IdPredmet { get; set; }
+    public Predmet Predmet { get; set; }
 
-    public int OcenaBr { get; set; }
+    public int OcenaBroj { get; set; }
 
     public DateTime DatumPolaganja { get; set; }
 
     public void Copy(Ocena obj)
     {
         Id = obj.Id;
-        IdStudentPolozio = obj.IdStudentPolozio;
-        IdPredmet = obj.IdPredmet;
-        OcenaBr = obj.OcenaBr;
+        Student.Copy(obj.Student);
+        Predmet.Copy(obj.Predmet);
+        OcenaBroj = obj.OcenaBroj;
         DatumPolaganja = obj.DatumPolaganja;
     }
 
@@ -40,8 +56,9 @@ public class Ocena : ISerializable, IAccess<Ocena>, IConsoleWriteRead
         string[] csvValues =
         {
             Id.ToString(),
-            IdPredmet.ToString(),
-            OcenaBr.ToString(),
+            Student.Id.ToString(),
+            Predmet.Id.ToString(),
+            OcenaBroj.ToString(),
             DatumPolaganja.ToString()
         };
         return csvValues;
@@ -50,8 +67,9 @@ public class Ocena : ISerializable, IAccess<Ocena>, IConsoleWriteRead
     public void FromCSV(string[] values)
     {
         Id = int.Parse(values[0]);
-        IdPredmet = int.Parse(values[1]);
-        OcenaBr = int.Parse(values[3]);
+        Student.Id = int.Parse(values[1]);
+        Predmet.Id = int.Parse(values[2]);
+        OcenaBroj = int.Parse(values[3]);
         DatumPolaganja = DateTime.Parse(values[4]);
     }
 
@@ -62,6 +80,6 @@ public class Ocena : ISerializable, IAccess<Ocena>, IConsoleWriteRead
 
     public override string ToString()
     {
-        return $"{Id,6} | {IdStudentPolozio,20} | {IdPredmet,20} | {OcenaBr,20} | {DatumPolaganja,20} |";
+        return $"{Id,6} | {Student.Id,20} | {Predmet.Id,20} | {OcenaBroj,20} | {DatumPolaganja,20} |";
     }
 }

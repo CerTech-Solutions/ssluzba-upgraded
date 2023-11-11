@@ -14,15 +14,19 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
 {
     private int _idProf;
 
-    public Profesor() { }
+    public Profesor()
+    {
+        Predmeti = new List<Predmet>();
+        Adresa = new Adresa();
+    }
 
-    public Profesor(int idProf, string ime, string prezime, DateTime datumRodjenja, int idAdr, string brojTelefona, string email, string brojLicneKarte, string zvanje, int godinaStaza)
+    public Profesor(int idProf, string ime, string prezime, DateTime datumRodjenja, Adresa adresa, string brojTelefona, string email, string brojLicneKarte, string zvanje, int godinaStaza)
     {
         Id = idProf;
         Ime = ime;
         Prezime = prezime;
         DatumRodjenja = datumRodjenja;
-        IdAdr = idAdr;
+        Adresa = adresa;
         BrojTelefona = brojTelefona;
         Email = email;
         BrojLicneKarte = brojLicneKarte;
@@ -54,7 +58,9 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
 
     public int GodinaStaza { get; set; }
 
-    //public List<int> IdPred { get; set; }
+    public List<Predmet> Predmeti { get; set; }
+
+    public Adresa Adresa { get; set; }
 
     public void Copy(Profesor obj)
     {
@@ -68,6 +74,7 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
         BrojLicneKarte = obj.BrojLicneKarte;
         Zvanje = obj.Zvanje;
         GodinaStaza = obj.GodinaStaza;
+        Adresa.Copy(obj.Adresa);
     }
 
     public string[] ToCSV()
@@ -78,7 +85,9 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
             IdAdr.ToString(), BrojTelefona, Email, BrojLicneKarte,
             Zvanje, GodinaStaza.ToString()
         };
-        return csvValues;
+
+        string[] result = csvValues.Concat(Adresa.ToCSV()).ToArray();
+        return result;
     }
 
     public void FromCSV(string[] values)
@@ -93,15 +102,16 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
         BrojLicneKarte = values[7];
         Zvanje = values[8];
         GodinaStaza = int.Parse(values[9]);
+        Adresa.FromCSV(values[10..]);
     }
 
 	public string GenerateClassHeader()
     {
-        return "Profesori: \n" + $"{"ID",6} | {"Ime",20} | {"Prezime",20} | {"DatumRodjenja",13} | {"IdAdr",5} | {"BrojTelefona",12} | {"Email", 25} | {"BrojLicneKarte",20} | {"Zvanje",20} | {"GodinaStaza",12} |";
+        return "Profesori: \n" + $"{"ID",6} | {"Ime",20} | {"Prezime",20} | {"DatumRodjenja",13} | {"BrojTelefona",12} | {"Email", 25} | {"BrojLicneKarte",20} | {"Zvanje",20} | {"GodinaStaza",12} |" + Adresa.GenerateClassHeader();
     }
 
     public override string ToString()
     {
-        return $"{Id,6} | {Ime,20} | {Prezime,20} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {IdAdr,5} | {BrojTelefona,12} | {Email,25} | {BrojLicneKarte,20} | {Zvanje,20} | {GodinaStaza,12} |";
+        return $"{Id,6} | {Ime,20} | {Prezime,20} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {BrojTelefona,12} | {Email,25} | {BrojLicneKarte,20} | {Zvanje,20} | {GodinaStaza,12} |" + Adresa.ToString();
     }
 }
