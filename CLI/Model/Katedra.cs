@@ -71,18 +71,18 @@ public class Katedra : ISerializable, IAccess<Katedra>, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {
-        return "Katedre: \n" + $"{"ID",6} | {"Sifra",20} | {"Naziv",20} |";
+        return "Katedre: \n" + $"{"ID",6} | {"Sifra",10} | {"Naziv",20} |";
     }
 
     public override string ToString()
     {
-        string str = $"{Id,6} | {Sifra,20} | {Naziv,20} |\n";
-        str += $"\tSef katedre:\n\t {SefKatedre.Id,3} | {SefKatedre.Ime + " " + SefKatedre.Prezime,26} |\n";
-        str += $"\tProfesori na katedri: \n";
+        string str = $"{Id,6} | {Sifra,10} | {Naziv,20} |\n";
+        str += $"\t* Sef katedre:\n\t\t{SefKatedre.Id,3} {SefKatedre.Ime} {SefKatedre.Prezime}\n\n";
+        str += $"\t* Profesori na katedri: \n";
 
         foreach(Profesor prof in Profesori)
         {
-            str += $"\t {prof.Id, 3} | {prof.Ime + " " + prof.Prezime,26} | \n";
+            str += $"\t\t{prof.Id, 3} {prof.Ime} {prof.Prezime}\n";
         }
 
         return str;
