@@ -19,21 +19,25 @@ public class ConsoleViewStudent : ConsoleView<Student>
 
     public override void AddObject()
     {
-        Student? obj = InputObject();
+        Student obj = new Student();
+        InputObject(obj);
         _headDAO.daoStudent.AddObject(obj);
     }
 
     public override void UpdateObject()
     {
-        Student stud = ConsoleViewUtils.SafeInputStudentId(_headDAO.daoStudent);
-        Student? obj = InputObject();
-        obj.Id = stud.Id;
-        _headDAO.daoStudent.UpdateObject(obj);
+        Student stud = ConsoleViewUtils.SafeInputStudentId(_headDAO.daoStudent, true);
+        if (stud == null) return;
+
+        InputObject(stud, true);
+        _headDAO.daoStudent.UpdateObject(stud);
     }
 
     public override void RemoveObject()
     {
-        Student stud = ConsoleViewUtils.SafeInputStudentId(_headDAO.daoStudent);
+        Student stud = ConsoleViewUtils.SafeInputStudentId(_headDAO.daoStudent, true);
+        if (stud == null) return;
+
         try
         {
             _headDAO.DeleteStudent(stud.Id);

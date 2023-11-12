@@ -19,21 +19,25 @@ public class ConsoleViewKatedra : ConsoleView<Katedra>
 
     public override void AddObject()
     {
-        Katedra? obj = InputObject();
+        Katedra obj = new Katedra();
+        InputObject(obj);
         _headDAO.daoKatedra.AddObject(obj);
     }
 
     public override void UpdateObject()
     {
-        Katedra kat = ConsoleViewUtils.SafeInputKatedraId(_headDAO.daoKatedra);
-        Katedra? obj = InputObject();
-        obj.Id = kat.Id;
-        _headDAO.daoKatedra.UpdateObject(obj);
+        Katedra kat = ConsoleViewUtils.SafeInputKatedraId(_headDAO.daoKatedra, true);
+        if (kat == null) return;
+
+        InputObject(kat, true);
+        _headDAO.daoKatedra.UpdateObject(kat);
     }
 
     public override void RemoveObject()
     {
-        Katedra kat = ConsoleViewUtils.SafeInputKatedraId(_headDAO.daoKatedra);
+        Katedra kat = ConsoleViewUtils.SafeInputKatedraId(_headDAO.daoKatedra, true);
+        if (kat == null) return;
+
         try
         {
             _headDAO.DeleteDepartmant(kat.Id);

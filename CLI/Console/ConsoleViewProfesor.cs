@@ -19,21 +19,25 @@ public class ConsoleViewProfesor : ConsoleView<Profesor>
 
     public override void AddObject()
     {
-        Profesor? obj = InputObject();
+        Profesor obj = new Profesor();
+        InputObject(obj);
         _headDAO.daoProfesor.AddObject(obj);
     }
 
     public override void UpdateObject()
     {
-        Profesor prof = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor);
-        Profesor? obj = InputObject();
-        obj.Id = prof.Id;
-        _headDAO.daoProfesor.UpdateObject(obj);
+        Profesor prof = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor, true);
+        if (prof == null) return;
+
+        InputObject(prof, true);
+        _headDAO.daoProfesor.UpdateObject(prof);
     }
 
     public override void RemoveObject()
     {
-        Profesor prof = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor);
+        Profesor prof = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor, true);
+        if (prof == null) return;
+
         try
         {
             _headDAO.DeleteProfesor(prof.Id);

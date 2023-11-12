@@ -19,25 +19,28 @@ public class ConsoleViewPredmet : ConsoleView<Predmet>
 
     public override void AddObject()
     {
-        Predmet? obj = InputObject();
+        Predmet obj = new Predmet();
+        InputObject(obj);
         _headDAO.daoPredmet.AddObject(obj);
     }
 
     public override void UpdateObject()
     {
-        Predmet p = ConsoleViewUtils.SafeInputPredmetId(_headDAO.daoPredmet);
-        Predmet? obj = InputObject();
-        obj.Id = p.Id;
-        _headDAO.daoPredmet.UpdateObject(obj);
+        Predmet p = ConsoleViewUtils.SafeInputPredmetId(_headDAO.daoPredmet, true);
+        if (p == null)
+
+        InputObject(p, true);
+        _headDAO.daoPredmet.UpdateObject(p);
     }
 
     public override void RemoveObject()
     {
-        Predmet p = ConsoleViewUtils.SafeInputPredmetId(_headDAO.daoPredmet);
+        Predmet p = ConsoleViewUtils.SafeInputPredmetId(_headDAO.daoPredmet, true);
+        if (p == null) return;
+
         try
         {
             _headDAO.DeletePredmet(p.Id);
-            _headDAO.daoPredmet.RemoveObject(p.Id);
             System.Console.WriteLine("Predmet deleted successfully!");
         }
         catch (Exception ex)

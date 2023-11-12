@@ -30,9 +30,8 @@ public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsole
         }
     }
 
-    protected T? InputObject()
+    protected void InputObject(T obj, bool skippable = false)
     {
-        T obj = new T();
         foreach(var prop in typeof(T).GetProperties())
         {
             if (prop.Name == "Id")
@@ -43,60 +42,62 @@ public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsole
             if (prop.PropertyType == typeof(int))
             {
                 System.Console.Write(prop.Name + " : ");
-                int br = ConsoleViewUtils.SafeInputInt();
-                prop.SetValue(obj, br);
+                int? br = ConsoleViewUtils.SafeInputInt(skippable);
+                if (br == null) continue;
+                prop.SetValue(obj, br.Value);
             }
             else if (prop.PropertyType == typeof(string))
             {
                 System.Console.Write(prop.Name + " : ");
-                string str = ConsoleViewUtils.SafeInputString();
+                string str = ConsoleViewUtils.SafeInputString(skippable);
+                if (str == null) continue;
                 prop.SetValue(obj, str);
             }
-            else if (prop.PropertyType == typeof(DateTime))
+            else if (prop.PropertyType == typeof(DateOnly))
             {
                 System.Console.Write(prop.Name + " (dd.mm.yyyy.) : ");
-                DateTime dt = ConsoleViewUtils.SafeInputDate();
-                prop.SetValue(obj, dt);
+                DateOnly? dt = ConsoleViewUtils.SafeInputDate(skippable);
+                if (dt == null) continue;
+                prop.SetValue(obj, dt.Value);
             }
             else if(prop.PropertyType == typeof(StatusEnum))
             {
                 System.Console.Write(prop.Name + " (B/S) : ");
-                StatusEnum status = ConsoleViewUtils.SafeInputStatusEnum();
-                prop.SetValue(obj, status);
+                StatusEnum? status = ConsoleViewUtils.SafeInputStatusEnum(skippable);
+                if (status == null) continue;
+                prop.SetValue(obj, status.Value);
             }
             else if (prop.PropertyType == typeof(SemestarEnum))
             {
                 System.Console.Write(prop.Name + " (summer/winter) : ");
-                SemestarEnum status = ConsoleViewUtils.SafeInputSemestarEnum();
-                prop.SetValue(obj, status);
+                SemestarEnum? status = ConsoleViewUtils.SafeInputSemestarEnum(skippable);
+                if (status == null) continue;
+                prop.SetValue(obj, status.Value);
             }
             else if (prop.PropertyType == typeof(Adresa))
             {
                 System.Console.Write(prop.Name + " : \n");
-                Adresa adr = ConsoleViewUtils.SafeInputAdresa();
-                prop.SetValue(obj, adr);
+                ConsoleViewUtils.SafeInputAdresa((Adresa) prop.GetValue(obj), skippable);
             }
             else if (prop.PropertyType == typeof(Indeks))
             {
                 System.Console.Write(prop.Name + " : \n");
-                Indeks ind = ConsoleViewUtils.SafeInputIndeks();
-                prop.SetValue(obj, ind);
+                ConsoleViewUtils.SafeInputIndeks((Indeks)prop.GetValue(obj), skippable);
             }
             else if (prop.PropertyType == typeof(Profesor))
             {
                 System.Console.Write(prop.Name + " : \n");
-                Profesor p = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor);
+                Profesor p = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor, skippable);
+                if (p == null) continue;
                 prop.SetValue(obj, p);
             }
         }
-
-        return obj;
     }
 
     protected int InputId()
     {
         System.Console.WriteLine("Enter " + typeof(T).Name + " id: ");
-        return ConsoleViewUtils.SafeInputInt();
+        return ConsoleViewUtils.SafeInputInt().Value;
     }
 
     public void RunMenu()
