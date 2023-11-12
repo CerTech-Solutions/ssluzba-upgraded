@@ -81,9 +81,51 @@ public class HeadDAO
         // Povezivanje ocena-predmet-student
         foreach (Ocena o in daoOcena.GetAllObjects())
         {
-            o.Student = daoStudent.GetObjectById(o.Student.Id);            o.Predmet = daoPredmet.GetObjectById(o.Predmet.Id);
+            o.Student = daoStudent.GetObjectById(o.Student.Id);
+            o.Predmet = daoPredmet.GetObjectById(o.Predmet.Id);
         }
     }
 
-    
+    public void CheckAddDepartmentChief(int katedraId, int chiefId)
+    {
+        Katedra k = daoKatedra.GetObjectById(katedraId);
+        if (k == null) throw new Exception("Katedra sa datim ID-jem ne postoji!");
+
+        Profesor p = daoProfesor.GetObjectById(chiefId);
+        if (p == null) throw new Exception("Profesor sa datim ID-jem ne postoji!");
+
+        p = k.Profesori.Find(p => p.Id == chiefId);
+        if (p == null) throw new Exception("Profesor ne radi na datoj katedri!");
+
+    }
+
+    public void CheckDeleteDepartmant(int katedraId) 
+    {
+        
+    }
+
+    public void CheckAddOcena(int studentId, int predmetId)
+    {
+
+    }
+
+    public void CheckAddPredmet(int profesorId)
+    {
+
+    }
+
+    public void CheckDeletePredmet(int predmetId)
+    {
+
+    }
+
+    public void CheckDeleteProfesor(int profesorId)
+    {
+
+    }
+
+    public void CheckDeleteStudent(int studentId)
+    {
+
+    }
 }

@@ -77,12 +77,12 @@ public class Katedra : ISerializable, IAccess<Katedra>, IConsoleWriteRead
     public override string ToString()
     {
         string str = $"{Id,6} | {Sifra,20} | {Naziv,20} |\n";
-        str += $"\tSef katedre: \n\t{SefKatedre.Id,3} | {SefKatedre.Ime, 10} {SefKatedre.Prezime, 10} \n";
+        str += $"\tSef katedre:\n\t {SefKatedre.Id,3} | {SefKatedre.Ime + " " + SefKatedre.Prezime,26} |\n";
         str += $"\tProfesori na katedri: \n";
 
         foreach(Profesor prof in Profesori)
         {
-            str += $"\t {prof.Id, 3} | {prof.Ime,10} {prof.Prezime,10} \n";
+            str += $"\t {prof.Id, 3} | {prof.Ime + " " + prof.Prezime,26} | \n";
         }
 
         return str;

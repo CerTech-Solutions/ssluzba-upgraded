@@ -46,8 +46,6 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
 
     public DateTime DatumRodjenja { get; set; }
 
-    public int IdAdr { get; set; }
-
     public string BrojTelefona { get; set; }
 
     public string Email { get; set; }
@@ -68,7 +66,6 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
         Ime = obj.Ime;
         Prezime = obj.Prezime;
         DatumRodjenja = obj.DatumRodjenja;
-        IdAdr = obj.IdAdr;
         BrojTelefona = obj.BrojTelefona;
         Email = obj.Email;
         BrojLicneKarte = obj.BrojLicneKarte;
@@ -82,7 +79,7 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
         string[] csvValues =
         {
             Id.ToString(), Ime, Prezime, DatumRodjenja.ToString("dd-MM-yyyy"),
-            IdAdr.ToString(), BrojTelefona, Email, BrojLicneKarte,
+            BrojTelefona, Email, BrojLicneKarte,
             Zvanje, GodinaStaza.ToString()
         };
 
@@ -96,13 +93,12 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
         Ime = values[1];
         Prezime = values[2];
         DatumRodjenja = DateTime.Parse(values[3]);
-        IdAdr = int.Parse(values[4]);
-        BrojTelefona = values[5];
-        Email = values[6];
-        BrojLicneKarte = values[7];
-        Zvanje = values[8];
-        GodinaStaza = int.Parse(values[9]);
-        Adresa.FromCSV(values[10..]);
+        BrojTelefona = values[4];
+        Email = values[5];
+        BrojLicneKarte = values[6];
+        Zvanje = values[7];
+        GodinaStaza = int.Parse(values[8]);
+        Adresa.FromCSV(values[9..]);
     }
 
 	public string GenerateClassHeader()
