@@ -36,8 +36,8 @@ public class ConsoleViewPredmet : ConsoleView<Predmet>
         Predmet p = ConsoleViewUtils.SafeInputPredmetId(_headDAO.daoPredmet);
         try
         {
-            _headDAO.CheckDeletePredmet(p.Id);
-            _headDAO.daoOcena.RemoveObject(p.Id);
+            _headDAO.DeletePredmet(p.Id);
+            _headDAO.daoPredmet.RemoveObject(p.Id);
             System.Console.WriteLine("Predmet deleted successfully!");
         }
         catch (Exception ex)

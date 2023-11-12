@@ -13,11 +13,19 @@ public class ConsoleViewSelector
 {
     private HeadDAO _headDAO;
     private ConsoleViewKatedra consoleKatedra;
+    private ConsoleViewOcena consoleOcena;
+    private ConsoleViewStudent consoleStudent;
+    private ConsoleViewPredmet consolePredmet;
+    private ConsoleViewProfesor consoleProfesor;
 
     public ConsoleViewSelector()
     {
         _headDAO = new HeadDAO();
         consoleKatedra = new ConsoleViewKatedra(_headDAO);
+        consoleOcena = new ConsoleViewOcena(_headDAO);
+        consoleStudent = new ConsoleViewStudent(_headDAO);
+        consolePredmet = new ConsoleViewPredmet(_headDAO);
+        consoleProfesor = new ConsoleViewProfesor(_headDAO);
     }
 
     public void RunSelector()
@@ -51,93 +59,18 @@ public class ConsoleViewSelector
             case "1":
                 consoleKatedra.RunMenu();
                 break;
-            //case "2":
-            //    KatedraChoosen();
-            //    break;
-            //case "3":
-            //    OcenaChoosen();
-            //    break;
-            //case "4":
-            //    ProfesorRadiNaKatedriChoosen();
-            //    break;
-            //case "5":
-            //    PredmetChoosen();
-            //    break;
-            //case "6":
-            //    ProfesorChoosen();
-            //    break;
-            //case "7":
-            //    ProfesorPredajePredmetChoosen();
-            //    break;
-            //case "8":
-            //    StudentChoosen();
-            //    break;
-            //case "9":
-            //    StudentSlusaPredmetChoosen();
-            //    break;     
+            case "2":
+                consoleOcena.RunMenu();
+                break;
+            case "3":
+                consolePredmet.RunMenu();
+                break;
+            case "4":
+                consoleProfesor.RunMenu();
+                break;
+            case "5":
+                consoleStudent.RunMenu();
+                break;
         }
     }
-
-    //private void AdresaChoosen()
-    //{
-    //    /*DAO<Adresa> da = new DAO<Adresa>();
-    //    ConsoleView<Adresa> cv = new ConsoleView<Adresa>(da);
-    //    cv.RunMenu();*/
-    //}
-
-    //private void KatedraChoosen()
-    //{
-    //    DAO<Katedra> dk = new DAO<Katedra>();
-    //    ConsoleView<Katedra> cv = new ConsoleView<Katedra>(dk);
-    //    cv.RunMenu();
-    //}
-
-    //private void OcenaChoosen()
-    //{
-    //    DAO<Ocena> doc = new DAO<Ocena>();
-    //    ConsoleView<Ocena> cv = new ConsoleView<Ocena>(doc);
-    //    cv.RunMenu();
-    //}
-
-    //private void ProfesorRadiNaKatedriChoosen()
-    //{
-    //    DAO<ProfesorRadiNaKatedri> dpnk = new DAO<ProfesorRadiNaKatedri>();
-    //    ConsoleView<ProfesorRadiNaKatedri> cv = new ConsoleView<ProfesorRadiNaKatedri>(dpnk);
-    //    cv.RunMenu();
-    //}
-
-    //private void PredmetChoosen()
-    //{
-    //    DAO<Predmet> dp = new DAO<Predmet>();
-    //    ConsoleView<Predmet> cv = new ConsoleView<Predmet>(dp);
-    //    cv.RunMenu();
-    //}
-
-    //private void ProfesorChoosen()
-    //{
-    //    DAO<Profesor> dpr = new DAO<Profesor>();
-    //    ConsoleView<Profesor> cv = new ConsoleView<Profesor>(dpr);
-    //    cv.RunMenu();
-    //}
-
-    //private void ProfesorPredajePredmetChoosen()
-    //{
-    //    DAO<ProfesorPredajePredmet> dppp = new DAO<ProfesorPredajePredmet>();
-    //    ConsoleView<ProfesorPredajePredmet> cv = new ConsoleView<ProfesorPredajePredmet>(dppp);
-    //    cv.RunMenu();
-    //}
-
-    //private void StudentChoosen()
-    //{
-    //    DAO<Student> dst = new DAO<Student>();
-    //    ConsoleView<Student> cv = new ConsoleView<Student>(dst);
-    //    cv.RunMenu();
-    //}
-
-    //private void StudentSlusaPredmetChoosen()
-    //{
-    //    DAO<StudentSlusaPredmet> dssp = new DAO<StudentSlusaPredmet>();
-    //    ConsoleView<StudentSlusaPredmet> cv = new ConsoleView<StudentSlusaPredmet>(dssp);
-    //    cv.RunMenu();
-    //}
 }

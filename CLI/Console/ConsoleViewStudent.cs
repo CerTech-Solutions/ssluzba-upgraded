@@ -36,7 +36,7 @@ public class ConsoleViewStudent : ConsoleView<Student>
         Student stud = ConsoleViewUtils.SafeInputStudentId(_headDAO.daoStudent);
         try
         {
-            _headDAO.CheckDeleteStudent(stud.Id);
+            _headDAO.DeleteStudent(stud.Id);
             System.Console.WriteLine("Student deleted successfully!");
         }
         catch (Exception ex)
@@ -44,6 +44,5 @@ public class ConsoleViewStudent : ConsoleView<Student>
             System.Console.WriteLine(ex.Message);
             System.Console.WriteLine("Student was not deleted!");
         }
-        _headDAO.daoStudent.RemoveObject(stud.Id);
     }
 }

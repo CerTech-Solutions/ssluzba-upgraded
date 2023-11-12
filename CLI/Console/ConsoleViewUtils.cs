@@ -97,7 +97,7 @@ internal class ConsoleViewUtils
             {   
                 if (prop.PropertyType == typeof(string))
                 {
-                    System.Console.Write(prop.Name + " : ");
+                    System.Console.Write("\t" + prop.Name + " : ");
                     string str = ConsoleViewUtils.SafeInputString();
                     prop.SetValue(obj, str);
                 }   
@@ -116,13 +116,13 @@ internal class ConsoleViewUtils
             {
                 if (prop.PropertyType == typeof(string))
                 {
-                    System.Console.Write(prop.Name + " : ");
+                    System.Console.Write("\t" + prop.Name + " : ");
                     string str = ConsoleViewUtils.SafeInputString();
                     prop.SetValue(obj, str);
                 }
                 else if (prop.PropertyType == typeof(int))
                 {
-                    System.Console.Write(prop.Name + " : ");
+                    System.Console.Write("\t" + prop.Name + " : ");
                     int br = ConsoleViewUtils.SafeInputInt();
                     prop.SetValue(obj, br);
                 }

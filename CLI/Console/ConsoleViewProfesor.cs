@@ -36,7 +36,7 @@ public class ConsoleViewProfesor : ConsoleView<Profesor>
         Profesor prof = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor);
         try
         {
-            _headDAO.CheckDeleteProfesor(prof.Id);
+            _headDAO.DeleteProfesor(prof.Id);
             System.Console.WriteLine("Profesor deleted successfully!");
         }
         catch (Exception ex)
@@ -44,7 +44,6 @@ public class ConsoleViewProfesor : ConsoleView<Profesor>
             System.Console.WriteLine(ex.Message);
             System.Console.WriteLine("Profesor was not deleted!");
         }
-        _headDAO.daoProfesor.RemoveObject(prof.Id);
     }
 
 }

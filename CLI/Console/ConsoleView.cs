@@ -35,7 +35,7 @@ public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsole
         T obj = new T();
         foreach(var prop in typeof(T).GetProperties())
         {
-            if (prop.Name != "Id")
+            if (prop.Name == "Id")
             {
                 continue;
             }
@@ -72,19 +72,19 @@ public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsole
             }
             else if (prop.PropertyType == typeof(Adresa))
             {
-                System.Console.Write(prop.Name + " : ");
+                System.Console.Write(prop.Name + " : \n");
                 Adresa adr = ConsoleViewUtils.SafeInputAdresa();
                 prop.SetValue(obj, adr);
             }
             else if (prop.PropertyType == typeof(Indeks))
             {
-                System.Console.Write(prop.Name + " : ");
+                System.Console.Write(prop.Name + " : \n");
                 Indeks ind = ConsoleViewUtils.SafeInputIndeks();
                 prop.SetValue(obj, ind);
             }
             else if (prop.PropertyType == typeof(Profesor))
             {
-                System.Console.Write(prop.Name + " : ");
+                System.Console.Write(prop.Name + " : \n");
                 Profesor p = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor);
                 prop.SetValue(obj, p);
             }

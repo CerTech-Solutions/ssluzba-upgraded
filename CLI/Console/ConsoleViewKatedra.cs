@@ -36,7 +36,7 @@ public class ConsoleViewKatedra : ConsoleView<Katedra>
         Katedra kat = ConsoleViewUtils.SafeInputKatedraId(_headDAO.daoKatedra);
         try
         {
-            _headDAO.CheckDeleteDepartmant(kat.Id);
+            _headDAO.DeleteDepartmant(kat.Id);
             System.Console.WriteLine("Katedra deleted successfully!");
         }
         catch (Exception ex)
