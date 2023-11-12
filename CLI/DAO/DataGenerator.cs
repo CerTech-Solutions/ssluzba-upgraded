@@ -21,33 +21,28 @@ public class DataGenerator
         foreach (string file in Directory.GetFiles(dataPath, "*.csv"))
             File.Delete(file);
 
-        DAO<Katedra> daoKatedra = new DAO<Katedra>();
-        Katedra k0 = new Katedra(0, "mat", "Katedra za PRN", 0);
-        Katedra k1 = new Katedra(1, "aut", "Katedra za automatiku", 1);
-        daoKatedra.AddObject(k0);
-        daoKatedra.AddObject(k1);
-
-        DAO<Adresa> daoAdresa = new DAO<Adresa>();
-        Adresa a0 = new Adresa(0, "Bulevar kralja Petra I", "9a", "Novi Sad", "Srbija");
-        Adresa a1 = new Adresa(1, "Bulevar vojvode Stepe", "11", "Novi Sad", "Srbija");
-        Adresa a2 = new Adresa(3, "Bulevar Jovan Ducica", "17", "Novi Sad", "Srbija");
-        Adresa a3 = new Adresa(4, "Bulevar oslobodjenja", "2", "Novi Sad", "Srbija");
-        daoAdresa.AddObject(a0);
-        daoAdresa.AddObject(a1);
-        daoAdresa.AddObject(a2);
-        daoAdresa.AddObject(a3);
+        Adresa a0 = new Adresa("Bulevar kralja Petra I", "9a", "Novi Sad", "Srbija");
+        Adresa a1 = new Adresa("Bulevar vojvode Stepe", "11", "Novi Sad", "Srbija");
+        Adresa a2 = new Adresa("Bulevar Jovan Ducica", "17", "Novi Sad", "Srbija");
+        Adresa a3 = new Adresa("Bulevar oslobodjenja", "2", "Novi Sad", "Srbija");
 
         DAO<Profesor> daoProfesor = new DAO<Profesor>();
-        Profesor p0 = new Profesor(0, "Veljko", "Petrovic", DateTime.Parse("2/2/1982"), 0, "021/485-4564", "pveljko@uns.ac.rs", "123456789", "doc.", 10);
-        Profesor p1 = new Profesor(1, "Milan", "Rapajic", DateTime.Parse("2/2/1982"), 0, "021/485-4584", "rapaja@uns.ac.rs", "123456789", "prof. dr.", 20);
-        Profesor p2 = new Profesor(2, "Vladimir", "Dimitrieski", DateTime.Parse("2/2/1982"), 1, "021/485-2424", "dimitrieski@uns.ac.rs", "123456789", "vanr. prof. dr", 15);
+        Profesor p0 = new Profesor(0, "Veljko", "Petrovic", DateTime.Parse("2/2/1982"), a0, "021/485-4564", "pveljko@uns.ac.rs", "123456789", "doc.", 10);
+        Profesor p1 = new Profesor(1, "Milan", "Rapajic", DateTime.Parse("2/2/1982"), a0, "021/485-4584", "rapaja@uns.ac.rs", "123456789", "prof.", 20);
+        Profesor p2 = new Profesor(2, "Vladimir", "Dimitrieski", DateTime.Parse("2/2/1982"), a1, "021/485-2424", "dimi@uns.ac.rs", "123456789", "prof.", 15);
         daoProfesor.AddObject(p0);
         daoProfesor.AddObject(p1);
         daoProfesor.AddObject(p2);
 
+        DAO<Katedra> daoKatedra = new DAO<Katedra>();
+        Katedra k0 = new Katedra(0, "mat", "Katedra za PRN", p0);
+        Katedra k1 = new Katedra(1, "aut", "Katedra za automatiku", p1);
+        daoKatedra.AddObject(k0);
+        daoKatedra.AddObject(k1);
+
         DAO<Predmet> daoPredmet = new DAO<Predmet>();
         Predmet pr0 = new Predmet(0, "bp1", "Baze podataka 1", SemestarEnum.zimski, 3, 2, 8);
-        Predmet pr1 = new Predmet(1, "sau", "Sistemi automatskog upravljanja", SemestarEnum.letnji, 2, 1, 8);
+        Predmet pr1 = new Predmet(1, "sau", "SAU", SemestarEnum.letnji, 2, 1, 8);
         Predmet pr2 = new Predmet(2, "os", "Operativni sistemi", SemestarEnum.letnji, 2, 0, 8);
         Predmet pr3 = new Predmet(3, "mo", "Metode optimizacije", SemestarEnum.zimski, 3, 1, 8);
         daoPredmet.AddObject(pr0);
@@ -57,17 +52,17 @@ public class DataGenerator
 
         // Possibly could change
         DAO<Student> daoStudent = new DAO<Student>();
-        Student s0 = new Student(0, "Nikola", "Kuslakovic", DateTime.Parse("2/2/2002"), 3, "123456789", "kuslakovic.ra8.2021@uns.ac.rs", 0, 3, StatusEnum.B, 0.0, new Indeks("RA", 8, 2021));
-        Student s1 = new Student(1, "Nemanja", "Zekanovic", DateTime.Parse("2/2/2002"), 4, "123456789", "zekanovic.ra73.2021@uns.ac.rs", 1, 3, StatusEnum.S, 0.0, new Indeks("RA", 73, 2021));
+        Student s0 = new Student(0, "Nikola", "Kuslakovic", DateTime.Parse("2/2/2002"), a2, "123456789", "kuslakovic.ra8.2021@uns.ac.rs", 3, StatusEnum.B, 0.0, new Indeks("RA", 8, 2021));
+        Student s1 = new Student(1, "Nemanja", "Zekanovic", DateTime.Parse("2/2/2002"), a3, "123456789", "zekanovic.ra73.2021@uns.ac.rs", 3, StatusEnum.S, 0.0, new Indeks("RA", 73, 2021));
         daoStudent.AddObject(s0);
         daoStudent.AddObject(s1);
 
         // Possibly could change
         DAO<StudentSlusaPredmet> daoStudentSlusaPredmet = new DAO<StudentSlusaPredmet>();
-        StudentSlusaPredmet ssp0 = new StudentSlusaPredmet(0, 0, 0, PolozenPredmetEnum.nijePolozio);
-        StudentSlusaPredmet ssp1 = new StudentSlusaPredmet(0, 0, 1, PolozenPredmetEnum.nijePolozio);
-        StudentSlusaPredmet ssp2 = new StudentSlusaPredmet(0, 1, 0, PolozenPredmetEnum.nijePolozio);
-        StudentSlusaPredmet ssp3 = new StudentSlusaPredmet(0, 1, 4, PolozenPredmetEnum.nijePolozio);
+        StudentSlusaPredmet ssp0 = new StudentSlusaPredmet(0, 1, 3, PolozenPredmetEnum.polozio);
+        StudentSlusaPredmet ssp1 = new StudentSlusaPredmet(0, 1, 0, PolozenPredmetEnum.polozio);
+        StudentSlusaPredmet ssp2 = new StudentSlusaPredmet(0, 0, 2, PolozenPredmetEnum.polozio);
+        StudentSlusaPredmet ssp3 = new StudentSlusaPredmet(0, 1, 2, PolozenPredmetEnum.nijePolozio);
         daoStudentSlusaPredmet.AddObject(ssp0);
         daoStudentSlusaPredmet.AddObject(ssp1);
         daoStudentSlusaPredmet.AddObject(ssp2);
@@ -91,6 +86,13 @@ public class DataGenerator
         daoProfesorPredajePredmet.AddObject(ppp2);
         daoProfesorPredajePredmet.AddObject(ppp3);
 
+        DAO<Ocena> daoOcena = new DAO<Ocena>();
+        Ocena o0 = new Ocena(0, s1, pr3, 6, DateTime.Parse("2/2/2002"));
+        Ocena o1 = new Ocena(1, s1, pr0, 10, DateTime.Parse("2/2/2002"));
+        Ocena o2 = new Ocena(2, s0, pr2, 10, DateTime.Parse("2/2/2002"));
+        daoOcena.AddObject(o0);
+        daoOcena.AddObject(o1);
+        daoOcena.AddObject(o2);
     }
 
 }

@@ -9,7 +9,7 @@ using CLI.Storage.Serialization;
 
 namespace CLI.DAO;
 
-public class DAO<T> where T : class, IAccess, ISerializable, new()
+public class DAO<T> where T : class, IAccess<T>, ISerializable, new()
 {
     private readonly List<T> _objects;
     private readonly Storage<T> _storage;
@@ -43,7 +43,7 @@ public class DAO<T> where T : class, IAccess, ISerializable, new()
         if (oldObj is null) 
             return null;
 
-        oldObj = obj;
+        oldObj.Copy(obj);
 
         _storage.Save(_objects);
         return oldObj;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CLI.Model;
 
-public class ProfesorRadiNaKatedri : ISerializable, IAccess, IConsoleWriteRead
+public class ProfesorRadiNaKatedri : ISerializable, IAccess<ProfesorRadiNaKatedri>, IConsoleWriteRead
 {
     public ProfesorRadiNaKatedri() { }
 
@@ -25,6 +25,13 @@ public class ProfesorRadiNaKatedri : ISerializable, IAccess, IConsoleWriteRead
     public int IdProf {  get; set; }
 
     public int IdKat { get; set; }
+
+    public void Copy(ProfesorRadiNaKatedri obj)
+    {
+        obj.Id = Id;
+        obj.IdProf = IdProf;
+        obj.IdKat = IdKat;
+    }
 
     public string[] ToCSV()
     {

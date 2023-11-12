@@ -10,7 +10,7 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Console;
 
-internal class ConsoleView<T> where T : class, IAccess, ISerializable, IConsoleWriteRead, new()
+internal class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsoleWriteRead, new()
 {
     private readonly DAO<T> _daoObjs = new DAO<T>();
     
@@ -26,7 +26,7 @@ internal class ConsoleView<T> where T : class, IAccess, ISerializable, IConsoleW
         System.Console.WriteLine(header);
         foreach (T obj in objs) 
         {
-            System.Console.WriteLine(obj);
+            System.Console.WriteLine(obj);      //
         }
     }
 

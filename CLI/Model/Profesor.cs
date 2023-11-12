@@ -10,19 +10,23 @@ using CLI.Console;
 
 namespace CLI.Model;
 
-public class Profesor : ISerializable, IAccess, IConsoleWriteRead
+public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
 {
     private int _idProf;
 
-    public Profesor() { }
+    public Profesor()
+    {
+        Predmeti = new List<Predmet>();
+        Adresa = new Adresa();
+    }
 
-    public Profesor(int idProf, string ime, string prezime, DateTime datumRodjenja, int idAdr, string brojTelefona, string email, string brojLicneKarte, string zvanje, int godinaStaza)
+    public Profesor(int idProf, string ime, string prezime, DateTime datumRodjenja, Adresa adresa, string brojTelefona, string email, string brojLicneKarte, string zvanje, int godinaStaza)
     {
         Id = idProf;
         Ime = ime;
         Prezime = prezime;
         DatumRodjenja = datumRodjenja;
-        IdAdr = idAdr;
+        Adresa = adresa;
         BrojTelefona = brojTelefona;
         Email = email;
         BrojLicneKarte = brojLicneKarte;
@@ -42,8 +46,6 @@ public class Profesor : ISerializable, IAccess, IConsoleWriteRead
 
     public DateTime DatumRodjenja { get; set; }
 
-    public int IdAdr { get; set; }
-
     public string BrojTelefona { get; set; }
 
     public string Email { get; set; }
@@ -54,17 +56,35 @@ public class Profesor : ISerializable, IAccess, IConsoleWriteRead
 
     public int GodinaStaza { get; set; }
 
-    //public List<int> IdPred { get; set; }
+    public List<Predmet> Predmeti { get; set; }
+
+    public Adresa Adresa { get; set; }
+
+    public void Copy(Profesor obj)
+    {
+        Id = obj.Id;
+        Ime = obj.Ime;
+        Prezime = obj.Prezime;
+        DatumRodjenja = obj.DatumRodjenja;
+        BrojTelefona = obj.BrojTelefona;
+        Email = obj.Email;
+        BrojLicneKarte = obj.BrojLicneKarte;
+        Zvanje = obj.Zvanje;
+        GodinaStaza = obj.GodinaStaza;
+        Adresa.Copy(obj.Adresa);
+    }
 
     public string[] ToCSV()
     {
         string[] csvValues =
         {
             Id.ToString(), Ime, Prezime, DatumRodjenja.ToString("dd-MM-yyyy"),
-            IdAdr.ToString(), BrojTelefona, Email, BrojLicneKarte,
+            BrojTelefona, Email, BrojLicneKarte,
             Zvanje, GodinaStaza.ToString()
         };
-        return csvValues;
+
+        string[] result = csvValues.Concat(Adresa.ToCSV()).ToArray();
+        return result;
     }
 
     public void FromCSV(string[] values)
@@ -73,20 +93,27 @@ public class Profesor : ISerializable, IAccess, IConsoleWriteRead
         Ime = values[1];
         Prezime = values[2];
         DatumRodjenja = DateTime.Parse(values[3]);
-        IdAdr = int.Parse(values[4]);
-        BrojTelefona = values[5];
-        Email = values[6];
+        BrojTelefona = values[4];
+        Email = values[5];
+        BrojLicneKarte = values[6];
         Zvanje = values[7];
         GodinaStaza = int.Parse(values[8]);
+        Adresa.FromCSV(values[9..]);
     }
 
 	public string GenerateClassHeader()
     {
-        return "Profesori: \n" + $"{"ID",6} | {"Ime",20} | {"Prezime",20} | {"DatumRodjenja",13} | {"IdAdr",6} | {"BrojTelefona",12} | {"Email", 20} | {"BrojLicneKarte",20} | {"Zvanje",20} | {"GodinaStaza",12} |";
+        return "Profesori: \n" + $"{"ID",6} | {"Ime",12} | {"Prezime",12} | {"DatumRodjenja",13} | {"BrojTelefona",12} | {"Email",20} | {"BrojLicneKarte",16} | {"Zvanje",8} | {"Staza",5} |"; // + Adresa.GenerateClassHeader();
     }
 
     public override string ToString()
     {
-        return $"{Id,6} | {Ime,20} | {Prezime,20} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {IdAdr,6} | {BrojTelefona,12} | {Email,20} | {BrojLicneKarte,20} | {Zvanje,20} | {GodinaStaza,12} |";
+        string str = $"{Id,6} | {Ime,12} | {Prezime,12} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {BrojTelefona,12} | {Email,20} | {BrojLicneKarte,16} | {Zvanje,8} | {GodinaStaza,5} |"; // + Adresa.ToString();
+        str += "\n\t Predaje Predmete: \n";
+        foreach (Predmet p in Predmeti)
+        {
+            str += "\t\t" + p.Sifra + " " + p.Naziv + "\n";
+        }
+        return str + "\n";
     }
 }

@@ -75,9 +75,9 @@ public class ConsoleViewSelector
 
     private void AdresaChoosen()
     {
-        DAO<Adresa> da = new DAO<Adresa>();
+        /*DAO<Adresa> da = new DAO<Adresa>();
         ConsoleView<Adresa> cv = new ConsoleView<Adresa>(da);
-        cv.RunMenu();
+        cv.RunMenu();*/
     }
 
     private void KatedraChoosen()
