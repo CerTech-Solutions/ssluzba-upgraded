@@ -52,12 +52,12 @@ public class Indeks : ISerializable, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {     
-        return $" {"OznakaSmera",11} | {"BrojUpisa",9} | {"GodinaUpisa",11} |";
+        return $" {"Indeks",12} ";
     }
     
     public string ToString()
     {
-        return $" {OznakaSmera,11} | {BrojUpisa,9} | {GodinaUpisa,11} |";
+        return $" {OznakaSmera,3} {BrojUpisa,3} {GodinaUpisa,4} ";
     }
 
 }

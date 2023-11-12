@@ -20,7 +20,7 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
         Adresa = new Adresa();
     }
 
-    public Profesor(int idProf, string ime, string prezime, DateTime datumRodjenja, Adresa adresa, string brojTelefona, string email, string brojLicneKarte, string zvanje, int godinaStaza)
+    public Profesor(int idProf, string ime, string prezime, DateOnly datumRodjenja, Adresa adresa, string brojTelefona, string email, string brojLicneKarte, string zvanje, int godinaStaza)
     {
         Id = idProf;
         Ime = ime;
@@ -44,7 +44,7 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
 
     public string Prezime { get; set; }
 
-    public DateTime DatumRodjenja { get; set; }
+    public DateOnly DatumRodjenja { get; set; }
 
     public string BrojTelefona { get; set; }
 
@@ -92,7 +92,7 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
         Id = int.Parse(values[0]);
         Ime = values[1];
         Prezime = values[2];
-        DatumRodjenja = DateTime.Parse(values[3]);
+        DatumRodjenja = DateOnly.Parse(values[3]);
         BrojTelefona = values[4];
         Email = values[5];
         BrojLicneKarte = values[6];
@@ -109,11 +109,11 @@ public class Profesor : ISerializable, IAccess<Profesor>, IConsoleWriteRead
     public override string ToString()
     {
         string str = $"{Id,6} | {Ime,12} | {Prezime,12} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {BrojTelefona,12} | {Email,20} | {BrojLicneKarte,16} | {Zvanje,8} | {GodinaStaza,5} |"; // + Adresa.ToString();
-        str += "\n\t Predaje Predmete: \n";
+        str += "\n\t* Teaches subjects: \n";
         foreach (Predmet p in Predmeti)
         {
-            str += "\t\t" + p.Sifra + " " + p.Naziv + "\n";
+            str += $"\t\t{p.Sifra} {p.Naziv}\n";
         }
-        return str + "\n";
+        return str;
     }
 }

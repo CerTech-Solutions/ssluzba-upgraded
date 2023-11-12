@@ -19,7 +19,7 @@ public class Ocena : ISerializable, IAccess<Ocena>, IConsoleWriteRead
         Predmet = new Predmet();
     }
 
-    public Ocena(int id, Student student, Predmet predmet, int ocenaBroj, DateTime datumPolaganja)
+    public Ocena(int id, Student student, Predmet predmet, int ocenaBroj, DateOnly datumPolaganja)
     {
         Id = id;
         Student = student;
@@ -40,7 +40,7 @@ public class Ocena : ISerializable, IAccess<Ocena>, IConsoleWriteRead
 
     public int OcenaBroj { get; set; }
 
-    public DateTime DatumPolaganja { get; set; }
+    public DateOnly DatumPolaganja { get; set; }
 
     public void Copy(Ocena obj)
     {
@@ -70,7 +70,7 @@ public class Ocena : ISerializable, IAccess<Ocena>, IConsoleWriteRead
         Student.Id = int.Parse(values[1]);
         Predmet.Id = int.Parse(values[2]);
         OcenaBroj = int.Parse(values[3]);
-        DatumPolaganja = DateTime.Parse(values[4]);
+        DatumPolaganja = DateOnly.Parse(values[4]);
     }
 
     public string GenerateClassHeader()
@@ -80,6 +80,6 @@ public class Ocena : ISerializable, IAccess<Ocena>, IConsoleWriteRead
 
     public override string ToString()
     {
-        return $"{Id,6} | {Student.Ime,12} {Student.Prezime,12} | {Predmet.Naziv,20} | {OcenaBroj,5} | {DatumPolaganja,20} |";
+        return $"{Id,6} | {Student.Ime + " " + Student.Prezime,25} | {Predmet.Naziv,20} | {OcenaBroj,5} | {DatumPolaganja,20} |";
     }
 }

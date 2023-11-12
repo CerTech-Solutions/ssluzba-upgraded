@@ -26,7 +26,7 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
         NepolozeniPredmeti = new List<Predmet>();
     }
 
-    public Student(int idStud, string ime, string prezime, DateTime datumRodjenja, Adresa adresa,
+    public Student(int idStud, string ime, string prezime, DateOnly datumRodjenja, Adresa adresa,
         string brojTelefona, string email, int trenutnaGodina, StatusEnum status, double prosecnaOcena, Indeks indeks)
     {
         Id = idStud;
@@ -55,7 +55,7 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
 
     public string Prezime { get; set; }
 
-    public DateTime DatumRodjenja { get; set; }
+    public DateOnly DatumRodjenja { get; set; }
 
     public string BrojTelefona { get; set; }
 
@@ -109,7 +109,7 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
         Id = int.Parse(values[0]);
         Ime = values[1];
         Prezime = values[2];
-        DatumRodjenja = DateTime.Parse(values[3]);
+        DatumRodjenja = DateOnly.Parse(values[3]);
         BrojTelefona = values[4];
         Email = values[5];
         TrenutnaGodina = int.Parse(values[6]);
@@ -123,22 +123,22 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {
-        return "Student: \n" + $@"{"I",6} | {"Ime",10} | {"Prezime",15} | {"DatumRodjenja",13} | {"BrojTelefona",12} | {"Email",30} | {"TrenutnaGodina",14} | {"Status",6} | " + Indeks.GenerateClassHeader();
+        return "Studenti: \n" + $@"{"ID",6} | {"Ime",10} | {"Prezime",15} | {"DatumRodjenja",13} | {"BrojTelefona",12} | {"Email",30} | {"TrenutnaGodina",14} | {"Status",6} | " + Indeks.GenerateClassHeader();
     }
 
     public override string ToString()
     {
         string str = $"{Id,6} | {Ime,10} | {Prezime,15} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {BrojTelefona,12} | {Email,30} | {TrenutnaGodina,14} | {Status,6} | " + Indeks.ToString();
-        str += "\n\t Nepolozeni predmeti: \n";
+        str += "\n\t* Nepolozeni predmeti: \n";
         foreach(Predmet np in NepolozeniPredmeti)
         {
-            str += "\t\t" + np.Sifra + " " + np.Naziv + "\n";
+            str += $"\t\t{np.Sifra} {np.Naziv}\n";
         }
-        str += "\n\t Polozeni predmeti: \n";
+        str += "\n\t* Polozeni predmeti: \n";
         foreach (Predmet np in PolozeniPredmeti)
         {
-            str += "\t\t" + np.Sifra + " " + np.Naziv + "\n";
+            str += $"\t\t{np.Sifra} {np.Naziv}\n";
         }
-        return str + "\n";
+        return str;
     }
 }

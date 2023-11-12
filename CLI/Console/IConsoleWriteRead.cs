@@ -8,9 +8,6 @@ namespace CLI.Console;
 
 public interface IConsoleWriteRead 
 {
-    //Za Write
     public string GenerateClassHeader();
-
-    //Za Read
     
 }

@@ -64,11 +64,11 @@ public class StudentSlusaPredmet : ISerializable, IAccess<StudentSlusaPredmet>, 
 
     public string GenerateClassHeader()
     {
-        return "Adrese: \n" + $"{"ID",6} | {"IdPred",6} | {"IdStud",6} |";
+        return "Adrese: \n" + $"| {"ID",6} | {"IdPred",6} | {"IdStud",6} |";
     }
 
     public override string ToString()
     {
-        return $"{Id,6} | {IdPred,6} | {IdStud,6} |";
+        return $"| {Id,6} | {IdPred,6} | {IdStud,6} |";
     }
 }
