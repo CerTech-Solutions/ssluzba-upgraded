@@ -86,46 +86,47 @@ public class HeadDAO
         }
     }
 
-    public void CheckAddDepartmentChief(int katedraId, int chiefId)
+    public void DeleteDepartmant(int katedraId) 
     {
-        Katedra k = daoKatedra.GetObjectById(katedraId);
-        if (k == null) throw new Exception("Katedra sa datim ID-jem ne postoji!");
+        ProfesorRadiNaKatedri prk = daoProfesorRadiNaKatedri.GetAllObjects().Find(prk => prk.IdKat == katedraId);
+        if (prk != null) throw new Exception("Na datoj katedri predaju neki profesori!");
 
-        Profesor p = daoProfesor.GetObjectById(chiefId);
-        if (p == null) throw new Exception("Profesor sa datim ID-jem ne postoji!");
-
-        p = k.Profesori.Find(p => p.Id == chiefId);
-        if (p == null) throw new Exception("Profesor ne radi na datoj katedri!");
-
+        daoKatedra.RemoveObject(katedraId);
     }
 
-    public void CheckDeleteDepartmant(int katedraId) 
+    public void DeletePredmet(int predmetId)
     {
-        
+        ProfesorPredajePredmet ppp = daoProfesorPredajePredmet.GetAllObjects().Find(ppp => ppp.IdPred == predmetId);
+        if (ppp != null) throw new Exception("Dati predmet predaju neki profesori!");
+
+        StudentSlusaPredmet sss = daoStudentSlusaPredmet.GetAllObjects().Find(sss => sss.IdPred == predmetId);
+        if (ppp != null) throw new Exception("Dati predmet slusaju neki studenti!");
+
+        Ocena oc = daoOcena.GetAllObjects().Find(oc => oc.Predmet.Id == predmetId);
+        if (oc != null) throw new Exception("Neki studenti imaju ocenu iz datog predmeta!");
+
+        daoPredmet.RemoveObject(predmetId);
     }
 
-    public void CheckAddOcena(int studentId, int predmetId)
+    public void DeleteProfesor(int profesorId)
     {
+        ProfesorPredajePredmet ppp = daoProfesorPredajePredmet.GetAllObjects().Find(ppp => ppp.IdProf == profesorId);
+        if (ppp != null) throw new Exception("Dati profesor predaje neke predmete!");
 
+        ProfesorRadiNaKatedri prk = daoProfesorRadiNaKatedri.GetAllObjects().Find(prk => prk.IdProf == profesorId);
+        if (prk != null) throw new Exception("Dati profesor predaje na nekoj katedri!");
+
+        daoProfesor.RemoveObject(profesorId);
     }
 
-    public void CheckAddPredmet(int profesorId)
+    public void DeleteStudent(int studentId)
     {
+        StudentSlusaPredmet sss = daoStudentSlusaPredmet.GetAllObjects().Find(sss => sss.IdStud == studentId);
+        if (sss != null) throw new Exception("Dati student slusa neki predmet!");
 
-    }
+        Ocena oc = daoOcena.GetAllObjects().Find(oc => oc.Student.Id == studentId);
+        if (oc != null) throw new Exception("Dati student ima neke ocene!");
 
-    public void CheckDeletePredmet(int predmetId)
-    {
-
-    }
-
-    public void CheckDeleteProfesor(int profesorId)
-    {
-
-    }
-
-    public void CheckDeleteStudent(int studentId)
-    {
-
+        daoStudent.RemoveObject(studentId);
     }
 }

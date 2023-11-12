@@ -12,7 +12,7 @@ public class DataGenerator
 {
     public static void Generate()
     {
-
+        
         /*
          * Deleting all csv file so new ones can be generated
          */
