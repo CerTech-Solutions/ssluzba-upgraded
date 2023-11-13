@@ -20,29 +20,29 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
 
     public Student() 
     {
-        Adresa = new Adresa();
-        Indeks = new Indeks();
-        PolozeniPredmeti = new List<Predmet>();
-        NepolozeniPredmeti = new List<Predmet>();
+        Address = new Address();
+        Index = new Index();
+        PolozeniPredmeti = new List<Subject>();
+        NepolozeniPredmeti = new List<Subject>();
     }
 
-    public Student(int idStud, string ime, string prezime, DateOnly datumRodjenja, Adresa adresa,
-        string brojTelefona, string email, int trenutnaGodina, StatusEnum status, double prosecnaOcena, Indeks indeks)
+    public Student(int idStud, string name, string surname, DateOnly birthDate, Address address,
+        string phoneNumber, string email, int currentYear, StatusEnum status, double gpa, Index index)
     {
         Id = idStud;
-        Ime = ime;
-        Prezime = prezime;
-        DatumRodjenja = datumRodjenja;
-        Adresa = adresa;
-        BrojTelefona = brojTelefona;
+        Name = name;
+        Surname = surname;
+        BirthDate = birthDate;
+        Address = address;
+        PhoneNumber = phoneNumber;
         Email = email;
-        TrenutnaGodina = trenutnaGodina;
+        CurrentYear = currentYear;
         Status = status;
-        ProsecnaOcena = prosecnaOcena;
-        Indeks = indeks;
+        GPA = gpa;
+        Index = index;
 
-        PolozeniPredmeti = new List<Predmet>();
-        NepolozeniPredmeti = new List<Predmet>();
+        PolozeniPredmeti = new List<Subject>();
+        NepolozeniPredmeti = new List<Subject>();
     }
 
     public int Id
@@ -51,93 +51,93 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
         set { _idStud = value; }
     }
 
-    public string Ime { get; set; }
+    public string Name { get; set; }
 
-    public string Prezime { get; set; }
+    public string Surname { get; set; }
 
-    public DateOnly DatumRodjenja { get; set; }
+    public DateOnly BirthDate { get; set; }
 
-    public string BrojTelefona { get; set; }
+    public string PhoneNumber { get; set; }
 
     public string Email { get; set; }
 
-    public int TrenutnaGodina { get; set; }
+    public int CurrentYear { get; set; }
 
     public StatusEnum Status { get; set; }
 
-    public List<Predmet> PolozeniPredmeti { get; set; }
+    public List<Subject> PolozeniPredmeti { get; set; }
 
-    public List<Predmet> NepolozeniPredmeti { get; set; }
+    public List<Subject> NepolozeniPredmeti { get; set; }
 
-    public double ProsecnaOcena {  get; set; }
+    public double GPA {  get; set; }
 
-    public Indeks Indeks { get; set; }
+    public Index Index { get; set; }
 
-    public Adresa Adresa { get; set; }
+    public Address Address { get; set; }
 
     public void Copy(Student obj)
     {
         Id = obj.Id;
-        Ime = obj.Ime;
-        Prezime = obj.Prezime;
-        DatumRodjenja = obj.DatumRodjenja;
-        BrojTelefona = obj.BrojTelefona;
+        Name = obj.Name;
+        Surname = obj.Surname;
+        BirthDate = obj.BirthDate;
+        PhoneNumber = obj.PhoneNumber;
         Email = obj.Email;
-        TrenutnaGodina = obj.TrenutnaGodina;
+        CurrentYear = obj.CurrentYear;
         Status = obj.Status;
-        ProsecnaOcena = obj.ProsecnaOcena;
-        Indeks.Copy(obj.Indeks);
-        Adresa.Copy(obj.Adresa);
+        GPA = obj.GPA;
+        Index.Copy(obj.Index);
+        Address.Copy(obj.Address);
     }
 
     public string[] ToCSV()
     {
         string[] csvValues =
         {
-            Id.ToString(), Ime, Prezime, DatumRodjenja.ToString("dd-MM-yyyy"),
-            BrojTelefona.ToString(), Email.ToString(), TrenutnaGodina.ToString(),
-            Status.ToString(), ProsecnaOcena.ToString()
+            Id.ToString(), Name, Surname, BirthDate.ToString("dd-MM-yyyy"),
+            PhoneNumber.ToString(), Email.ToString(), CurrentYear.ToString(),
+            Status.ToString(), GPA.ToString()
         };
 
-        csvValues = csvValues.Concat(Indeks.ToCSV()).ToArray();
-        csvValues = csvValues.Concat(Adresa.ToCSV()).ToArray();
+        csvValues = csvValues.Concat(Index.ToCSV()).ToArray();
+        csvValues = csvValues.Concat(Address.ToCSV()).ToArray();
         return csvValues;
     }
 
     public void FromCSV(string[] values)
     {
         Id = int.Parse(values[0]);
-        Ime = values[1];
-        Prezime = values[2];
-        DatumRodjenja = DateOnly.Parse(values[3]);
-        BrojTelefona = values[4];
+        Name = values[1];
+        Surname = values[2];
+        BirthDate = DateOnly.Parse(values[3]);
+        PhoneNumber = values[4];
         Email = values[5];
-        TrenutnaGodina = int.Parse(values[6]);
+        CurrentYear = int.Parse(values[6]);
 		Status = Enum.Parse<StatusEnum>(values[7]);
-        ProsecnaOcena = double.Parse(values[8]);
+        GPA = double.Parse(values[8]);
 
-        Indeks.FromCSV(values[9..12]);
-        Adresa.FromCSV(values[12..]);
+        Index.FromCSV(values[9..12]);
+        Address.FromCSV(values[12..]);
 
     }
 
     public string GenerateClassHeader()
     {
-        return "Studenti: \n" + $@"{"ID",6} | {"Ime",10} | {"Prezime",15} | {"DatumRodjenja",13} | {"BrojTelefona",12} | {"Email",30} | {"TrenutnaGodina",14} | {"Status",6} | {"Prosek",6} " + Indeks.GenerateClassHeader();
+        return "Students: \n" + $@"{"ID",6} | {"Name",10} | {"Surname",15} | {"BirthDate",13} | {"PhoneNumber",12} | {"Email",30} | {"CurrentYear",14} | {"Status",6} | {"GPA",5} | " + Index.GenerateClassHeader();
     }
 
     public override string ToString()
     {
-        string str = $"{Id,6} | {Ime,10} | {Prezime,15} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {BrojTelefona,12} | {Email,30} | {TrenutnaGodina,14} | {Status,6} | {ProsecnaOcena:0.00}" + Indeks.ToString();
-        str += "\n\t* Nepolozeni predmeti: \n";
-        foreach(Predmet np in NepolozeniPredmeti)
+        string str = $"{Id,6} | {Name,10} | {Surname,15} | {BirthDate.ToString("dd/MM/yyyy"),13} | {PhoneNumber,12} | {Email,30} | {CurrentYear,14} | {Status,6} | {GPA,5:0.00} | " + Index.ToString();
+        str += "\n\t* Not passed subjects: \n";
+        foreach(Subject np in NepolozeniPredmeti)
         {
-            str += $"\t\t{np.Sifra} {np.Naziv}\n";
+            str += $"\t\t{np.Code} {np.Name}\n";
         }
-        str += "\n\t* Polozeni predmeti: \n";
-        foreach (Predmet np in PolozeniPredmeti)
+        str += "\n\t* Passed subjects: \n";
+        foreach (Subject np in PolozeniPredmeti)
         {
-            str += $"\t\t{np.Sifra} {np.Naziv}\n";
+            str += $"\t\t{np.Code} {np.Name}\n";
         }
         return str;
     }

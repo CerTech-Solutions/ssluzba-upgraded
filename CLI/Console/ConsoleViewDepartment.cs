@@ -8,45 +8,45 @@ using CLI.Model;
 
 namespace CLI.Console;
 
-public class ConsoleViewKatedra : ConsoleView<Katedra>
+public class ConsoleViewDepartment : ConsoleView<Department>
 {
-    public ConsoleViewKatedra(HeadDAO headDAO) : base(headDAO) { }
+    public ConsoleViewDepartment(HeadDAO headDAO) : base(headDAO) { }
 
     public override void ShowAll()
     {
-        PrintObjects(_headDAO.daoKatedra.GetAllObjects());
+        PrintObjects(_headDAO.daoDepartment.GetAllObjects());
     }
 
     public override void AddObject()
     {
-        Katedra obj = new Katedra();
+        Department obj = new Department();
         InputObject(obj);
-        _headDAO.daoKatedra.AddObject(obj);
+        _headDAO.daoDepartment.AddObject(obj);
     }
 
     public override void UpdateObject()
     {
-        Katedra kat = ConsoleViewUtils.SafeInputKatedraId(_headDAO.daoKatedra, true);
+        Department kat = ConsoleViewUtils.SafeInputDepartmentId(_headDAO.daoDepartment, true);
         if (kat == null) return;
 
         InputObject(kat, true);
-        _headDAO.daoKatedra.UpdateObject(kat);
+        _headDAO.daoDepartment.UpdateObject(kat);
     }
 
     public override void RemoveObject()
     {
-        Katedra kat = ConsoleViewUtils.SafeInputKatedraId(_headDAO.daoKatedra, true);
+        Department kat = ConsoleViewUtils.SafeInputDepartmentId(_headDAO.daoDepartment, true);
         if (kat == null) return;
 
         try
         {
             _headDAO.DeleteDepartmant(kat.Id);
-            System.Console.WriteLine("Katedra deleted successfully!");
+            System.Console.WriteLine("Department deleted successfully!");
         }
         catch (Exception ex)
         {
             System.Console.WriteLine(ex.Message);
-            System.Console.WriteLine("Katedra was not deleted!");
+            System.Console.WriteLine("Department was not deleted!");
         }
     }
 }

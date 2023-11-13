@@ -8,34 +8,34 @@ using CLI.DAO;
 
 namespace CLI.Console;
 
-public class ConsoleViewPredmet : ConsoleView<Predmet>
+public class ConsoleViewSubject : ConsoleView<Subject>
 {
-    public ConsoleViewPredmet(HeadDAO headDAO) : base(headDAO) { }
+    public ConsoleViewSubject(HeadDAO headDAO) : base(headDAO) { }
 
     public override void ShowAll()
     {
-        PrintObjects(_headDAO.daoPredmet.GetAllObjects());
+        PrintObjects(_headDAO.daoSubject.GetAllObjects());
     }
 
     public override void AddObject()
     {
-        Predmet obj = new Predmet();
+        Subject obj = new Subject();
         InputObject(obj);
-        _headDAO.daoPredmet.AddObject(obj);
+        _headDAO.daoSubject.AddObject(obj);
     }
 
     public override void UpdateObject()
     {
-        Predmet p = ConsoleViewUtils.SafeInputPredmetId(_headDAO.daoPredmet, true);
+        Subject p = ConsoleViewUtils.SafeInputSubjectId(_headDAO.daoSubject, true);
         if (p == null) return;
 
         InputObject(p, true);
-        _headDAO.daoPredmet.UpdateObject(p);
+        _headDAO.daoSubject.UpdateObject(p);
     }
 
     public override void RemoveObject()
     {
-        Predmet p = ConsoleViewUtils.SafeInputPredmetId(_headDAO.daoPredmet, true);
+        Subject p = ConsoleViewUtils.SafeInputSubjectId(_headDAO.daoSubject, true);
         if (p == null) return;
 
         try

@@ -69,27 +69,27 @@ public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsole
                 if (status == null) continue;
                 prop.SetValue(obj, status.Value);
             }
-            else if (prop.PropertyType == typeof(SemestarEnum))
+            else if (prop.PropertyType == typeof(SemesterEnum))
             {
                 System.Console.Write(prop.Name + " (summer/winter) : ");
-                SemestarEnum? status = ConsoleViewUtils.SafeInputSemestarEnum(skippable);
+                SemesterEnum? status = ConsoleViewUtils.SafeInputSemesterEnum(skippable);
                 if (status == null) continue;
                 prop.SetValue(obj, status.Value);
             }
-            else if (prop.PropertyType == typeof(Adresa))
+            else if (prop.PropertyType == typeof(Address))
             {
                 System.Console.Write(prop.Name + " : \n");
-                ConsoleViewUtils.SafeInputAdresa((Adresa) prop.GetValue(obj), skippable);
+                ConsoleViewUtils.SafeInputAdresa((Address) prop.GetValue(obj), skippable);
             }
-            else if (prop.PropertyType == typeof(Indeks))
+            else if (prop.PropertyType == typeof(Model.Index))
             {
                 System.Console.Write(prop.Name + " : \n");
-                ConsoleViewUtils.SafeInputIndeks((Indeks)prop.GetValue(obj), skippable);
+                ConsoleViewUtils.SafeInputIndex((Model.Index)prop.GetValue(obj), skippable);
             }
-            else if (prop.PropertyType == typeof(Profesor))
+            else if (prop.PropertyType == typeof(Professor))
             {
                 System.Console.Write(prop.Name + " : \n");
-                Profesor p = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor, skippable);
+                Professor p = ConsoleViewUtils.SafeInputProfessorId(_headDAO.daoProfessor, skippable);
                 if (p == null) continue;
                 prop.SetValue(obj, p);
             }
@@ -100,10 +100,10 @@ public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsole
                 if (s == null) continue;
                 prop.SetValue(obj, s);
             }
-            else if (prop.PropertyType == typeof(Predmet))
+            else if (prop.PropertyType == typeof(Subject))
             {
                 System.Console.Write(prop.Name + " : \n");
-                Predmet p = ConsoleViewUtils.SafeInputPredmetId(_headDAO.daoPredmet, skippable);
+                Subject p = ConsoleViewUtils.SafeInputSubjectId(_headDAO.daoSubject, skippable);
                 if (p == null) continue;
                 prop.SetValue(obj, p);
             }
@@ -158,11 +158,11 @@ public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsole
 
     public void ShowMenu()
     {
-            System.Console.WriteLine("\nChoose an option: ");
-            System.Console.WriteLine("  1: Show All objects");
-            System.Console.WriteLine("  2: Add objects");
-            System.Console.WriteLine("  3: Update object");
-            System.Console.WriteLine("  4: Remove object");
-            System.Console.WriteLine("  0: Back");
+        System.Console.WriteLine("\nChoose an option: ");
+        System.Console.WriteLine("  1: Show all");
+        System.Console.WriteLine("  2: Add");
+        System.Console.WriteLine("  3: Update");
+        System.Console.WriteLine("  4: Remove");
+        System.Console.WriteLine("  0: Back");
     }
 }

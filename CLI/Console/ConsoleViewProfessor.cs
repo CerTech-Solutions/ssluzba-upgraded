@@ -8,34 +8,34 @@ using CLI.Model;
 
 namespace CLI.Console;
 
-public class ConsoleViewProfesor : ConsoleView<Profesor>
+public class ConsoleViewProfessor : ConsoleView<Professor>
 {
-    public ConsoleViewProfesor(HeadDAO headDAO) : base(headDAO) { }
+    public ConsoleViewProfessor(HeadDAO headDAO) : base(headDAO) { }
 
     public override void ShowAll()
     {
-        PrintObjects(_headDAO.daoProfesor.GetAllObjects());
+        PrintObjects(_headDAO.daoProfessor.GetAllObjects());
     }
 
     public override void AddObject()
     {
-        Profesor obj = new Profesor();
+        Professor obj = new Professor();
         InputObject(obj);
-        _headDAO.daoProfesor.AddObject(obj);
+        _headDAO.daoProfessor.AddObject(obj);
     }
 
     public override void UpdateObject()
     {
-        Profesor prof = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor, true);
+        Professor prof = ConsoleViewUtils.SafeInputProfessorId(_headDAO.daoProfessor, true);
         if (prof == null) return;
 
         InputObject(prof, true);
-        _headDAO.daoProfesor.UpdateObject(prof);
+        _headDAO.daoProfessor.UpdateObject(prof);
     }
 
     public override void RemoveObject()
     {
-        Profesor prof = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor, true);
+        Professor prof = ConsoleViewUtils.SafeInputProfessorId(_headDAO.daoProfessor, true);
         if (prof == null) return;
 
         try

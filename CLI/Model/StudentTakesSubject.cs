@@ -9,36 +9,36 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public enum PolozenPredmetEnum
+public enum PassedSubjectEnum
 {
-    polozio,
-    nijePolozio
+    PASSED,
+    NOTPASSED
 }
 
-public class StudentSlusaPredmet : ISerializable, IAccess<StudentSlusaPredmet>, IConsoleWriteRead
+public class StudentTakesSubject : ISerializable, IAccess<StudentTakesSubject>, IConsoleWriteRead
 {
-    public StudentSlusaPredmet() { }
+    public StudentTakesSubject() { }
 
-    public StudentSlusaPredmet(int id, int idStud, int idPred, PolozenPredmetEnum status)
+    public StudentTakesSubject(int id, int idStud, int idSub, PassedSubjectEnum status)
     {
         Id = id;
-        IdPred = idPred;
+        IdSub = idSub;
         IdStud = idStud;
         Status = status;
     }
 
     public int Id { get; set; }
 
-    public int IdPred { get; set; }
+    public int IdSub { get; set; }
 
     public int IdStud { get; set; }
 
-    public PolozenPredmetEnum Status {  get; set; }
+    public PassedSubjectEnum Status {  get; set; }
 
-    public void Copy(StudentSlusaPredmet obj)
+    public void Copy(StudentTakesSubject obj)
     {
         Id = obj.Id;
-        IdPred = obj.IdPred;
+        IdSub = obj.IdSub;
         IdStud = obj.IdStud;
     }
 
@@ -48,7 +48,7 @@ public class StudentSlusaPredmet : ISerializable, IAccess<StudentSlusaPredmet>, 
         {
 			Id.ToString(),
             IdStud.ToString(),
-            IdPred.ToString(),
+            IdSub.ToString(),
             Status.ToString(),
         };
         return csvValues;
@@ -58,17 +58,17 @@ public class StudentSlusaPredmet : ISerializable, IAccess<StudentSlusaPredmet>, 
     {
         Id = int.Parse(values[0]);
         IdStud = int.Parse(values[1]);
-        IdPred = int.Parse(values[2]);
-		Status = Enum.Parse<PolozenPredmetEnum>(values[3]);
+        IdSub = int.Parse(values[2]);
+		Status = Enum.Parse<PassedSubjectEnum>(values[3]);
     }
 
     public string GenerateClassHeader()
     {
-        return "Adrese: \n" + $"| {"ID",6} | {"IdPred",6} | {"IdStud",6} |";
+        return "Students take subjects: \n" + $"| {"ID",6} | {"IdSub",6} | {"IdStud",6} |";
     }
 
     public override string ToString()
     {
-        return $"| {Id,6} | {IdPred,6} | {IdStud,6} |";
+        return $"| {Id,6} | {IdSub,6} | {IdStud,6} |";
     }
 }

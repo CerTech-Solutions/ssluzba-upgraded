@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CLI.Model;
 using CLI.DAO;
+using System.Drawing;
 
 namespace CLI.Console;
 
@@ -107,9 +108,9 @@ internal class ConsoleViewUtils
         return input;
     }
 
-    public static SemestarEnum? SafeInputSemestarEnum(bool skippable = false)
+    public static SemesterEnum? SafeInputSemesterEnum(bool skippable = false)
     {
-        SemestarEnum input;
+        SemesterEnum input;
 
         string rawInput = System.Console.ReadLine() ?? string.Empty;
         if (skippable && rawInput == string.Empty)
@@ -117,7 +118,7 @@ internal class ConsoleViewUtils
             return null;
         }
 
-        while (!Enum.TryParse<SemestarEnum>(rawInput, out input))
+        while (!Enum.TryParse<SemesterEnum>(rawInput, out input))
         {
             System.Console.Write("Wrong type semester (summer/winter), try again: ");
 
@@ -131,7 +132,7 @@ internal class ConsoleViewUtils
         return input;
     }
 
-    public static void SafeInputAdresa(Adresa obj, bool skippable = false)
+    public static void SafeInputAdresa(Address obj, bool skippable = false)
     {
         foreach (var prop in obj.GetType().GetProperties())
         {
@@ -148,7 +149,7 @@ internal class ConsoleViewUtils
         }
     }
 
-    public static void SafeInputIndeks(Indeks obj, bool skippable = false)
+    public static void SafeInputIndex(Model.Index obj, bool skippable = false)
     {
         foreach (var prop in obj.GetType().GetProperties())
         {
@@ -172,13 +173,13 @@ internal class ConsoleViewUtils
         }
     }
 
-    public static Profesor SafeInputProfesorId(DAO<Profesor> daoProfesor, bool skippable = false)
+    public static Professor SafeInputProfessorId(DAO<Professor> daoProfesor, bool skippable = false)
     {
         System.Console.Write("Enter profesor ID: ");
         int? idProf = SafeInputInt(skippable);
         if (idProf == null) return null;
 
-        Profesor prof = daoProfesor.GetObjectById(idProf.Value);
+        Professor prof = daoProfesor.GetObjectById(idProf.Value);
 
         while (prof == null)
         {
@@ -191,13 +192,13 @@ internal class ConsoleViewUtils
         return prof;
     }
 
-    public static Katedra SafeInputKatedraId(DAO<Katedra> daoKatedra, bool skippable = false)
+    public static Department SafeInputDepartmentId(DAO<Department> daoKatedra, bool skippable = false)
     {
         System.Console.Write("Enter katedra ID: ");
         int? idKat = SafeInputInt(skippable);
         if (idKat == null) return null;
 
-        Katedra kat = daoKatedra.GetObjectById(idKat.Value);
+        Department kat = daoKatedra.GetObjectById(idKat.Value);
        
         while (kat == null)
         {
@@ -210,13 +211,13 @@ internal class ConsoleViewUtils
         return kat;
     }
 
-    public static Predmet SafeInputPredmetId(DAO<Predmet> daoPredmet, bool skippable = false)
+    public static Subject SafeInputSubjectId(DAO<Subject> daoPredmet, bool skippable = false)
     {
         System.Console.Write("Enter predmet ID: ");
         int? idPred = SafeInputInt(skippable);
         if (idPred == null) return null;
 
-        Predmet pred = daoPredmet.GetObjectById(idPred.Value);
+        Subject pred = daoPredmet.GetObjectById(idPred.Value);
 
         while (pred == null)
         {
@@ -248,13 +249,13 @@ internal class ConsoleViewUtils
         return stud;
     }
 
-    public static Ocena SafeInputOcenaId(DAO<Ocena> daoOcena, bool skippable = false)
+    public static Grade SafeInputGreadeId(DAO<Grade> daoOcena, bool skippable = false)
     {
         System.Console.Write("Enter ocena ID: ");
         int? idOcena = SafeInputInt(skippable);
         if (idOcena == null) return null;
 
-        Ocena oc = daoOcena.GetObjectById(idOcena.Value);
+        Grade oc = daoOcena.GetObjectById(idOcena.Value);
 
         while (oc == null)
         {
@@ -272,4 +273,5 @@ internal class ConsoleViewUtils
         System.Console.Clear();
         System.Console.WriteLine("\x1b[3J");
     }
+
 }

@@ -11,24 +11,24 @@ namespace CLI.DAO;
 public class HeadDAO
 {
     public DAO<Student> daoStudent;
-    public DAO<Profesor> daoProfesor;
-    public DAO<Katedra> daoKatedra;
-    public DAO<Ocena> daoOcena;
-    public DAO<Predmet> daoPredmet;
-    private DAO<ProfesorPredajePredmet> daoProfesorPredajePredmet;
-    public DAO<ProfesorRadiNaKatedri> daoProfesorRadiNaKatedri;
-    public DAO<StudentSlusaPredmet> daoStudentSlusaPredmet;
+    public DAO<Professor> daoProfessor;
+    public DAO<Department> daoDepartment;
+    public DAO<Grade> daoGrade;
+    public DAO<Subject> daoSubject;
+    private DAO<ProfessorTeachesSubject> daoProfessorTeachesSubject;
+    public DAO<ProfessorWorksAtDepartment> daoProfessorWorksAtDepartment;
+    public DAO<StudentTakesSubject> daoStudentTakesSubject;
 
     public HeadDAO() 
     {
         daoStudent = new DAO<Student>();
-        daoProfesor = new DAO<Profesor>();
-        daoKatedra = new DAO<Katedra>();
-        daoOcena = new DAO<Ocena>();
-        daoPredmet = new DAO<Predmet>();
-        daoProfesorPredajePredmet = new DAO<ProfesorPredajePredmet>();
-        daoProfesorRadiNaKatedri = new DAO<ProfesorRadiNaKatedri>();
-        daoStudentSlusaPredmet = new DAO<StudentSlusaPredmet>();
+        daoProfessor = new DAO<Professor>();
+        daoDepartment = new DAO<Department>();
+        daoGrade = new DAO<Grade>();
+        daoSubject = new DAO<Subject>();
+        daoProfessorTeachesSubject = new DAO<ProfessorTeachesSubject>();
+        daoProfessorWorksAtDepartment = new DAO<ProfessorWorksAtDepartment>();
+        daoStudentTakesSubject = new DAO<StudentTakesSubject>();
 
         LinkObjectLists();
     }
@@ -36,12 +36,12 @@ public class HeadDAO
     private void LinkObjectLists()
     {
         // Povezivanje predmeta-studentima
-        foreach (StudentSlusaPredmet ssp in daoStudentSlusaPredmet.GetAllObjects())
+        foreach (StudentTakesSubject ssp in daoStudentTakesSubject.GetAllObjects())
         {
             Student s = daoStudent.GetObjectById(ssp.IdStud);
-            Predmet p = daoPredmet.GetObjectById(ssp.IdPred);
+            Subject p = daoSubject.GetObjectById(ssp.IdSub);
 
-            if (ssp.Status == PolozenPredmetEnum.nijePolozio)
+            if (ssp.Status == PassedSubjectEnum.NOTPASSED)
             {
                 s.NepolozeniPredmeti.Add(p);
                 p.StudentiNisuPolozili.Add(s);
@@ -54,120 +54,120 @@ public class HeadDAO
         }
 
         // Povezivanje predmet-profesor
-        foreach (ProfesorPredajePredmet ppp in daoProfesorPredajePredmet.GetAllObjects())
+        foreach (ProfessorTeachesSubject ppp in daoProfessorTeachesSubject.GetAllObjects())
         {
-            Profesor prof = daoProfesor.GetObjectById(ppp.IdProf);
-            Predmet p = daoPredmet.GetObjectById(ppp.IdPred);
+            Professor prof = daoProfessor.GetObjectById(ppp.IdProf);
+            Subject p = daoSubject.GetObjectById(ppp.IdSub);
 
             prof.Predmeti.Add(p);
             p.Profesor = prof; 
         }
 
         // Povezivanje profesor-katedra
-        foreach (ProfesorRadiNaKatedri prnk in daoProfesorRadiNaKatedri.GetAllObjects())
+        foreach (ProfessorWorksAtDepartment prnk in daoProfessorWorksAtDepartment.GetAllObjects())
         {
-            Profesor prof = daoProfesor.GetObjectById(prnk.IdProf);
-            Katedra kat = daoKatedra.GetObjectById(prnk.IdKat);
+            Professor prof = daoProfessor.GetObjectById(prnk.IdProf);
+            Department kat = daoDepartment.GetObjectById(prnk.IdDep);
 
-            kat.Profesori.Add(prof);
+            kat.Professors.Add(prof);
         }
 
         // Povezivanje sefa katedre-katedra
-        foreach (Katedra k in daoKatedra.GetAllObjects())
+        foreach (Department k in daoDepartment.GetAllObjects())
         {
-            k.SefKatedre = daoProfesor.GetObjectById(k.SefKatedre.Id);
+            k.Chief = daoProfessor.GetObjectById(k.Chief.Id);
         }
 
         // Povezivanje ocena-predmet-student
-        foreach (Ocena o in daoOcena.GetAllObjects())
+        foreach (Grade o in daoGrade.GetAllObjects())
         {
             o.Student = daoStudent.GetObjectById(o.Student.Id);
-            o.Predmet = daoPredmet.GetObjectById(o.Predmet.Id);
+            o.Subject = daoSubject.GetObjectById(o.Subject.Id);
         }
     }
 
     public void DeleteDepartmant(int katedraId) 
     {
-        ProfesorRadiNaKatedri prk = daoProfesorRadiNaKatedri.GetAllObjects().Find(prk => prk.IdKat == katedraId);
-        if (prk != null) throw new Exception("Na datoj katedri predaju neki profesori!");
+        ProfessorWorksAtDepartment prk = daoProfessorWorksAtDepartment.GetAllObjects().Find(prk => prk.IdDep == katedraId);
+        if (prk != null) throw new Exception("Chosen department has some professors that teach there!");
 
-        daoKatedra.RemoveObject(katedraId);
+        daoDepartment.RemoveObject(katedraId);
     }
 
     public void DeletePredmet(int predmetId)
     {
-        ProfesorPredajePredmet ppp = daoProfesorPredajePredmet.GetAllObjects().Find(ppp => ppp.IdPred == predmetId);
-        if (ppp != null) throw new Exception("Dati predmet predaju neki profesori!");
+        ProfessorTeachesSubject ppp = daoProfessorTeachesSubject.GetAllObjects().Find(ppp => ppp.IdSub == predmetId);
+        if (ppp != null) throw new Exception("Chosen subject is taught by some professors!");
 
-        StudentSlusaPredmet sss = daoStudentSlusaPredmet.GetAllObjects().Find(sss => sss.IdPred == predmetId);
-        if (ppp != null) throw new Exception("Dati predmet slusaju neki studenti!");
+        StudentTakesSubject sss = daoStudentTakesSubject.GetAllObjects().Find(sss => sss.IdSub == predmetId);
+        if (ppp != null) throw new Exception("Chosen subject is taken by some students!");
 
-        Ocena oc = daoOcena.GetAllObjects().Find(oc => oc.Predmet.Id == predmetId);
-        if (oc != null) throw new Exception("Neki studenti imaju ocenu iz datog predmeta!");
+        Grade oc = daoGrade.GetAllObjects().Find(oc => oc.Subject.Id == predmetId);
+        if (oc != null) throw new Exception("Some students have grade in that subject!");
 
-        daoPredmet.RemoveObject(predmetId);
+        daoSubject.RemoveObject(predmetId);
     }
 
     public void DeleteProfesor(int profesorId)
     {
-        ProfesorPredajePredmet ppp = daoProfesorPredajePredmet.GetAllObjects().Find(ppp => ppp.IdProf == profesorId);
-        if (ppp != null) throw new Exception("Dati profesor predaje neke predmete!");
+        ProfessorTeachesSubject ppp = daoProfessorTeachesSubject.GetAllObjects().Find(ppp => ppp.IdProf == profesorId);
+        if (ppp != null) throw new Exception("Chosen professor teaches some subjects!");
 
-        ProfesorRadiNaKatedri prk = daoProfesorRadiNaKatedri.GetAllObjects().Find(prk => prk.IdProf == profesorId);
-        if (prk != null) throw new Exception("Dati profesor predaje na nekoj katedri!");
+        ProfessorWorksAtDepartment prk = daoProfessorWorksAtDepartment.GetAllObjects().Find(prk => prk.IdProf == profesorId);
+        if (prk != null) throw new Exception("Chosen professor  teaches at some department!");
 
-        daoProfesor.RemoveObject(profesorId);
+        daoProfessor.RemoveObject(profesorId);
     }
 
     public void DeleteStudent(int studentId)
     {
-        StudentSlusaPredmet sss = daoStudentSlusaPredmet.GetAllObjects().Find(sss => sss.IdStud == studentId);
-        if (sss != null) throw new Exception("Dati student slusa neki predmet!");
+        StudentTakesSubject sss = daoStudentTakesSubject.GetAllObjects().Find(sss => sss.IdStud == studentId);
+        if (sss != null) throw new Exception("Chosen student takes some subjects!");
 
-        Ocena oc = daoOcena.GetAllObjects().Find(oc => oc.Student.Id == studentId);
-        if (oc != null) throw new Exception("Dati student ima neke ocene!");
+        Grade oc = daoGrade.GetAllObjects().Find(oc => oc.Student.Id == studentId);
+        if (oc != null) throw new Exception("Chosen student has some grades!");
 
         daoStudent.RemoveObject(studentId);
     }
 
-    public void AddOcena(Ocena ocena)
+    public void AddOcena(Grade ocena)
     {
-        Ocena temp = daoOcena.GetAllObjects().Find(o => 
-            (o.Student.Id == ocena.Student.Id && o.Predmet.Id == ocena.Predmet.Id));
+        Grade temp = daoGrade.GetAllObjects().Find(o => 
+            (o.Student.Id == ocena.Student.Id && o.Subject.Id == ocena.Subject.Id));
 
         if (temp != null) throw new Exception("Student already has grade for that subject!");
 
-        daoOcena.AddObject(ocena);
+        daoGrade.AddObject(ocena);
 
-        StudentSlusaPredmet sss = daoStudentSlusaPredmet.GetAllObjects().Find(sss => 
-            (sss.IdPred == ocena.Predmet.Id && sss.IdStud == ocena.Student.Id));
+        StudentTakesSubject sss = daoStudentTakesSubject.GetAllObjects().Find(sss => 
+            (sss.IdSub == ocena.Subject.Id && sss.IdStud == ocena.Student.Id));
 
         if (sss != null)
-            sss.Status = PolozenPredmetEnum.polozio;
+            sss.Status = PassedSubjectEnum.PASSED;
 
-        PoloziPredmetStudenta(ocena.Student, ocena.Predmet);
+        PoloziPredmetStudenta(ocena.Student, ocena.Subject);
         CalculateGPA(ocena.Student);
     }
 
-    public void RemoveOcena(Ocena ocena)
+    public void RemoveOcena(Grade ocena)
     {
-       StudentSlusaPredmet sss = daoStudentSlusaPredmet.GetAllObjects().Find(sss =>
-            (sss.IdPred == ocena.Predmet.Id && sss.IdStud == ocena.Student.Id));
+       StudentTakesSubject sss = daoStudentTakesSubject.GetAllObjects().Find(sss =>
+            (sss.IdSub == ocena.Subject.Id && sss.IdStud == ocena.Student.Id));
 
        if (sss != null)
-            sss.Status = PolozenPredmetEnum.nijePolozio;
+            sss.Status = PassedSubjectEnum.NOTPASSED;
 
-       ocena.Student.NepolozeniPredmeti.Add(ocena.Predmet);
-       ocena.Student.PolozeniPredmeti.Remove(ocena.Predmet);
+       ocena.Student.NepolozeniPredmeti.Add(ocena.Subject);
+       ocena.Student.PolozeniPredmeti.Remove(ocena.Subject);
         
-       daoOcena.RemoveObject(ocena.Id);
+       daoGrade.RemoveObject(ocena.Id);
        CalculateGPA(ocena.Student);
     }
 
-    public void PoloziPredmetStudenta(Student student, Predmet predmet)
+    public void PoloziPredmetStudenta(Student student, Subject predmet)
     {
         student.PolozeniPredmeti.Add(predmet);
-        Predmet np = student.NepolozeniPredmeti.Find(np => np.Id == predmet.Id);
+        Subject np = student.NepolozeniPredmeti.Find(np => np.Id == predmet.Id);
 
         if (np == null) return;
 
@@ -176,30 +176,30 @@ public class HeadDAO
 
     public void CalculateGPA(Student student)
     {
-        student.ProsecnaOcena = 0.0;
+        student.GPA = 0.0;
         int count = 0;
 
-        foreach(Ocena o in daoOcena.GetAllObjects())
+        foreach(Grade o in daoGrade.GetAllObjects())
         {
             if (o.Student.Id == student.Id)
             {
-                student.ProsecnaOcena += o.OcenaBroj;
+                student.GPA += o.GradeValue;
                 count++;
             }
         }
 
-        student.ProsecnaOcena /= count;
+        student.GPA /= count;
     }
 
-    public void SaveAllDAOs()
+    public void SaveAllToStorage()
     {
         daoStudent.SaveToStorage();
-        daoProfesor.SaveToStorage();
-        daoKatedra.SaveToStorage();
-        daoOcena.SaveToStorage();
-        daoPredmet.SaveToStorage();
-        daoProfesorPredajePredmet.SaveToStorage();
-        daoProfesorRadiNaKatedri.SaveToStorage();
-        daoStudentSlusaPredmet.SaveToStorage();
+        daoProfessor.SaveToStorage();
+        daoDepartment.SaveToStorage();
+        daoGrade.SaveToStorage();
+        daoSubject.SaveToStorage();
+        daoProfessorTeachesSubject.SaveToStorage();
+        daoProfessorWorksAtDepartment.SaveToStorage();
+        daoStudentTakesSubject.SaveToStorage();
     }
 }

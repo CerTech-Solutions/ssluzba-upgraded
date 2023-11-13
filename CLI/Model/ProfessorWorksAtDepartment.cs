@@ -1,36 +1,36 @@
-﻿using System;
+﻿using CLI.Console;
+using CLI.DAO;
+using CLI.Storage.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CLI.Console;
-using CLI.DAO;
-using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-internal class ProfesorPredajePredmet : ISerializable, IAccess<ProfesorPredajePredmet>, IConsoleWriteRead
+public class ProfessorWorksAtDepartment : ISerializable, IAccess<ProfessorWorksAtDepartment>, IConsoleWriteRead
 {
-    public ProfesorPredajePredmet() { }
+    public ProfessorWorksAtDepartment() { }
 
-    public ProfesorPredajePredmet(int id, int idProf, int idPred)
+    public ProfessorWorksAtDepartment(int id, int idProf, int idDep)
     {
         Id = id;
         IdProf = idProf;
-        IdPred = idPred;
+        IdDep = idDep;
     }
 
     public int Id { get; set; }
 
-    public int IdProf { get; set; }
+    public int IdProf {  get; set; }
 
-    public int IdPred { get; set; }
+    public int IdDep { get; set; }
 
-    public void Copy(ProfesorPredajePredmet obj)
+    public void Copy(ProfessorWorksAtDepartment obj)
     {
         obj.Id = Id;
         obj.IdProf = IdProf;
-        obj.IdPred = IdPred;
+        obj.IdDep = IdDep;
     }
 
     public string[] ToCSV()
@@ -39,7 +39,7 @@ internal class ProfesorPredajePredmet : ISerializable, IAccess<ProfesorPredajePr
         {
             Id.ToString(),
             IdProf.ToString(),
-            IdPred.ToString(),
+            IdDep.ToString(),
         };
         return csvValues;
     }
@@ -48,16 +48,16 @@ internal class ProfesorPredajePredmet : ISerializable, IAccess<ProfesorPredajePr
     {
         Id = int.Parse(values[0]);
         IdProf = int.Parse(values[1]);
-        IdPred = int.Parse(values[2]);
+        IdDep = int.Parse(values[2]);
     }
 
     public string GenerateClassHeader()
     {
-        return "Adrese: \n" + $"{"Id",6} | {"IdProf",6} | {"IdPred",6} |";
+        return "Professors work at departments: \n" + $"{"ID",6} | {"IdProf",10} | {"IdDep",10} |";
     }
 
     public override string ToString()
     {
-        return $"{Id,6} | {IdProf,6} | {IdPred,6} |";
+        return $"{Id,6} | {IdProf,10} | {IdDep,10} |";
     }
 }

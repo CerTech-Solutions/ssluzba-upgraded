@@ -12,20 +12,20 @@ namespace CLI.Console;
 public class ConsoleViewSelector
 {
     private HeadDAO _headDAO;
-    private ConsoleViewKatedra consoleKatedra;
-    private ConsoleViewOcena consoleOcena;
+    private ConsoleViewDepartment consoleDepartment;
+    private ConsoleViewGrade consoleGrade;
     private ConsoleViewStudent consoleStudent;
-    private ConsoleViewPredmet consolePredmet;
-    private ConsoleViewProfesor consoleProfesor;
+    private ConsoleViewSubject consoleSubject;
+    private ConsoleViewProfessor consoleProfessor;
 
     public ConsoleViewSelector()
     {
         _headDAO = new HeadDAO();
-        consoleKatedra = new ConsoleViewKatedra(_headDAO);
-        consoleOcena = new ConsoleViewOcena(_headDAO);
+        consoleDepartment = new ConsoleViewDepartment(_headDAO);
+        consoleGrade = new ConsoleViewGrade(_headDAO);
         consoleStudent = new ConsoleViewStudent(_headDAO);
-        consolePredmet = new ConsoleViewPredmet(_headDAO);
-        consoleProfesor = new ConsoleViewProfesor(_headDAO);
+        consoleSubject = new ConsoleViewSubject(_headDAO);
+        consoleProfessor = new ConsoleViewProfessor(_headDAO);
     }
 
     public void RunSelector()
@@ -38,7 +38,7 @@ public class ConsoleViewSelector
             ConsoleViewUtils.ConsoleRefresh();
             if (userInput == "0")
             {
-                _headDAO.SaveAllDAOs();
+                _headDAO.SaveAllToStorage();
                 break;
             }
             HandleSelector(userInput);
@@ -47,12 +47,13 @@ public class ConsoleViewSelector
 
     private void ShowSelector()
     {
+        ShowLogo();
         System.Console.WriteLine("\nChoose an option: ");
-        System.Console.WriteLine("  1: Katedra");
-        System.Console.WriteLine("  2: Ocena");
-        System.Console.WriteLine("  3: Predmet");
-        System.Console.WriteLine("  4: Profesor");
-        System.Console.WriteLine("  5: Student");
+        System.Console.WriteLine("  1: Departments");
+        System.Console.WriteLine("  2: Professors");
+        System.Console.WriteLine("  3: Subjects");
+        System.Console.WriteLine("  4: Students");
+        System.Console.WriteLine("  5: Grades");
         System.Console.WriteLine("  0: Close");
     }
 
@@ -61,20 +62,26 @@ public class ConsoleViewSelector
         switch (input)
         {
             case "1":
-                consoleKatedra.RunMenu();
+                consoleDepartment.RunMenu();
                 break;
             case "2":
-                consoleOcena.RunMenu();
+                consoleProfessor.RunMenu();
                 break;
             case "3":
-                consolePredmet.RunMenu();
+                consoleSubject.RunMenu();
                 break;
             case "4":
-                consoleProfesor.RunMenu();
-                break;
-            case "5":
                 consoleStudent.RunMenu();
                 break;
+            case "5":
+                consoleGrade.RunMenu();
+                break;
         }
+    }
+
+    private void ShowLogo()
+    {
+        System.Console.WriteLine("  _____ _             _            _          _____                 _               \r\n / ____| |           | |          | |        / ____|               (_)              \r\n| (___ | |_ _   _  __| | ___ _ __ | |_ _____| (___   ___ _ ____   ___  ___ ___  ___ \r\n \\___ \\| __| | | |/ _` |/ _ \\ '_ \\| __|______\\___ \\ / _ \\ '__\\ \\ / / |/ __/ _ \\/ __|\r\n ____) | |_| |_| | (_| |  __/ | | | |_       ____) |  __/ |   \\ V /| | (_|  __/\\__ \\\r\n|_____/ \\__|\\__,_|\\__,_|\\___|_| |_|\\__|     |_____/ \\___|_|    \\_/ |_|\\___\\___||___/");
+        System.Console.WriteLine();
     }
 }

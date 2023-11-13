@@ -8,17 +8,17 @@ using CLI.Model;
 
 namespace CLI.Console;
 
-public class ConsoleViewOcena : ConsoleView<Ocena>
+public class ConsoleViewGrade : ConsoleView<Grade>
 {
-    public ConsoleViewOcena(HeadDAO headDAO) : base(headDAO) { }
+    public ConsoleViewGrade(HeadDAO headDAO) : base(headDAO) { }
 
     public override void ShowAll()
     {
-        PrintObjects(_headDAO.daoOcena.GetAllObjects());
+        PrintObjects(_headDAO.daoGrade.GetAllObjects());
     }
     public override void AddObject()
     {
-        Ocena obj = new Ocena();
+        Grade obj = new Grade();
         InputObject(obj);
 
         try
@@ -35,7 +35,7 @@ public class ConsoleViewOcena : ConsoleView<Ocena>
 
     public override void UpdateObject()
     {
-        Ocena o = ConsoleViewUtils.SafeInputOcenaId(_headDAO.daoOcena, true);
+        Grade o = ConsoleViewUtils.SafeInputGreadeId(_headDAO.daoGrade, true);
         if (o == null) return;
 
         InputObject(o, true);
@@ -45,7 +45,7 @@ public class ConsoleViewOcena : ConsoleView<Ocena>
 
     public override void RemoveObject()
     {
-        Ocena oc = ConsoleViewUtils.SafeInputOcenaId(_headDAO.daoOcena);
+        Grade oc = ConsoleViewUtils.SafeInputGreadeId(_headDAO.daoGrade);
         _headDAO.RemoveOcena(oc);
     }
 
