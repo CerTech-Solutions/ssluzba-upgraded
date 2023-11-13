@@ -123,12 +123,12 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {
-        return "Studenti: \n" + $@"{"ID",6} | {"Ime",10} | {"Prezime",15} | {"DatumRodjenja",13} | {"BrojTelefona",12} | {"Email",30} | {"TrenutnaGodina",14} | {"Status",6} | " + Indeks.GenerateClassHeader();
+        return "Studenti: \n" + $@"{"ID",6} | {"Ime",10} | {"Prezime",15} | {"DatumRodjenja",13} | {"BrojTelefona",12} | {"Email",30} | {"TrenutnaGodina",14} | {"Status",6} | {"Prosek",6} " + Indeks.GenerateClassHeader();
     }
 
     public override string ToString()
     {
-        string str = $"{Id,6} | {Ime,10} | {Prezime,15} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {BrojTelefona,12} | {Email,30} | {TrenutnaGodina,14} | {Status,6} | " + Indeks.ToString();
+        string str = $"{Id,6} | {Ime,10} | {Prezime,15} | {DatumRodjenja.ToString("dd/MM/yyyy"),13} | {BrojTelefona,12} | {Email,30} | {TrenutnaGodina,14} | {Status,6} | {ProsecnaOcena:0.00,6}" + Indeks.ToString();
         str += "\n\t* Nepolozeni predmeti: \n";
         foreach(Predmet np in NepolozeniPredmeti)
         {
