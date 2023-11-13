@@ -129,4 +129,50 @@ public class HeadDAO
 
         daoStudent.RemoveObject(studentId);
     }
+
+    public void AddOcena(Ocena ocena)
+    {
+        Ocena temp = daoOcena.GetAllObjects().Find(o => 
+            (o.Student.Id == ocena.Student.Id && o.Predmet.Id == ocena.Predmet.Id));
+
+        if (temp != null) throw new Exception("Student already has grade for that subject!");
+
+        daoOcena.AddObject(ocena);
+
+        StudentSlusaPredmet sss = daoStudentSlusaPredmet.GetAllObjects().Find(sss => 
+            (sss.IdPred == ocena.Predmet.Id && sss.IdStud == ocena.Student.Id));
+
+        if (sss != null)
+            sss.Status = PolozenPredmetEnum.polozio;
+
+        PoloziPredmetStudenta(ocena.Student, ocena.Predmet);
+        CalculateGPA(ocena.Student);
+    }
+
+    public void PoloziPredmetStudenta(Student student, Predmet predmet)
+    {
+        student.PolozeniPredmeti.Add(predmet);
+        Predmet np = student.NepolozeniPredmeti.Find(np => np.Id == predmet.Id);
+
+        if (np == null) return;
+
+        student.NepolozeniPredmeti.Remove(np);        
+    }
+
+    public void CalculateGPA(Student student)
+    {
+        student.ProsecnaOcena = 0.0;
+        int count = 0;
+
+        foreach(Ocena o in daoOcena.GetAllObjects())
+        {
+            if (o.Student.Id == student.Id)
+            {
+                student.ProsecnaOcena += o.OcenaBroj;
+                count++;
+            }
+        }
+
+        student.ProsecnaOcena /= count;
+    }
 }

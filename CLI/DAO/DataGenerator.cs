@@ -51,8 +51,8 @@ public class DataGenerator
         daoPredmet.AddObject(pr3);
 
         DAO<Student> daoStudent = new DAO<Student>();
-        Student s0 = new Student(0, "Nikola", "Kuslakovic", DateOnly.Parse("2/2/2002"), a2, "123456789", "kuslakovic.ra8.2021@uns.ac.rs", 3, StatusEnum.B, 0.0, new Indeks("RA", 8, 2021));
-        Student s1 = new Student(1, "Nemanja", "Zekanovic", DateOnly.Parse("2/2/2002"), a3, "123456789", "zekanovic.ra73.2021@uns.ac.rs", 3, StatusEnum.S, 0.0, new Indeks("RA", 73, 2021));
+        Student s0 = new Student(0, "Nikola", "Kuslakovic", DateOnly.Parse("2/2/2002"), a2, "123456789", "kuslakovic.ra8.2021@uns.ac.rs", 3, StatusEnum.B, 8.0, new Indeks("RA", 8, 2021));
+        Student s1 = new Student(1, "Nemanja", "Zekanovic", DateOnly.Parse("2/2/2002"), a3, "123456789", "zekanovic.ra73.2021@uns.ac.rs", 3, StatusEnum.S, 10.0, new Indeks("RA", 73, 2021));
         daoStudent.AddObject(s0);
         daoStudent.AddObject(s1);
 
