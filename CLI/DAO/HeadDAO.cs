@@ -149,6 +149,21 @@ public class HeadDAO
         CalculateGPA(ocena.Student);
     }
 
+    public void RemoveOcena(Ocena ocena)
+    {
+       StudentSlusaPredmet sss = daoStudentSlusaPredmet.GetAllObjects().Find(sss =>
+            (sss.IdPred == ocena.Predmet.Id && sss.IdStud == ocena.Student.Id));
+
+       if (sss != null)
+            sss.Status = PolozenPredmetEnum.nijePolozio;
+
+       ocena.Student.NepolozeniPredmeti.Add(ocena.Predmet);
+       ocena.Student.PolozeniPredmeti.Remove(ocena.Predmet);
+        
+       daoOcena.RemoveObject(ocena.Id);
+       CalculateGPA(ocena.Student);
+    }
+
     public void PoloziPredmetStudenta(Student student, Predmet predmet)
     {
         student.PolozeniPredmeti.Add(predmet);
@@ -174,5 +189,17 @@ public class HeadDAO
         }
 
         student.ProsecnaOcena /= count;
+    }
+
+    public void SaveAllDAOs()
+    {
+        daoStudent.SaveToStorage();
+        daoProfesor.SaveToStorage();
+        daoKatedra.SaveToStorage();
+        daoOcena.SaveToStorage();
+        daoPredmet.SaveToStorage();
+        daoProfesorPredajePredmet.SaveToStorage();
+        daoProfesorRadiNaKatedri.SaveToStorage();
+        daoStudentSlusaPredmet.SaveToStorage();
     }
 }

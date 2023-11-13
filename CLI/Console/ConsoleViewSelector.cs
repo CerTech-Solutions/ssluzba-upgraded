@@ -36,7 +36,11 @@ public class ConsoleViewSelector
             System.Console.Write("\nInput: ");
             string userInput = System.Console.ReadLine() ?? "0";
             ConsoleViewUtils.ConsoleRefresh();
-            if (userInput == "0") break;
+            if (userInput == "0")
+            {
+                _headDAO.SaveAllDAOs();
+                break;
+            }
             HandleSelector(userInput);
         }
     }

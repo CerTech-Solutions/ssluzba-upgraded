@@ -20,7 +20,17 @@ public class ConsoleViewOcena : ConsoleView<Ocena>
     {
         Ocena obj = new Ocena();
         InputObject(obj);
-        _headDAO.daoOcena.AddObject(obj);
+
+        try
+        {
+            _headDAO.AddOcena(obj);
+            System.Console.WriteLine("Ocena added!");
+        }
+        catch(Exception ex)
+        {
+            System.Console.WriteLine(ex.Message);
+            System.Console.WriteLine("Ocena not added!");
+        }
     }
 
     public override void UpdateObject()
@@ -28,14 +38,15 @@ public class ConsoleViewOcena : ConsoleView<Ocena>
         Ocena o = ConsoleViewUtils.SafeInputOcenaId(_headDAO.daoOcena, true);
         if (o == null) return;
 
-            InputObject(o, true);
-        _headDAO.daoOcena.UpdateObject(o);
+        InputObject(o, true);
+        _headDAO.RemoveOcena(o);
+        _headDAO.AddOcena(o);
     }
 
     public override void RemoveObject()
     {
         Ocena oc = ConsoleViewUtils.SafeInputOcenaId(_headDAO.daoOcena);
-        _headDAO.daoOcena.RemoveObject(oc.Id);
+        _headDAO.RemoveOcena(oc);
     }
 
 }
