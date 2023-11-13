@@ -10,7 +10,7 @@ namespace CLI.Console;
 
 internal class ConsoleViewUtils
 {
-    public static int? SafeInputInt(bool skippable = false)
+    public static int? SafeInputInt(bool skippable = false, bool isOcena = false)
     {
         int input;
 
@@ -21,12 +21,12 @@ internal class ConsoleViewUtils
             return null;
         }
 
-        while (!int.TryParse(rawInput, out input))
-        {
-            System.Console.Write("Not a valid number, try again: ");
+        while (!int.TryParse(rawInput, out input) || (isOcena && (input < 6 || input > 10)))
+        { 
+            System.Console.Write("Not a valid number (6-10), try again: ");
 
             rawInput = System.Console.ReadLine() ?? string.Empty;
-            if(skippable && rawInput == string.Empty)
+            if (skippable && rawInput == string.Empty)
             {
                 return null;
             }

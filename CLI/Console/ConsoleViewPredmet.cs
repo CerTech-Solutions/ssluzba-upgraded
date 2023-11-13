@@ -27,7 +27,7 @@ public class ConsoleViewPredmet : ConsoleView<Predmet>
     public override void UpdateObject()
     {
         Predmet p = ConsoleViewUtils.SafeInputPredmetId(_headDAO.daoPredmet, true);
-        if (p == null)
+        if (p == null) return;
 
         InputObject(p, true);
         _headDAO.daoPredmet.UpdateObject(p);

@@ -41,8 +41,10 @@ public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsole
 
             if (prop.PropertyType == typeof(int))
             {
+                bool isOcena = false;
+                if(prop.Name == "OcenaBroj") { isOcena = true; }
                 System.Console.Write(prop.Name + " : ");
-                int? br = ConsoleViewUtils.SafeInputInt(skippable);
+                int? br = ConsoleViewUtils.SafeInputInt(skippable, isOcena);
                 if (br == null) continue;
                 prop.SetValue(obj, br.Value);
             }
@@ -88,6 +90,20 @@ public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsole
             {
                 System.Console.Write(prop.Name + " : \n");
                 Profesor p = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor, skippable);
+                if (p == null) continue;
+                prop.SetValue(obj, p);
+            }
+            else if (prop.PropertyType == typeof(Student))
+            {
+                System.Console.Write(prop.Name + " : \n");
+                Student s = ConsoleViewUtils.SafeInputStudentId(_headDAO.daoStudent, skippable);
+                if (s == null) continue;
+                prop.SetValue(obj, s);
+            }
+            else if (prop.PropertyType == typeof(Predmet))
+            {
+                System.Console.Write(prop.Name + " : \n");
+                Predmet p = ConsoleViewUtils.SafeInputPredmetId(_headDAO.daoPredmet, skippable);
                 if (p == null) continue;
                 prop.SetValue(obj, p);
             }

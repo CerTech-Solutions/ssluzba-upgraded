@@ -16,6 +16,21 @@ public class ConsoleViewOcena : ConsoleView<Ocena>
     {
         PrintObjects(_headDAO.daoOcena.GetAllObjects());
     }
+    public override void AddObject()
+    {
+        Ocena obj = new Ocena();
+        InputObject(obj);
+        _headDAO.daoOcena.AddObject(obj);
+    }
+
+    public override void UpdateObject()
+    {
+        Ocena o = ConsoleViewUtils.SafeInputOcenaId(_headDAO.daoOcena, true);
+        if (o == null) return;
+
+            InputObject(o, true);
+        _headDAO.daoOcena.UpdateObject(o);
+    }
 
     public override void RemoveObject()
     {
