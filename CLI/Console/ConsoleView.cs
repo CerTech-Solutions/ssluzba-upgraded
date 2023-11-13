@@ -10,81 +10,110 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Console;
 
-internal class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsoleWriteRead, new()
+public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsoleWriteRead, new()
 {
-    private readonly DAO<T> _daoObjs = new DAO<T>();
-    
-    public ConsoleView(DAO<T> daoObjs)
+    protected HeadDAO _headDAO;
+
+    public ConsoleView(HeadDAO headDAO)
     {
-        _daoObjs = daoObjs;
+        _headDAO = headDAO;
     }
 
-    private void PrintObjects(List<T> objs)
+    protected void PrintObjects(List<T> objs)
     {
         T objHeader = new T();
         string header = objHeader.GenerateClassHeader();
         System.Console.WriteLine(header);
         foreach (T obj in objs) 
         {
-            System.Console.WriteLine(obj);      //
+            System.Console.WriteLine(obj);      
         }
     }
 
-    private T? InputObject()
+    protected void InputObject(T obj, bool skippable = false)
     {
-        T obj = new T();
-        foreach(var prop in obj.GetType().GetProperties())
+        foreach(var prop in typeof(T).GetProperties())
         {
-            if (prop.Name != "Id")
+            if (prop.Name == "Id")
+            {
+                continue;
+            }
+
+            if (prop.PropertyType == typeof(int))
+            {
+                bool isOcena = false;
+                if(prop.Name == "OcenaBroj") { isOcena = true; }
+                System.Console.Write(prop.Name + " : ");
+                int? br = ConsoleViewUtils.SafeInputInt(skippable, isOcena);
+                if (br == null) continue;
+                prop.SetValue(obj, br.Value);
+            }
+            else if (prop.PropertyType == typeof(string))
             {
                 System.Console.Write(prop.Name + " : ");
-                string str = System.Console.ReadLine() ?? string.Empty;
-
-                if (prop.PropertyType == typeof(int))
-                {
-                    int br = int.Parse(str);
-                    prop.SetValue(obj, br);
-                }
-                else if (prop.PropertyType == typeof(string))
-                {
-                    prop.SetValue(obj, str);
-                }
-                else if (prop.PropertyType == typeof(DateTime))
-                {
-                    DateTime dt = DateTime.Parse(str);
-                    prop.SetValue(obj, dt);
-                }
-                else if(prop.PropertyType == typeof(StatusEnum))
-                {
-                    bool success;
-                    StatusEnum status;
-                    success = Enum.TryParse<StatusEnum>(str, out status);
-                    if (!success)
-                        return null;
-
-                    prop.SetValue(obj, status);
-                }
-                else if (prop.PropertyType == typeof(SemestarEnum))
-                {
-                    bool success;
-                    SemestarEnum status;
-                    success = Enum.TryParse<SemestarEnum>(str, out status);
-                    if (!success)
-                        return null;
-
-                    prop.SetValue(obj, status);
-                }
+                string str = ConsoleViewUtils.SafeInputString(skippable);
+                if (str == null) continue;
+                prop.SetValue(obj, str);
+            }
+            else if (prop.PropertyType == typeof(DateOnly))
+            {
+                System.Console.Write(prop.Name + " (dd.mm.yyyy.) : ");
+                DateOnly? dt = ConsoleViewUtils.SafeInputDate(skippable);
+                if (dt == null) continue;
+                prop.SetValue(obj, dt.Value);
+            }
+            else if(prop.PropertyType == typeof(StatusEnum))
+            {
+                System.Console.Write(prop.Name + " (B/S) : ");
+                StatusEnum? status = ConsoleViewUtils.SafeInputStatusEnum(skippable);
+                if (status == null) continue;
+                prop.SetValue(obj, status.Value);
+            }
+            else if (prop.PropertyType == typeof(SemestarEnum))
+            {
+                System.Console.Write(prop.Name + " (summer/winter) : ");
+                SemestarEnum? status = ConsoleViewUtils.SafeInputSemestarEnum(skippable);
+                if (status == null) continue;
+                prop.SetValue(obj, status.Value);
+            }
+            else if (prop.PropertyType == typeof(Adresa))
+            {
+                System.Console.Write(prop.Name + " : \n");
+                ConsoleViewUtils.SafeInputAdresa((Adresa) prop.GetValue(obj), skippable);
+            }
+            else if (prop.PropertyType == typeof(Indeks))
+            {
+                System.Console.Write(prop.Name + " : \n");
+                ConsoleViewUtils.SafeInputIndeks((Indeks)prop.GetValue(obj), skippable);
+            }
+            else if (prop.PropertyType == typeof(Profesor))
+            {
+                System.Console.Write(prop.Name + " : \n");
+                Profesor p = ConsoleViewUtils.SafeInputProfesorId(_headDAO.daoProfesor, skippable);
+                if (p == null) continue;
+                prop.SetValue(obj, p);
+            }
+            else if (prop.PropertyType == typeof(Student))
+            {
+                System.Console.Write(prop.Name + " : \n");
+                Student s = ConsoleViewUtils.SafeInputStudentId(_headDAO.daoStudent, skippable);
+                if (s == null) continue;
+                prop.SetValue(obj, s);
+            }
+            else if (prop.PropertyType == typeof(Predmet))
+            {
+                System.Console.Write(prop.Name + " : \n");
+                Predmet p = ConsoleViewUtils.SafeInputPredmetId(_headDAO.daoPredmet, skippable);
+                if (p == null) continue;
+                prop.SetValue(obj, p);
             }
         }
-
-        return obj;
     }
 
-    private int InputId()
+    protected int InputId()
     {
-        T obj = new T();
-        System.Console.WriteLine("Enter " + obj.GetType().ToString() + " id: ");
-        return ConsoleViewUtils.SafeInputInt();
+        System.Console.WriteLine("Enter " + typeof(T).Name + " id: ");
+        return ConsoleViewUtils.SafeInputInt().Value;
     }
 
     public void RunMenu()
@@ -100,7 +129,7 @@ internal class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConso
         }   
     }
 
-    private void HandleMenuInput(string input)
+    protected void HandleMenuInput(string input)
     {   
         switch (input)
         {
@@ -115,77 +144,25 @@ internal class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConso
                 break;
             case "4":
                 RemoveObject();
-                 break;
-            case "5":
-                ShowAndSortObjects();
                 break;
         }
     }
 
-    private void ShowAll()
-    {
-        PrintObjects(_daoObjs.GetAllObjects());
-    }
+    public virtual void ShowAll() { }
 
-    private void AddObject()
-    {
-        T? obj = InputObject();
-        if (obj is null)
-        {
-            System.Console.ForegroundColor = ConsoleColor.Red;
-            System.Console.WriteLine("Invalid input");
-            System.Console.ResetColor();
-            return;
-        }
+    public virtual void AddObject() { }
 
-        _daoObjs.AddObject(obj);
+    public virtual void UpdateObject() { }
 
-        System.Console.ForegroundColor = ConsoleColor.Green;
-        System.Console.WriteLine(typeof(T).Name + " added");
-        System.Console.ResetColor();
-    }
+    public virtual void RemoveObject() { }
 
-    private void UpdateObject()
-    {
-        int id = InputId();
-        T obj = InputObject();
-        obj.Id = id;
-        T? updatedObj = _daoObjs.UpdateObject(obj);
-        if(updatedObj is null)
-        {
-            System.Console.WriteLine(typeof(T).Name + " not found");
-            return;
-        }
-
-        System.Console.WriteLine(typeof(T).Name + " updated");
-    }
-
-    private void RemoveObject()
-    {
-        int id = InputId();
-        T? removedObj = _daoObjs.RemoveObject(id);
-        if(removedObj == null)
-        {
-            System.Console.WriteLine(typeof(T).Name + " not found");
-            return;
-        }
-
-        System.Console.WriteLine(typeof(T).Name + " updated");
-    }
-
-    private void ShowAndSortObjects()
-    {
-
-    }
-
-    private void ShowMenu()
+    public void ShowMenu()
     {
             System.Console.WriteLine("\nChoose an option: ");
             System.Console.WriteLine("  1: Show All objects");
             System.Console.WriteLine("  2: Add objects");
             System.Console.WriteLine("  3: Update object");
             System.Console.WriteLine("  4: Remove object");
-            System.Console.WriteLine("  5: Show and sort objects");
             System.Console.WriteLine("  0: Back");
     }
 }

@@ -70,4 +70,8 @@ public class DAO<T> where T : class, IAccess<T>, ISerializable, new()
         return _objects;
     }
 
+    public void SaveToStorage()
+    {
+        _storage.Save(_objects);
+    }
 }
