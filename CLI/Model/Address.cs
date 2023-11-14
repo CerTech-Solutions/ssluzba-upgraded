@@ -60,11 +60,11 @@ public class Address : ISerializable, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {
-        return $" {"Street",25} | {"Number",10} | {"City",25} | {"Country",25} |";
+        return $" {"Street",25} | {"Number",6} | {"City",15} | {"Country",15} |";
     }
 
     public override string ToString()
     {
-        return $" {Street,25} | {Number,10} | {City,25} | {Country,25} |";
+        return $" {Street,25} | {Number,6} | {City,15} | {Country,15} |";
     }
 }

@@ -30,9 +30,11 @@ public class DataGenerator
         Professor p0 = new Professor(0, "Veljko", "Petrovic", DateOnly.Parse("2/2/1982"), a0, "021/485-4564", "pveljko@uns.ac.rs", "123456789", "doc.", 10);
         Professor p1 = new Professor(1, "Milan", "Rapajic", DateOnly.Parse("2/2/1982"), a0, "021/485-4584", "rapaja@uns.ac.rs", "123456789", "prof.", 20);
         Professor p2 = new Professor(2, "Vladimir", "Dimitrieski", DateOnly.Parse("2/2/1982"), a1, "021/485-2424", "dimi@uns.ac.rs", "123456789", "prof.", 15);
+        Professor p3 = new Professor(3, "Miodrag", "Djukic", DateOnly.Parse("2/2/1982"), a3, "021/480-1123", "misa@uns.ac.rs", "123456789", "prof.", 10);
         daoProfessor.AddObject(p0);
         daoProfessor.AddObject(p1);
         daoProfessor.AddObject(p2);
+        daoProfessor.AddObject(p3);
 
         DAO<Department> daoDepartment = new DAO<Department>();
         Department k0 = new Department(0, "mat", "Katedra za PRN", p0);

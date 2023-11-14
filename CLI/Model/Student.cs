@@ -123,12 +123,13 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {
-        return "Students: \n" + $@"{"ID",6} | {"Name",10} | {"Surname",15} | {"BirthDate",13} | {"PhoneNumber",12} | {"Email",30} | {"CurrentYear",14} | {"Status",6} | {"GPA",5} | " + Index.GenerateClassHeader();
+        return "Students: \n" +
+               $@"{"ID",6} | {"Name",10} | {"Surname",15} | {"BirthDate",13} | {"PhoneNumber",12} | {"Email",30} | {"CurrentYear",14} | {"Status",6} | {"GPA",5} | " + Index.GenerateClassHeader() + Address.GenerateClassHeader();
     }
 
     public override string ToString()
     {
-        string str = $"{Id,6} | {Name,10} | {Surname,15} | {BirthDate.ToString("dd/MM/yyyy"),13} | {PhoneNumber,12} | {Email,30} | {CurrentYear,14} | {Status,6} | {GPA,5:0.00} | " + Index.ToString();
+        string str = $"{Id,6} | {Name,10} | {Surname,15} | {BirthDate.ToString("dd/MM/yyyy"),13} | {PhoneNumber,12} | {Email,30} | {CurrentYear,14} | {Status,6} | {GPA,5:0.00} | " + Index.ToString() + Address.ToString();
         str += "\n\t* Not passed subjects: \n";
         foreach(Subject np in NepolozeniPredmeti)
         {

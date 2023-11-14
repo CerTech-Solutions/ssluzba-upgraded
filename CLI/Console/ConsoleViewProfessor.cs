@@ -22,6 +22,7 @@ public class ConsoleViewProfessor : ConsoleView<Professor>
         Professor obj = new Professor();
         InputObject(obj);
         _headDAO.daoProfessor.AddObject(obj);
+        ConsoleViewUtils.ConsoleWriteLineColor("Professor added successfully!", ConsoleColor.Green);
     }
 
     public override void UpdateObject()
@@ -31,6 +32,7 @@ public class ConsoleViewProfessor : ConsoleView<Professor>
 
         InputObject(prof, true);
         _headDAO.daoProfessor.UpdateObject(prof);
+        ConsoleViewUtils.ConsoleWriteLineColor("Professor updated successfully!", ConsoleColor.Green);
     }
 
     public override void RemoveObject()
@@ -41,12 +43,12 @@ public class ConsoleViewProfessor : ConsoleView<Professor>
         try
         {
             _headDAO.DeleteProfesor(prof.Id);
-            System.Console.WriteLine("Profesor deleted successfully!");
+            ConsoleViewUtils.ConsoleWriteLineColor("Professor removed successfully!", ConsoleColor.Green);
         }
         catch (Exception ex)
         {
             System.Console.WriteLine(ex.Message);
-            System.Console.WriteLine("Profesor was not deleted!");
+            ConsoleViewUtils.ConsoleWriteLineColor("Professor was not removed!", ConsoleColor.Red);
         }
     }
 

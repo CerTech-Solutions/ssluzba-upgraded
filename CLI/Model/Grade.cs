@@ -75,7 +75,7 @@ public class Grade : ISerializable, IAccess<Grade>, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {
-        return "Ocene: \n" + $"{"ID",6} | {"Student",25} | {"Subject",20} | {"Grade",5} | {"PassDate",20} |";
+        return "Grades: \n" + $"{"ID",6} | {"Student",25} | {"Subject",20} | {"Grade",5} | {"PassDate",20} |";
     }
 
     public override string ToString()

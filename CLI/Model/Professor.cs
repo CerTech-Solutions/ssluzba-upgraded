@@ -103,12 +103,12 @@ public class Professor : ISerializable, IAccess<Professor>, IConsoleWriteRead
 
 	public string GenerateClassHeader()
     {
-        return "Professors: \n" + $"{"ID",6} | {"Name",12} | {"Surname",12} | {"BirthDate",13} | {"PhoneNumber",12} | {"Email",20} | {"IdNumber",16} | {"Title",8} | {"ServiceYears",5} |"; // + Adresa.GenerateClassHeader();
+        return "Professors: \n" + $"{"ID",6} | {"Name",12} | {"Surname",12} | {"BirthDate",13} | {"PhoneNumber",12} | {"Email",20} | {"IdNumber",16} | {"Title",8} | {"ServiceYears",12} |" + Adresa.GenerateClassHeader();
     }
 
     public override string ToString()
     {
-        string str = $"{Id,6} | {Name,12} | {Surname,12} | {BirthDate.ToString("dd/MM/yyyy"),13} | {PhoneNumber,12} | {Email,20} | {IdNumber,16} | {Title,8} | {ServiceYears,5} |"; // + Adresa.ToString();
+        string str = $"{Id,6} | {Name,12} | {Surname,12} | {BirthDate.ToString("dd/MM/yyyy"),13} | {PhoneNumber,12} | {Email,20} | {IdNumber,16} | {Title,8} | {ServiceYears,12} |" + Adresa.ToString();
         str += "\n\t* Teaches subjects: \n";
         foreach (Subject p in Predmeti)
         {

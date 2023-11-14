@@ -22,8 +22,8 @@ public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsole
     protected void PrintObjects(List<T> objs)
     {
         T objHeader = new T();
-        string header = objHeader.GenerateClassHeader();
-        System.Console.WriteLine(header);
+        string header = objHeader.GenerateClassHeader() + "\n";
+        ConsoleViewUtils.ConsoleWriteLineColor(header, ConsoleColor.Magenta);
         foreach (T obj in objs) 
         {
             System.Console.WriteLine(obj);      

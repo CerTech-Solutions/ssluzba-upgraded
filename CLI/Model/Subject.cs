@@ -94,12 +94,12 @@ public class Subject : ISerializable, IAccess<Subject>, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {
-        return "Predmeti: \n" + $"{"ID",6} | {"Code",8} | {"Name",20} | {"Semester",8} | {"YearOfStudy",10} | {"Ects",6} | {"Professor",29} |";
+        return "Subjects: \n" + $"{"ID",6} | {"Code",8} | {"Name",20} | {"Semester",8} | {"YearOfStudy",11} | {"Ects",6} | {"Professor",32} |";
     }
 
     public override string ToString()
     {
-        string str = $"{Id,6} | {Code,8} | {Name,20} | {Semester,8} | {YearOfStudy,10} | {Ects,6} | {Profesor.Name + " " + Profesor.Surname,29} |";
+        string str = $"{Id,6} | {Code,8} | {Name,20} | {Semester,8} | {YearOfStudy,11} | {Ects,6} | {Profesor.Name + " " + Profesor.Surname,32} |";
         str += "\n\t* Students that passed: \n";
         foreach (Student p in StudentiPolozili)
         {

@@ -274,4 +274,10 @@ internal class ConsoleViewUtils
         System.Console.WriteLine("\x1b[3J");
     }
 
+    public static void ConsoleWriteLineColor(string str, ConsoleColor color)
+    {
+        System.Console.ForegroundColor = color;
+        System.Console.WriteLine(str);
+        System.Console.ResetColor();
+    }
 }

@@ -52,12 +52,12 @@ public class Index : ISerializable, IConsoleWriteRead
 
     public string GenerateClassHeader()
     {     
-        return $" {"Index",12} ";
+        return $" {"Index",12} |";
     }
     
     public string ToString()
     {
-        return $" {CourseLabel,3} {RegNumber,3} {EnrollmentYear,4} ";
+        return $" {CourseLabel,3} {RegNumber,3} {EnrollmentYear,4} |";
     }
 
 }

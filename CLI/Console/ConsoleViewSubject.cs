@@ -22,6 +22,7 @@ public class ConsoleViewSubject : ConsoleView<Subject>
         Subject obj = new Subject();
         InputObject(obj);
         _headDAO.daoSubject.AddObject(obj);
+        ConsoleViewUtils.ConsoleWriteLineColor("Subject added successfully!", ConsoleColor.Green);
     }
 
     public override void UpdateObject()
@@ -31,6 +32,7 @@ public class ConsoleViewSubject : ConsoleView<Subject>
 
         InputObject(p, true);
         _headDAO.daoSubject.UpdateObject(p);
+        ConsoleViewUtils.ConsoleWriteLineColor("Subject updated successfully!", ConsoleColor.Green);
     }
 
     public override void RemoveObject()
@@ -41,12 +43,12 @@ public class ConsoleViewSubject : ConsoleView<Subject>
         try
         {
             _headDAO.DeletePredmet(p.Id);
-            System.Console.WriteLine("Predmet deleted successfully!");
+            ConsoleViewUtils.ConsoleWriteLineColor("Subject removed successfully!", ConsoleColor.Green);
         }
         catch (Exception ex)
         {
             System.Console.WriteLine(ex.Message);
-            System.Console.WriteLine("Predmet was not deleted!");
+            ConsoleViewUtils.ConsoleWriteLineColor("Subject was not removed!", ConsoleColor.Red);
         }
     }
 }

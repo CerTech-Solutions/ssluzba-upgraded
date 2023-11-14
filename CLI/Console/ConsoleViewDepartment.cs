@@ -22,6 +22,7 @@ public class ConsoleViewDepartment : ConsoleView<Department>
         Department obj = new Department();
         InputObject(obj);
         _headDAO.daoDepartment.AddObject(obj);
+        ConsoleViewUtils.ConsoleWriteLineColor("Department added successfully!", ConsoleColor.Green);
     }
 
     public override void UpdateObject()
@@ -31,6 +32,7 @@ public class ConsoleViewDepartment : ConsoleView<Department>
 
         InputObject(kat, true);
         _headDAO.daoDepartment.UpdateObject(kat);
+        ConsoleViewUtils.ConsoleWriteLineColor("Department updated successfully!", ConsoleColor.Green);
     }
 
     public override void RemoveObject()
@@ -41,12 +43,12 @@ public class ConsoleViewDepartment : ConsoleView<Department>
         try
         {
             _headDAO.DeleteDepartmant(kat.Id);
-            System.Console.WriteLine("Department deleted successfully!");
+            ConsoleViewUtils.ConsoleWriteLineColor("Department deleted successfully!", ConsoleColor.Green);
         }
         catch (Exception ex)
         {
             System.Console.WriteLine(ex.Message);
-            System.Console.WriteLine("Department was not deleted!");
+            ConsoleViewUtils.ConsoleWriteLineColor("Department was not removed!", ConsoleColor.Red);
         }
     }
 }

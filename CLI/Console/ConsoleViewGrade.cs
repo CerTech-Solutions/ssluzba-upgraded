@@ -24,12 +24,12 @@ public class ConsoleViewGrade : ConsoleView<Grade>
         try
         {
             _headDAO.AddOcena(obj);
-            System.Console.WriteLine("Ocena added!");
+            ConsoleViewUtils.ConsoleWriteLineColor("Grade added successfully!", ConsoleColor.Green);
         }
         catch(Exception ex)
         {
             System.Console.WriteLine(ex.Message);
-            System.Console.WriteLine("Ocena not added!");
+            ConsoleViewUtils.ConsoleWriteLineColor("Grade was not added!", ConsoleColor.Red);
         }
     }
 
@@ -41,12 +41,14 @@ public class ConsoleViewGrade : ConsoleView<Grade>
         InputObject(o, true);
         _headDAO.RemoveOcena(o);
         _headDAO.AddOcena(o);
+        ConsoleViewUtils.ConsoleWriteLineColor("Grade updated successfully!", ConsoleColor.Green);
     }
 
     public override void RemoveObject()
     {
         Grade oc = ConsoleViewUtils.SafeInputGreadeId(_headDAO.daoGrade);
         _headDAO.RemoveOcena(oc);
+        ConsoleViewUtils.ConsoleWriteLineColor("Grade removed successfully!", ConsoleColor.Green);
     }
 
 }
