@@ -7,6 +7,30 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <StackPanel>
+
+            <!-- Toolbar -->
+            <Canvas Height="20" DockPanel.Dock="Top">
+                <DockPanel Canvas.Left="0">
+                    <Button DockPanel.Dock="Left">Add</Button>
+                    <Button DockPanel.Dock="Left">Edit</Button>
+                    <Button DockPanel.Dock="Left">Delete</Button>
+                </DockPanel>
+
+                <DockPanel Canvas.Right="0">
+                    <Button DockPanel.Dock="Right" >Search</Button>
+                    <TextBox Width="100" DockPanel.Dock="Right" TextAlignment="Center">text</TextBox>
+                </DockPanel>
+            </Canvas>
+
+
+       </StackPanel>
+        
+        <!-- Status bar -->
+        <Canvas Height="20" VerticalAlignment="Bottom">
+            <Label Canvas.Left="0">Student-services</Label>
+            <Label Canvas.Right="0">2023</Label>
+        </Canvas>
 
     </Grid>
 </Window>
