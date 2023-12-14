@@ -19,8 +19,4 @@
     <Resource Include="Icons\main_window_icon.ico" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="View\" />
-  </ItemGroup>
-
 </Project>

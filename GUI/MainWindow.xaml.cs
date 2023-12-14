@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CLI.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,18 +23,21 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DispatcherTimer timer;
+        private DispatcherTimer _timer;
+        private HeadDAO _headDAO;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            _headDAO = new HeadDAO();
 
             // Initializing timer for statusbar
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += TimeTicker;
-            timer.Start();
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Tick += TimeTicker;
+            _timer.Start();
+
         }
 
         private void TimeTicker(object sender, EventArgs e)
@@ -46,11 +50,16 @@ namespace GUI
             TabItem selectedTab = tabControl.SelectedItem as TabItem;
 
             if (selectedTab != null)
-                switch (selectedTab.Content)
+                switch (selectedTab.Header)
                 {
-                    case "Students": break;
-                    case "Professors": break;
-                    case "Subjects": break;
+                    case "Students":
+                        AddStudentWindow addStudentWindow = new AddStudentWindow(_headDAO);
+                        addStudentWindow.ShowDialog();
+                        break;
+                    case "Professors": 
+                        break;
+                    case "Subjects": 
+                        break;
                 }
         }
 
