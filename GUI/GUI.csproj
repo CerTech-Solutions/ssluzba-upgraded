@@ -8,7 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\main_window_icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CLI\CLI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\main_window_icon.ico" />
   </ItemGroup>
 
 </Project>

@@ -5,8 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Student services" Icon="Icons/main_window_icon.ico"
+        Height="600" Width="1000" MinWidth="1000" MinHeight="600">
     <Grid>
+        <StackPanel>
+            <!-- Menubar -->
+            <Menu Height="20" DockPanel.Dock="Top">
+                <MenuItem x:Name="menuItemFile" Header="File">
+                    <MenuItem Header="New"/>
+                    <MenuItem Header="Save"/>
+                    <MenuItem Header="Open"/>
+                    <MenuItem Header="Close"/>
+                </MenuItem>
+                <MenuItem x:Name="menuItemEdit" Header="Edit">
+                    <MenuItem Header="Edit"/>
+                    <MenuItem Header="Delete"/>
+                </MenuItem>
+                <MenuItem x:Name="menuItemHelp" Header="Help">
+                    <MenuItem Header="About"/>
+                </MenuItem>
+            </Menu>
 
+            <!-- Toolbar -->
+            <Grid Height="20" DockPanel.Dock="Top">
+                <DockPanel Grid.Column="0" LastChildFill="False">
+                    <Button x:Name="buttonAdd" DockPanel.Dock="Left" Click="AddNewEntity">Add</Button>
+                    <Button x:Name="buttonEdit" DockPanel.Dock="Left" Click="EditEntity">Edit</Button>
+                    <Button x:Name="buttonDelete" DockPanel.Dock="Left" Click="DeleteEntity">Delete</Button>
+                </DockPanel>
+
+                <DockPanel Grid.Column="1" LastChildFill="False">
+                    <Button x:Name="buttonSearch" DockPanel.Dock="Right">Search</Button>
+                    <TextBox x:Name="textBoxSearch" Width="200" DockPanel.Dock="Right" TextAlignment="Center"/>
+                </DockPanel>
+            </Grid>
+        </StackPanel>
+
+        <!-- Tab control -->
+        <TabControl x:Name="tabControl" RenderTransformOrigin="0.5,0.5" Margin="20,60,20,45">
+            <TabItem x:Name="tabItemStudents" Header="Students">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem x:Name="tabItemProfessors" Header="Professors">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem x:Name="tabItemSubjects" Header="Subjects">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+
+        <!-- Status bar -->
+        <StatusBar x:Name="statusBar" Height="25" VerticalAlignment="Bottom">
+            <StatusBarItem x:Name="statusBarItemAppName" HorizontalAlignment="Left">Student services</StatusBarItem>
+            <StatusBarItem x:Name="statusBarItemTime" HorizontalAlignment="Right">2023</StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>

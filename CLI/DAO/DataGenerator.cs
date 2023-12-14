@@ -16,7 +16,10 @@ public class DataGenerator
         /*
          * Deleting all csv file so new ones can be generated
          */
-        string dataPath = "../../../Data";
+        string dataPath = AppDomain.CurrentDomain.BaseDirectory + "../../../../CLI/Data/";
+
+        // Creating empty files
+        HeadDAO headDAO = new HeadDAO();
 
         foreach (string file in Directory.GetFiles(dataPath, "*.csv"))
             File.Delete(file);
