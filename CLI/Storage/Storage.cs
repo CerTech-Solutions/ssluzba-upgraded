@@ -9,8 +9,8 @@ namespace CLI.Storage;
 
 public class Storage<T> where T : ISerializable, new()
 {
-    private readonly string _dirName = "../../../Data";
-    private readonly string _fileName = @"../../../Data/{0}";
+    private readonly string _dirName = AppDomain.CurrentDomain.BaseDirectory + "../../../../CLI/Data";
+    private readonly string _fileName = AppDomain.CurrentDomain.BaseDirectory+ @"../../../../CLI/Data/{0}";
     private readonly Serializer<T> _serializer = new();
 
     public Storage(string fileName)

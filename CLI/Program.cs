@@ -3,7 +3,7 @@ using CLI.DAO;
 
 
 // Uncomment when creating data for the first time
-// DataGenerator.Generate();
+DataGenerator.Generate();
 
 ConsoleViewSelector console = new ConsoleViewSelector();
 console.RunSelector();
