@@ -1,7 +1,11 @@
 ﻿using CLI.DAO;
+using CLI.Model;
+using GUI;
+using GUI.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,7 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Threading;     
+using System.Windows.Threading;  
 
 namespace GUI
 {
@@ -25,6 +29,11 @@ namespace GUI
     {
         private DispatcherTimer _timer;
         private HeadDAO _headDAO;
+
+        private List<ProfessorDTO> _professors;
+        private List<StudentDTO> _students;
+
+        private int Id;
 
         public MainWindow()
         {
@@ -38,6 +47,7 @@ namespace GUI
             _timer.Tick += TimeTicker;
             _timer.Start();
 
+            fillProfessorDTOList();
         }
 
         private void TimeTicker(object sender, EventArgs e)
@@ -57,6 +67,8 @@ namespace GUI
                         addStudentWindow.ShowDialog();
                         break;
                     case "Professors": 
+                        AddProfessorWindow addProfessorWindow = new AddProfessorWindow(_headDAO);
+                        addProfessorWindow.ShowDialog();
                         break;
                     case "Subjects": 
                         break;
@@ -79,6 +91,16 @@ namespace GUI
         private void DeleteEntity(object sender, RoutedEventArgs e) 
         {
             
+        }
+
+        private void fillProfessorDTOList()
+        {
+            _professors = new List<ProfessorDTO>();
+            foreach (Professor p in _headDAO.daoProfessor.GetAllObjects())
+            {
+                _professors.Add(new ProfessorDTO(p));
+            }
+            dataGridProfessor.ItemsSource = _professors;
         }
     }
 }
