@@ -39,7 +39,7 @@ public class ConsoleViewGrade : ConsoleView<Grade>
         if (o == null) return;
 
         InputObject(o, true);
-        _headDAO.RemoveOcena(o);
+        _headDAO.DeleteGrade(o);
         _headDAO.AddOcena(o);
         ConsoleViewUtils.ConsoleWriteLineColor("Grade updated successfully!", ConsoleColor.Green);
     }
@@ -47,7 +47,7 @@ public class ConsoleViewGrade : ConsoleView<Grade>
     public override void RemoveObject()
     {
         Grade oc = ConsoleViewUtils.SafeInputGreadeId(_headDAO.daoGrade);
-        _headDAO.RemoveOcena(oc);
+        _headDAO.DeleteGrade(oc);
         ConsoleViewUtils.ConsoleWriteLineColor("Grade removed successfully!", ConsoleColor.Green);
     }
 

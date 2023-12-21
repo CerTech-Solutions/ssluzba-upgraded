@@ -22,8 +22,8 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
     {
         Address = new Address();
         Index = new Index();
-        PolozeniPredmeti = new List<Subject>();
-        NepolozeniPredmeti = new List<Subject>();
+        PassedSubjects = new List<Subject>();
+        NotPassedSubjects = new List<Subject>();
     }
 
     public Student(int idStud, string name, string surname, DateOnly birthDate, Address address,
@@ -41,8 +41,8 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
         GPA = gpa;
         Index = index;
 
-        PolozeniPredmeti = new List<Subject>();
-        NepolozeniPredmeti = new List<Subject>();
+        PassedSubjects = new List<Subject>();
+        NotPassedSubjects = new List<Subject>();
     }
 
     public int Id
@@ -65,9 +65,9 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
 
     public StatusEnum Status { get; set; }
 
-    public List<Subject> PolozeniPredmeti { get; set; }
+    public List<Subject> PassedSubjects { get; set; }
 
-    public List<Subject> NepolozeniPredmeti { get; set; }
+    public List<Subject> NotPassedSubjects { get; set; }
 
     public double GPA {  get; set; }
 
@@ -131,12 +131,12 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
     {
         string str = $"{Id,6} | {Name,10} | {Surname,15} | {BirthDate.ToString("dd/MM/yyyy"),13} | {PhoneNumber,12} | {Email,30} | {CurrentYear,14} | {Status,6} | {GPA,5:0.00} | " + Index.ToString() + Address.ToString();
         str += "\n\t* Not passed subjects: \n";
-        foreach(Subject np in NepolozeniPredmeti)
+        foreach(Subject np in NotPassedSubjects)
         {
             str += $"\t\t{np.Code} {np.Name}\n";
         }
         str += "\n\t* Passed subjects: \n";
-        foreach (Subject np in PolozeniPredmeti)
+        foreach (Subject np in PassedSubjects)
         {
             str += $"\t\t{np.Code} {np.Name}\n";
         }

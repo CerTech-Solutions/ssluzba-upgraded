@@ -42,7 +42,7 @@ public class ConsoleViewSubject : ConsoleView<Subject>
 
         try
         {
-            _headDAO.DeletePredmet(p.Id);
+            _headDAO.DeleteSubject(p.Id);
             ConsoleViewUtils.ConsoleWriteLineColor("Subject removed successfully!", ConsoleColor.Green);
         }
         catch (Exception ex)

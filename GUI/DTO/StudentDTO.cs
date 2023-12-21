@@ -15,10 +15,46 @@ namespace GUI.DTO
         private IndexDTO _index;
         private AddressDTO _address;
 
+        public StudentDTO() 
+        {
+            _index = new IndexDTO();
+            _address = new AddressDTO();
+        }
+
         public StudentDTO(AddressDTO address, IndexDTO index)
         {
             _address = address;
             _index = index;
+        }
+
+        public StudentDTO(Student s)
+        {
+            id = s.Id;
+            name = s.Name;
+            surname = s.Surname;
+            birthDate = s.BirthDate.ToDateTime(TimeOnly.Parse("00:00"));
+            _address = new AddressDTO(s.Address);
+            phoneNumber = s.PhoneNumber;
+            email = s.Email;
+            currentYear = s.CurrentYear;
+            status = s.Status;
+            gpa = s.GPA;
+            _index = new IndexDTO(s.Index);
+        }
+
+        public StudentDTO(StudentDTO s)
+        {
+            id = s.Id;
+            name = s.Name;
+            surname = s.Surname;
+            birthDate = s.BirthDate;
+            _address = new AddressDTO(s.AddressDTO);
+            phoneNumber = s.PhoneNumber;
+            email = s.Email;
+            currentYear = s.CurrentYear;
+            status = s.Status;
+            gpa = s.Gpa;
+            _index = new IndexDTO(s.IndexDTO);
         }
 
         private int id;
@@ -77,7 +113,23 @@ namespace GUI.DTO
             }
         }
 
-        // Address
+        public String Address
+        {
+            get { return _address.ToString(); }
+        }
+
+        public AddressDTO AddressDTO
+        {
+            get { return _address; }
+            set
+            {
+                if (value != _address)
+                {
+                    _address = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private string phoneNumber;
         public string PhoneNumber
@@ -149,7 +201,23 @@ namespace GUI.DTO
             }
         }
 
-        // Index
+        public IndexDTO IndexDTO
+        {
+            get { return _index;  }
+            set
+            {
+                if (value != _index)
+                {
+                    _index = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public String Index
+        {
+            get { return _index.ToString(); }
+        }
 
         public Student ToStudent()
         {
@@ -208,6 +276,22 @@ namespace GUI.DTO
             }
         }
 
+        public IndexDTO() { }
+
+        public IndexDTO(Index index)
+        {
+            courseLabel = index.CourseLabel;
+            regNumber = index.RegNumber;
+            enrollmentYear = index.EnrollmentYear;
+        }
+
+        public IndexDTO(IndexDTO index)
+        {
+            courseLabel = index.CourseLabel;
+            regNumber = index.RegNumber;
+            enrollmentYear = index.EnrollmentYear;
+        }
+
         public Index ToIndex()
         {
             return new Index(courseLabel, regNumber, enrollmentYear);
@@ -218,6 +302,11 @@ namespace GUI.DTO
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public String ToString()
+        {
+            return courseLabel + " " + regNumber + "/" + enrollmentYear;
         }
     }
 }
