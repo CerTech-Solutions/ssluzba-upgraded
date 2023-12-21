@@ -43,9 +43,7 @@ namespace GUI
             comboBoxItem2.Content = "Self-financing";
 
             // Initializing DTO objects
-            addressDTO = new AddressDTO();
-            indexDTO = new IndexDTO();
-            studentDTO = new StudentDTO(addressDTO, indexDTO);
+            studentDTO = new StudentDTO();
         }
 
         private bool InputCheck()

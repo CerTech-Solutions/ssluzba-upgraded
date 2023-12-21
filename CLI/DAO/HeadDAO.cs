@@ -43,12 +43,12 @@ public class HeadDAO
 
             if (ssp.Status == PassedSubjectEnum.NOTPASSED)
             {
-                s.NepolozeniPredmeti.Add(p);
+                s.NotPassedSubjects.Add(p);
                 p.StudentiNisuPolozili.Add(s);
             }  
             else
             {
-                s.PolozeniPredmeti.Add(p);
+                s.PassedSubjects.Add(p);
                 p.StudentiPolozili.Add(s);
             }
         }
@@ -94,7 +94,7 @@ public class HeadDAO
         daoDepartment.RemoveObject(katedraId);
     }
 
-    public void DeletePredmet(int predmetId)
+    public void DeleteSubject(int predmetId)
     {
         ProfessorTeachesSubject ppp = daoProfessorTeachesSubject.GetAllObjects().Find(ppp => ppp.IdSub == predmetId);
         if (ppp != null) throw new Exception("Chosen subject is taught by some professors!");
@@ -145,33 +145,33 @@ public class HeadDAO
         if (sss != null)
             sss.Status = PassedSubjectEnum.PASSED;
 
-        PoloziPredmetStudenta(ocena.Student, ocena.Subject);
+        PassSubjectForStudent(ocena.Student, ocena.Subject);
         CalculateGPA(ocena.Student);
     }
 
-    public void RemoveOcena(Grade ocena)
+    public void DeleteGrade(Grade grade)
     {
        StudentTakesSubject sss = daoStudentTakesSubject.GetAllObjects().Find(sss =>
-            (sss.IdSub == ocena.Subject.Id && sss.IdStud == ocena.Student.Id));
+            (sss.IdSub == grade.Subject.Id && sss.IdStud == grade.Student.Id));
 
        if (sss != null)
             sss.Status = PassedSubjectEnum.NOTPASSED;
 
-       ocena.Student.NepolozeniPredmeti.Add(ocena.Subject);
-       ocena.Student.PolozeniPredmeti.Remove(ocena.Subject);
+       grade.Student.NotPassedSubjects.Add(grade.Subject);
+       grade.Student.PassedSubjects.Remove(grade.Subject);
         
-       daoGrade.RemoveObject(ocena.Id);
-       CalculateGPA(ocena.Student);
+       daoGrade.RemoveObject(grade.Id);
+       CalculateGPA(grade.Student);
     }
 
-    public void PoloziPredmetStudenta(Student student, Subject predmet)
+    public void PassSubjectForStudent(Student student, Subject subject)
     {
-        student.PolozeniPredmeti.Add(predmet);
-        Subject np = student.NepolozeniPredmeti.Find(np => np.Id == predmet.Id);
+        student.PassedSubjects.Add(subject);
+        Subject np = student.NotPassedSubjects.Find(np => np.Id == subject.Id);
 
         if (np == null) return;
 
-        student.NepolozeniPredmeti.Remove(np);        
+        student.NotPassedSubjects.Remove(np);        
     }
 
     public void CalculateGPA(Student student)

@@ -32,8 +32,7 @@ namespace GUI
 
         private List<ProfessorDTO> _professors;
         private List<StudentDTO> _students;
-
-        private int Id;
+        private List<SubjectDTO> _subjects;
 
         public MainWindow()
         {
@@ -48,6 +47,8 @@ namespace GUI
             _timer.Start();
 
             fillProfessorDTOList();
+            fillStudentDTOList();
+            fillSubjectsDTOList();
         }
 
         private void TimeTicker(object sender, EventArgs e)
@@ -71,31 +72,63 @@ namespace GUI
                         addProfessorWindow.ShowDialog();
                         break;
                     case "Subjects": 
+                        AddSubjectWindow addSubjectWindow = new AddSubjectWindow(_headDAO);
+                        addSubjectWindow.ShowDialog();
                         break;
                 }
 
             fillProfessorDTOList();
+            fillStudentDTOList();
+            fillSubjectsDTOList();
         }
 
         private void EditEntity(object sender, RoutedEventArgs e)
         {
             TabItem selectedTab = tabControl.SelectedItem as TabItem;
 
-            if (selectedTab != null)
-                switch (selectedTab.Header)
-                {
-                    case "Students": break;
-                    case "Professors":  
-                        if (dataGridProfessor.SelectedItem != null)
-                        {
-                            EditProfessorWindow editProfessorWindow = new EditProfessorWindow(_headDAO, dataGridProfessor.SelectedItem as ProfessorDTO);
-                            editProfessorWindow.ShowDialog();
-                        }
-                        break;
-                    case "Subjects": break;
-                }
+            if (selectedTab == null)
+                return;
+
+            switch (selectedTab.Header)
+            {
+                case "Students":
+                    if (dataGridStudents.SelectedItem != null)
+                    {
+                        EditStudentWindow editStudentWindow = new EditStudentWindow(_headDAO, dataGridStudents.SelectedItem as StudentDTO);
+                        editStudentWindow.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select an student to edit!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    break;
+                case "Professors":  
+                    if (dataGridProfessor.SelectedItem != null)
+                    {
+                        EditProfessorWindow editProfessorWindow = new EditProfessorWindow(_headDAO, dataGridProfessor.SelectedItem as ProfessorDTO);
+                        editProfessorWindow.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select an professor to edit!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    break;
+                case "Subjects":
+                    if (dataGridSubject.SelectedItem != null)
+                    {
+                        EditSubjectWindow editSubjectWindow = new EditSubjectWindow(_headDAO, dataGridSubject.SelectedItem as SubjectDTO);
+                        editSubjectWindow.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select an subject to edit!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    break;
+            }
 
             fillProfessorDTOList();
+            fillStudentDTOList();
+            fillSubjectsDTOList();
         }
 
         private void DeleteEntity(object sender, RoutedEventArgs e) 
@@ -105,28 +138,77 @@ namespace GUI
             if (selectedTab != null)
                 switch (selectedTab.Header)
                 {
-                    case "Students": break;
-                    case "Professors":
-                        if (dataGridProfessor.SelectedItem != null)
-                        {
-                            MessageBoxResult dr =  MessageBox.Show("Are you sure you want to delete this professor?", "Delete professor", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-                            if(dr == MessageBoxResult.Yes)
-                            {
-                                try
-                                {
-                                    _headDAO.DeleteProfesor((dataGridProfessor.SelectedItem as ProfessorDTO).Id);
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                                }   
-                            }
-                        }
+                    case "Students":
+                        deleteStudent();
                         break;
-                    case "Subjects": break;
+                    case "Professors":
+                        deleteProfessor();
+                        break;
+                    case "Subjects":
+                        deleteSubject();
+                        break;
                 }
 
             fillProfessorDTOList();
+            fillStudentDTOList();
+            fillSubjectsDTOList();
+        }
+
+        private void deleteProfessor()
+        {
+            if (dataGridProfessor.SelectedItem != null)
+            {
+                MessageBoxResult dr = MessageBox.Show("Are you sure you want to delete this professor?", "Delete professor", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                if (dr == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        _headDAO.DeleteProfesor((dataGridProfessor.SelectedItem as ProfessorDTO).Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+
+        private void deleteStudent()
+        {
+            if (dataGridStudents.SelectedItem != null)
+            {
+                MessageBoxResult dr = MessageBox.Show("Are you sure you want to delete this student?", "Delete student", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                if (dr == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        _headDAO.DeleteStudent((dataGridStudents.SelectedItem as StudentDTO).Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+
+        private void deleteSubject()
+        {
+            if (dataGridSubject.SelectedItem != null)
+            {
+                MessageBoxResult dr = MessageBox.Show("Are you sure you want to delete this subject?", "Delete subject", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                if (dr == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        _headDAO.DeleteSubject((dataGridSubject.SelectedItem as SubjectDTO).Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
         }
 
         private void fillProfessorDTOList()
@@ -137,6 +219,21 @@ namespace GUI
                 _professors.Add(new ProfessorDTO(p));
             }
             dataGridProfessor.ItemsSource = _professors;
+        }
+
+        private void fillStudentDTOList()
+        {
+            _students = new List<StudentDTO>();
+            foreach (Student s in _headDAO.daoStudent.GetAllObjects())
+            {
+                _students.Add(new StudentDTO(s));
+            }
+            dataGridStudents.ItemsSource = _students;
+        }
+
+        private void fillSubjectsDTOList()
+        {
+
         }
     }
 }
