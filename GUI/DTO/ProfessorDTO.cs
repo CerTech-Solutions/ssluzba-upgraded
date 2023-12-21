@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Metrics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -16,6 +18,11 @@ namespace GUI.DTO
         public ProfessorDTO(AddressDTO adress)
         {
             _address = adress;
+        }
+
+        public ProfessorDTO()
+        {
+            _address = new AddressDTO();
         }
 
         private int id;
@@ -200,6 +207,11 @@ namespace GUI.DTO
         public Professor ToProfessor()
         { 
             return new Professor(id, name, surname, DateOnly.FromDateTime(birthDate), _address.ToAddress(), phoneNumber, email, idNumber, title, serviceYears);
+        }
+
+        public String NameSurname
+        {
+            get { return name + " " + surname; }
         }
     }
 }

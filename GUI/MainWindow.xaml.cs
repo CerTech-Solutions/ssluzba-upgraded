@@ -114,9 +114,9 @@ namespace GUI
                     }
                     break;
                 case "Subjects":
-                    if (dataGridSubject.SelectedItem != null)
+                    if (dataGridSubjects.SelectedItem != null)
                     {
-                        EditSubjectWindow editSubjectWindow = new EditSubjectWindow(_headDAO, dataGridSubject.SelectedItem as SubjectDTO);
+                        EditSubjectWindow editSubjectWindow = new EditSubjectWindow(_headDAO, dataGridSubjects.SelectedItem as SubjectDTO);
                         editSubjectWindow.ShowDialog();
                     }
                     else
@@ -194,14 +194,14 @@ namespace GUI
 
         private void deleteSubject()
         {
-            if (dataGridSubject.SelectedItem != null)
+            if (dataGridSubjects.SelectedItem != null)
             {
                 MessageBoxResult dr = MessageBox.Show("Are you sure you want to delete this subject?", "Delete subject", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
                 if (dr == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        _headDAO.DeleteSubject((dataGridSubject.SelectedItem as SubjectDTO).Id);
+                        _headDAO.DeleteSubject((dataGridSubjects.SelectedItem as SubjectDTO).Id);
                     }
                     catch (Exception ex)
                     {
@@ -233,7 +233,12 @@ namespace GUI
 
         private void fillSubjectsDTOList()
         {
-
+            _subjects = new List<SubjectDTO>();
+            foreach (Subject s in _headDAO.daoSubject.GetAllObjects())
+            {
+                _subjects.Add(new SubjectDTO(s));
+            }
+            dataGridSubjects.ItemsSource = _subjects;
         }
     }
 }

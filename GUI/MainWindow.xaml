@@ -83,8 +83,15 @@
     
             <TabItem x:Name="tabItemSubjects" Header="Subjects">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="dataGridSubject" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid x:Name="dataGridSubjects" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Width="*" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="CODE" Width="*" Binding="{Binding Code}"/>
+                            <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="SEMESTER" Width="*" Binding="{Binding Semester}"/>
+                            <DataGridTextColumn Header="YEAR OF STUDY" Width="*" Binding="{Binding YearOfStudy}"/>
+                            <DataGridTextColumn Header="PROFESSOR" Width="*" Binding="{Binding Path=ProfessorDTO.NameSurname}"/>
+                            <DataGridTextColumn Header="ECTS" Width="*" Binding="{Binding Ects}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
