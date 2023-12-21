@@ -14,6 +14,31 @@ namespace GUI.DTO
     {
         public AddressDTO() { }
 
+
+        public AddressDTO(String street, String number, String City, String Country)
+        {
+            this.street = street;
+            this.number = number;
+            this.city = city;
+            this.country = country;
+        }
+
+        public AddressDTO(Address a)
+        {
+            street = a.Street;
+            number = a.Number;
+            city = a.City;
+            country = a.Country;
+        }
+
+        public AddressDTO(AddressDTO a)
+        {
+            street = a.Street;
+            number = a.Number;
+            city = a.City;
+            country = a.Country;
+        }
+
         private string street;
         public string Street
         {
@@ -80,6 +105,11 @@ namespace GUI.DTO
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public String ToString()
+        {
+            return street + " " + number + ", " + city + ", " + country;
         }
     }
 }

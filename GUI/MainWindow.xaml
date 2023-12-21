@@ -45,9 +45,28 @@
         <TabControl x:Name="tabControl" RenderTransformOrigin="0.5,0.5" Margin="20,60,20,45">
             <TabItem x:Name="tabItemStudents" Header="Students">
                 <Grid Background="#FFE5E5E5"/>
+                    
             </TabItem>
             <TabItem x:Name="tabItemProfessors" Header="Professors">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="dataGridProfessor" AutoGenerateColumns="False" IsReadOnly="True">
+                        
+                        <!-- Column header text and bindings -->
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Width="25" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="SURNAME" Width="*" Binding="{Binding Surname}"/>
+                            <DataGridTextColumn Header="BIRTH DATE" Width="*" Binding="{Binding BirthDate}"/>
+                            <DataGridTextColumn Header="ADDRESS" Width="*" Binding="{Binding Address}"/>
+                            <DataGridTextColumn Header="PHONE NUMBER" Width="*" Binding="{Binding PhoneNumber}"/>
+                            <DataGridTextColumn Header="EMAIL" Width="*" Binding="{Binding Email}"/>
+                            <DataGridTextColumn Header="ID NUMBER" Width="*" Binding="{Binding IdNumber}"/>
+                            <DataGridTextColumn Header="TITLE" Width="*" Binding="{Binding Title}"/>
+                            <DataGridTextColumn Header="SERVICE YEARS" Binding="{Binding ServiceYears}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
             </TabItem>
             <TabItem x:Name="tabItemSubjects" Header="Subjects">
                 <Grid Background="#FFE5E5E5"/>
