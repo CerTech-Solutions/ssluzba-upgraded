@@ -31,6 +31,14 @@ namespace GUI.DTO
             country = a.Country;
         }
 
+        public AddressDTO(AddressDTO a)
+        {
+            street = a.Street;
+            number = a.Number;
+            city = a.City;
+            country = a.Country;
+        }
+
         private string street;
         public string Street
         {

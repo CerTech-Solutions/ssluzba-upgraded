@@ -73,6 +73,8 @@ namespace GUI
                     case "Subjects": 
                         break;
                 }
+
+            fillProfessorDTOList();
         }
 
         private void EditEntity(object sender, RoutedEventArgs e)
@@ -80,17 +82,51 @@ namespace GUI
             TabItem selectedTab = tabControl.SelectedItem as TabItem;
 
             if (selectedTab != null)
-                switch (selectedTab.Content)
+                switch (selectedTab.Header)
                 {
                     case "Students": break;
-                    case "Professors": break;
+                    case "Professors":  
+                        if (dataGridProfessor.SelectedItem != null)
+                        {
+                            EditProfessorWindow editProfessorWindow = new EditProfessorWindow(_headDAO, dataGridProfessor.SelectedItem as ProfessorDTO);
+                            editProfessorWindow.ShowDialog();
+                        }
+                        break;
                     case "Subjects": break;
                 }
+
+            fillProfessorDTOList();
         }
 
         private void DeleteEntity(object sender, RoutedEventArgs e) 
         {
-            
+            TabItem selectedTab = tabControl.SelectedItem as TabItem;
+
+            if (selectedTab != null)
+                switch (selectedTab.Header)
+                {
+                    case "Students": break;
+                    case "Professors":
+                        if (dataGridProfessor.SelectedItem != null)
+                        {
+                            MessageBoxResult dr =  MessageBox.Show("Are you sure you want to delete this professor?", "Delete professor", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                            if(dr == MessageBoxResult.Yes)
+                            {
+                                try
+                                {
+                                    _headDAO.DeleteProfesor((dataGridProfessor.SelectedItem as ProfessorDTO).Id);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                }   
+                            }
+                        }
+                        break;
+                    case "Subjects": break;
+                }
+
+            fillProfessorDTOList();
         }
 
         private void fillProfessorDTOList()

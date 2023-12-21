@@ -46,6 +46,20 @@ namespace GUI.DTO
             _address = new AddressDTO(p.Adresa);
         }
 
+        public ProfessorDTO(ProfessorDTO p)
+        {
+            id = p.Id;
+            name = p.Name;
+            surname = p.Surname;
+            birthDate = p.BirthDate;
+            phoneNumber = p.PhoneNumber;
+            email = p.Email;
+            idNumber = p.IdNumber;
+            title = p.Title;
+            serviceYears = p.ServiceYears;
+            _address = new AddressDTO(p.AddressDTO);
+        }
+
         private DateTime birthDate;
         public DateTime BirthDate
         {
@@ -162,6 +176,19 @@ namespace GUI.DTO
         {
             get { return _address.ToString(); }
         }
+
+        public AddressDTO AddressDTO
+        {
+            get { return _address; }
+            set
+            {
+                if (value != _address)
+                {
+                    _address = value;
+                    OnPropertyChanged();
+                }
+            }
+        }   
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
