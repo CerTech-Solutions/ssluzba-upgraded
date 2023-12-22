@@ -1,4 +1,5 @@
 ﻿using CLI.DAO;
+using CLI.Model;
 using GUI.DTO;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,69 @@ namespace GUI
         private HeadDAO _headDAO;
         public StudentDTO studentDTO;
 
+        private Brush _defaultBrushBorder;
+
         public EditStudentWindow(HeadDAO headDAO, StudentDTO studentOld)
         {
             InitializeComponent();
+            _headDAO = headDAO;
+            labelError.Content = string.Empty;
+
+            _defaultBrushBorder = textBoxName.BorderBrush.Clone();
+
+            studentDTO = new StudentDTO(studentOld);
+            DataContext = studentDTO;
+        }
+
+        private bool InputCheck()
+        {
+            bool validInput = true;
+
+            foreach (var grid in stackPanel.Children.OfType<Grid>())
+            {
+                foreach (var control in grid.Children)
+                {
+                    if (control is TextBox)
+                    {
+                        TextBox textBox = (TextBox)control;
+                        if (textBox.Text == string.Empty)
+                        {
+                            textBox.BorderBrush = Brushes.Red;
+                            textBox.BorderThickness = new Thickness(2);
+                            validInput = false;
+                        }
+                        else
+                        {
+                            textBox.BorderBrush = _defaultBrushBorder;
+                            textBox.BorderThickness = new Thickness(1);
+                        }
+                    }
+                }
+            }
+
+            return validInput;
+        }
+
+        private void ApplyEdit(object sender, RoutedEventArgs e)
+        {
+            if (InputCheck())
+            {
+                Student s = studentDTO.ToStudent();
+
+                _headDAO.daoStudent.UpdateObject(s);
+
+                Close();
+            }
+            else
+            {
+                labelError.Content = "Invalid input!";
+                labelError.Foreground = new SolidColorBrush(Colors.Red);
+            }
+        }
+
+        private void Cancel(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -26,9 +26,7 @@ namespace GUI
         private HeadDAO _headDAO;
         private Brush _defaultBrushBorder;
 
-        public StudentDTO studentDTO { get; set; }
-        public AddressDTO addressDTO { get; set; }
-        public IndexDTO indexDTO { get; set; }
+        public StudentDTO _studentDTO { get; set; }
 
         public AddStudentWindow(HeadDAO headDAO)
         {
@@ -39,11 +37,11 @@ namespace GUI
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
             labelError.Content = string.Empty;
-            comboBoxItem1.Content = "Budget";
-            comboBoxItem2.Content = "Self-financing";
+            comboBoxStatus.SelectedItem = comboBoxItemB;
 
             // Initializing DTO objects
-            studentDTO = new StudentDTO();
+            _studentDTO = new StudentDTO();
+            DataContext = _studentDTO;
         }
 
         private bool InputCheck()
@@ -72,6 +70,7 @@ namespace GUI
                 }
             }
 
+
             return validInput;
         }
 
@@ -98,7 +97,7 @@ namespace GUI
         {
             if(InputCheck())
             {
-                _headDAO.daoStudent.AddObject(studentDTO.ToStudent());
+                _headDAO.daoStudent.AddObject(_studentDTO.ToStudent());
 
                 labelError.Content = "Student successuflly added!";
                 labelError.Foreground = new SolidColorBrush(Colors.Green);
