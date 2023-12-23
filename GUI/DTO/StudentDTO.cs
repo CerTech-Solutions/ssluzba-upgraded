@@ -7,6 +7,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using CLI.Model;
 using Index = CLI.Model.Index;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace GUI.DTO
 {
@@ -230,6 +232,7 @@ namespace GUI.DTO
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 
     public class IndexDTO : INotifyPropertyChanged

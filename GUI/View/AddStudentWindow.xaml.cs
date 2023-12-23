@@ -24,29 +24,23 @@ namespace GUI
     public partial class AddStudentWindow : Window
     {
         private HeadDAO _headDAO;
+        private StudentDTO _studentDTO;
         private Brush _defaultBrushBorder;
-
-        public StudentDTO studentDTO { get; set; }
-        public AddressDTO addressDTO { get; set; }
-        public IndexDTO indexDTO { get; set; }
 
         public AddStudentWindow(HeadDAO headDAO)
         {
             InitializeComponent();
-            DataContext = this;
 
             _headDAO = headDAO;
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
-            labelError.Content = string.Empty;
-            comboBoxItem1.Content = "Budget";
-            comboBoxItem2.Content = "Self-financing";
+            comboBoxStatus.SelectedItem = comboBoxItemB;
 
-            // Initializing DTO objects
-            studentDTO = new StudentDTO();
+            _studentDTO = new StudentDTO();
+            DataContext = _studentDTO;
         }
 
-        private bool InputCheck()
+        private bool EmptyTextBoxCheck()
         {
             bool validInput = true;
 
@@ -54,20 +48,18 @@ namespace GUI
             {
                 foreach (var control in grid.Children)
                 {
-                    if (control is TextBox)
+                    if (control is not TextBox)
+                        continue;
+
+                    TextBox textBox = (TextBox)control;
+                    if(textBox.Text == string.Empty)
                     {
-                        TextBox textBox = (TextBox)control;
-                        if(textBox.Text == string.Empty)
-                        {
-                            textBox.BorderBrush = Brushes.Red;
-                            textBox.BorderThickness = new Thickness(2);
-                            validInput = false;
-                        }
-                        else
-                        {
-                            textBox.BorderBrush = _defaultBrushBorder;
-                            textBox.BorderThickness = new Thickness(1);
-                        }
+                        BorderBrushToRed(textBox);
+                        validInput = false;
+                    }
+                    else
+                    {
+                        BorderBrushToDefault(textBox);
                     }
                 }
             }
@@ -75,40 +67,60 @@ namespace GUI
             return validInput;
         }
 
-        private void ClearAllInput()
+        private void BorderBrushToRed(TextBox textBox)
         {
-            textBoxName.Text = string.Empty;
-            textBoxSurname.Text = string.Empty;
-            datePickerBirthDate.SelectedDate = null;
-            textBoxPhoneNumber.Text = string.Empty;
-            textBoxEmail.Text = string.Empty;
-            textBoxCurrentYear.Text = string.Empty;
-
-            textBoxStreet.Text = string.Empty;
-            textBoxNumber.Text = string.Empty;
-            textBoxCity.Text = string.Empty;
-            textBoxCountry.Text = string.Empty;
-
-            textBoxCourseLabel.Text = string.Empty;
-            textBoxRegNumber.Text = string.Empty;
-            textBoxEnrollmentYear.Text = string.Empty;
+            textBox.BorderBrush = Brushes.Red;
+            textBox.BorderThickness = new Thickness(1.5);
         }
 
-        private void AddStudent(object sender, RoutedEventArgs e)
+        private void BorderBrushToDefault(TextBox textBox)
+        {
+            textBox.BorderBrush = _defaultBrushBorder;
+            textBox.BorderThickness = new Thickness(1);
+        }
+
+        private bool InputCheck()
+        {
+            bool validInput = EmptyTextBoxCheck();
+
+            if (!int.TryParse(textBoxCurrentYear.Text, out _)) 
+            { 
+                BorderBrushToRed(textBoxCurrentYear);
+                validInput = false;
+            }
+            else
+                BorderBrushToDefault(textBoxCurrentYear);
+
+            if(!int.TryParse(textBoxRegNumber.Text, out _))
+            {
+                BorderBrushToRed(textBoxRegNumber);
+                validInput = false;
+            }
+            else
+                BorderBrushToDefault(textBoxRegNumber);
+
+            if (!int.TryParse(textBoxEnrollmentYear.Text, out _))
+            {
+                BorderBrushToRed(textBoxEnrollmentYear);
+                validInput = false;
+            }
+            else
+                BorderBrushToDefault(textBoxEnrollmentYear);
+
+            return validInput;
+        }
+
+        private void Add(object sender, RoutedEventArgs e)
         {
             if(InputCheck())
             {
-                _headDAO.daoStudent.AddObject(studentDTO.ToStudent());
+                if(comboBoxStatus.SelectedItem == comboBoxItemB)
+                    _studentDTO.Status = StatusEnum.B;
+                else
+                    _studentDTO.Status = StatusEnum.S;
 
-                labelError.Content = "Student successuflly added!";
-                labelError.Foreground = new SolidColorBrush(Colors.Green);
-
-                ClearAllInput();
-            }
-            else
-            {
-                labelError.Content = "Invalid input!";
-                labelError.Foreground = new SolidColorBrush(Colors.Red);
+                _headDAO.daoStudent.AddObject(_studentDTO.ToStudent());
+                Close();
             }
         }
         
