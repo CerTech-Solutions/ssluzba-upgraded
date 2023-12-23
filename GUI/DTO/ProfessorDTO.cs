@@ -209,6 +209,11 @@ namespace GUI.DTO
             return new Professor(id, name, surname, DateOnly.FromDateTime(birthDate), _address.ToAddress(), phoneNumber, email, idNumber, title, serviceYears);
         }
 
+        public String ToString()
+        {
+            return name + " " + surname;
+        }
+
         public String NameSurname
         {
             get { return name + " " + surname; }

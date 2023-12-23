@@ -15,7 +15,7 @@ public class HeadDAO
     public DAO<Department> daoDepartment;
     public DAO<Grade> daoGrade;
     public DAO<Subject> daoSubject;
-    private DAO<ProfessorTeachesSubject> daoProfessorTeachesSubject;
+    public DAO<ProfessorTeachesSubject> daoProfessorTeachesSubject;
     public DAO<ProfessorWorksAtDepartment> daoProfessorWorksAtDepartment;
     public DAO<StudentTakesSubject> daoStudentTakesSubject;
 
@@ -60,7 +60,7 @@ public class HeadDAO
             Subject p = daoSubject.GetObjectById(ppp.IdSub);
 
             prof.Predmeti.Add(p);
-            p.Profesor = prof; 
+            p.Professor = prof; 
         }
 
         // Povezivanje profesor-katedra
@@ -191,6 +191,23 @@ public class HeadDAO
         student.GPA /= count;
     }
 
+    public void AddSubject(Subject subject)
+    {
+        daoSubject.AddObject(subject);
+        subject.Professor = daoProfessor.GetObjectById(subject.Professor.Id);
+        daoProfessorTeachesSubject.AddObject(new ProfessorTeachesSubject(0, subject.Professor.Id, subject.Id));
+    }
+
+    public void UpdateSubject(Subject subject, int oldProfessorId)
+    {
+        daoSubject.UpdateObject(subject);
+        if (subject.Professor.Id != oldProfessorId)
+        {
+            ProfessorTeachesSubject pts = daoProfessorTeachesSubject.GetAllObjects().Find(pts => (pts.IdSub == subject.Id && pts.IdProf == oldProfessorId));
+            pts.IdProf = subject.Professor.Id;
+            daoProfessorTeachesSubject.UpdateObject(pts);
+        }
+    }
     public void SaveAllToStorage()
     {
         daoStudent.SaveToStorage();

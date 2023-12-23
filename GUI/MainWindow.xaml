@@ -47,14 +47,9 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridStudents" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Width="25" Binding="{Binding Id}"/>
-                            <DataGridTextColumn Header="INDEX" Width="25" Binding="{Binding Index}"/>
+                            <DataGridTextColumn Header="INDEX" Width="*" Binding="{Binding Index}"/>
                             <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
                             <DataGridTextColumn Header="SURNAME" Width="*" Binding="{Binding Surname}"/>
-                            <DataGridTextColumn Header="BIRTH DATE" Width="*" Binding="{Binding BirthDate}"/>
-                            <DataGridTextColumn Header="ADDRESS" Width="*" Binding="{Binding Address}"/>
-                            <DataGridTextColumn Header="PHONE NUMBER" Width="*" Binding="{Binding PhoneNumber}"/>
-                            <DataGridTextColumn Header="EMAIL" Width="*" Binding="{Binding Email}"/>
                             <DataGridTextColumn Header="CURRENT YEAR" Width="*" Binding="{Binding CurrentYear}"/>
                             <DataGridTextColumn Header="STATUS" Width="*" Binding="{Binding Status}"/>
                             <DataGridTextColumn Header="GPA" Width="*" Binding="{Binding Gpa}"/>
@@ -85,11 +80,10 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridSubjects" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Width="*" Binding="{Binding Id}"/>
                             <DataGridTextColumn Header="CODE" Width="*" Binding="{Binding Code}"/>
                             <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="SEMESTER" Width="*" Binding="{Binding Semester}"/>
                             <DataGridTextColumn Header="YEAR OF STUDY" Width="*" Binding="{Binding YearOfStudy}"/>
+                            <DataGridTextColumn Header="SEMESTER" Width="*" Binding="{Binding Semester}"/>
                             <DataGridTextColumn Header="PROFESSOR" Width="*" Binding="{Binding Path=ProfessorDTO.NameSurname}"/>
                             <DataGridTextColumn Header="ECTS" Width="*" Binding="{Binding Ects}"/>
                         </DataGrid.Columns>

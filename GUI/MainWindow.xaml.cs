@@ -72,7 +72,7 @@ namespace GUI
                         addProfessorWindow.ShowDialog();
                         break;
                     case "Subjects": 
-                        AddSubjectWindow addSubjectWindow = new AddSubjectWindow(_headDAO);
+                        AddSubjectWindow addSubjectWindow = new AddSubjectWindow(_headDAO, _professors);
                         addSubjectWindow.ShowDialog();
                         break;
                 }
@@ -116,7 +116,7 @@ namespace GUI
                 case "Subjects":
                     if (dataGridSubjects.SelectedItem != null)
                     {
-                        EditSubjectWindow editSubjectWindow = new EditSubjectWindow(_headDAO, dataGridSubjects.SelectedItem as SubjectDTO);
+                        EditSubjectWindow editSubjectWindow = new EditSubjectWindow(_headDAO, dataGridSubjects.SelectedItem as SubjectDTO, _professors);
                         editSubjectWindow.ShowDialog();
                     }
                     else

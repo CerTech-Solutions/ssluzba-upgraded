@@ -33,7 +33,7 @@ namespace GUI.DTO
             name = s.Name;
             semester = s.Semester;
             yearOfStudy = s.YearOfStudy;
-            _professor = new ProfessorDTO(s.Profesor);
+            _professor = new ProfessorDTO(s.Professor);
             ects = s.Ects;
         }
 
@@ -147,7 +147,7 @@ namespace GUI.DTO
 
         public Subject ToSubject()
         {
-            return new Subject(id, code, name, semester, yearOfStudy, _professor.Id, ects);
+            return new Subject(id, code, name, semester, yearOfStudy, _professor.ToProfessor(), ects);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

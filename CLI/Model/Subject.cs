@@ -21,12 +21,12 @@ public class Subject : ISerializable, IAccess<Subject>, IConsoleWriteRead
 
     public Subject()
     {
-        Profesor = new Professor();
+        Professor = new Professor();
         StudentiPolozili = new List<Student>();
         StudentiNisuPolozili = new List<Student>();
     }
 
-    public Subject(int idSub, string code, string name, SemesterEnum semester, int yearOfStudy, int idProfesor, int ects)
+    public Subject(int idSub, string code, string name, SemesterEnum semester, int yearOfStudy, Professor p, int ects)
     {
         Id = idSub;
         Code = code;
@@ -34,6 +34,9 @@ public class Subject : ISerializable, IAccess<Subject>, IConsoleWriteRead
         Semester = semester;
         YearOfStudy = yearOfStudy;
         Ects = ects;
+        Professor = p;
+        StudentiPolozili = new List<Student>();
+        StudentiNisuPolozili = new List<Student>();
     }
 
     public int Id
@@ -50,7 +53,7 @@ public class Subject : ISerializable, IAccess<Subject>, IConsoleWriteRead
 
     public int YearOfStudy { get; set; }
 
-    public Professor Profesor { get; set; }
+    public Professor Professor { get; set; }
 
     public int Ects { get; set; }
 
@@ -66,6 +69,7 @@ public class Subject : ISerializable, IAccess<Subject>, IConsoleWriteRead
         Semester = obj.Semester;
         YearOfStudy= obj.YearOfStudy;
         Ects = obj.Ects;
+        Professor = obj.Professor;
     }
 
     public string[] ToCSV()
@@ -99,7 +103,7 @@ public class Subject : ISerializable, IAccess<Subject>, IConsoleWriteRead
 
     public override string ToString()
     {
-        string str = $"{Id,6} | {Code,8} | {Name,20} | {Semester,8} | {YearOfStudy,11} | {Ects,6} | {Profesor.Name + " " + Profesor.Surname,32} |";
+        string str = $"{Id,6} | {Code,8} | {Name,20} | {Semester,8} | {YearOfStudy,11} | {Ects,6} | {Professor.Name + " " + Professor.Surname,32} |";
         str += "\n\t* Students that passed: \n";
         foreach (Student p in StudentiPolozili)
         {

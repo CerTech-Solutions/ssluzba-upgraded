@@ -27,26 +27,25 @@ namespace GUI
         private HeadDAO _headDAO;
         private Brush _defaultBrushBorder;
 
-        public SubjectDTO subjectDTO { get; set; }
-        public ProfessorDTO professorDTO { get; set; }
+        public SubjectDTO _subjectDTO;
 
-        public AddSubjectWindow(HeadDAO headDAO)
+        public AddSubjectWindow(HeadDAO headDAO, List<ProfessorDTO> _professors)
         {
             InitializeComponent();
             _headDAO = headDAO;
-            DataContext = this;
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
             comboBoxProfessor.ItemsSource = headDAO.daoProfessor.GetAllObjects();
 
             comboBoxSemester.SelectedItem = comboBoxItemWinter;
+            comboBoxProfessor.ItemsSource = _professors;
             comboBoxProfessor.SelectedIndex = 0;
 
-            professorDTO = new ProfessorDTO();
-            subjectDTO = new SubjectDTO(professorDTO);
+            _subjectDTO = new SubjectDTO();
+            DataContext = _subjectDTO;
         }
 
-        private bool InputCheck()
+        private bool EmptyTextBoxCheck()
         {
             bool validInput = true;
 
@@ -75,16 +74,53 @@ namespace GUI
             return validInput;
         }
 
-        public void AddSubject(object sender, RoutedEventArgs e)
+        private bool InputCheck()
         {
+            bool validInput = EmptyTextBoxCheck();
+
+            if (!int.TryParse(textBoxYearOfStudy.Text, out _))
+            {
+                BorderBrushToRed(textBoxYearOfStudy);
+                validInput = false;
+            }
+            else
+                BorderBrushToDefault(textBoxYearOfStudy);
+
+            if (!int.TryParse(textBoxEcts.Text, out _))
+            {
+                BorderBrushToRed(textBoxEcts);
+                validInput = false;
+            }
+            else
+                BorderBrushToDefault(textBoxEcts);
+
+            return validInput;
+        }
+
+        private void BorderBrushToRed(TextBox textBox)
+        {
+            textBox.BorderBrush = Brushes.Red;
+            textBox.BorderThickness = new Thickness(1.5);
+        }
+
+        private void BorderBrushToDefault(TextBox textBox)
+        {
+            textBox.BorderBrush = _defaultBrushBorder;
+            textBox.BorderThickness = new Thickness(1);
+        }
+
+        public void AddSubject(object sender, RoutedEventArgs e)
+        { 
             if (InputCheck())
             {
-                _headDAO.daoSubject.AddObject(subjectDTO.ToSubject());
-
+                _subjectDTO.ProfessorDTO = (ProfessorDTO)comboBoxProfessor.SelectedItem;
                 if (comboBoxSemester.SelectedItem == comboBoxItemWinter)
-                    subjectDTO.Semester = SemesterEnum.winter;
+                    _subjectDTO.Semester = SemesterEnum.winter;
                 else
-                    subjectDTO.Semester = SemesterEnum.summer;
+                    _subjectDTO.Semester = SemesterEnum.summer;
+
+                _headDAO.AddSubject(_subjectDTO.ToSubject());
+                Close();
             }
         }
 
