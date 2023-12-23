@@ -45,7 +45,10 @@
                          Text="{Binding Path=subjectDTO.Name,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Semester</Label>
-                <ComboBox x:Name="comboBoxSemester" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"/>
+                <ComboBox x:Name="comboBoxSemester" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2">
+                    <ComboBoxItem x:Name="comboBoxItemWinter">Winter</ComboBoxItem>
+                    <ComboBoxItem x:Name="comboBoxItemSummer">Summer</ComboBoxItem>
+                </ComboBox>
 
                 <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Year Of Study</Label>
                 <TextBox x:Name="textBoxYearOfStudy" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
@@ -59,10 +62,6 @@
                          Text="{Binding Path=subjectDTO.Ects, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             </Grid>
-
-           
-
-            <Label Grid.Row="1" x:Name="labelError" HorizontalContentAlignment="Center" VerticalAlignment="Center" FontSize="12">[label]</Label>
 
             <Grid>
                 <Grid.ColumnDefinitions>

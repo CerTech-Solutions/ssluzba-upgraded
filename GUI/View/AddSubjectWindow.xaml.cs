@@ -37,13 +37,13 @@ namespace GUI
             DataContext = this;
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
-            comboBoxSemester.ItemsSource = Enum.GetValues(typeof(SemesterEnum));
             comboBoxProfessor.ItemsSource = headDAO.daoProfessor.GetAllObjects();
+
+            comboBoxSemester.SelectedItem = comboBoxItemWinter;
+            comboBoxProfessor.SelectedIndex = 0;
 
             professorDTO = new ProfessorDTO();
             subjectDTO = new SubjectDTO(professorDTO);
-
-            labelError.Content = string.Empty;
         }
 
         private bool InputCheck()
@@ -75,31 +75,16 @@ namespace GUI
             return validInput;
         }
 
-        private void ClearAllInput()
-        {
-            textBoxCode.Text = string.Empty;
-            textBoxName.Text = string.Empty;
-            comboBoxSemester.SelectedIndex = 0; 
-            textBoxYearOfStudy.Text = string.Empty;
-            comboBoxProfessor.SelectedIndex = 0;
-            textBoxEcts.Text = string.Empty;
-        }
-
         public void AddSubject(object sender, RoutedEventArgs e)
         {
             if (InputCheck())
             {
                 _headDAO.daoSubject.AddObject(subjectDTO.ToSubject());
 
-                labelError.Content = "Subject successuflly added!";
-                labelError.Foreground = new SolidColorBrush(Colors.Green);
-
-                ClearAllInput();
-            }
-            else
-            {
-                labelError.Content = "Invalid input!";
-                labelError.Foreground = new SolidColorBrush(Colors.Red);
+                if (comboBoxSemester.SelectedItem == comboBoxItemWinter)
+                    subjectDTO.Semester = SemesterEnum.winter;
+                else
+                    subjectDTO.Semester = SemesterEnum.summer;
             }
         }
 
