@@ -18,7 +18,7 @@ namespace GUI.DTO
 
         public SubjectDTO()
         {
-            _professor = new ProfessorDTO();  
+            _professor = new ProfessorDTO();
         }
 
         public SubjectDTO(ProfessorDTO professor)
@@ -34,6 +34,17 @@ namespace GUI.DTO
             semester = s.Semester;
             yearOfStudy = s.YearOfStudy;
             _professor = new ProfessorDTO(s.Profesor);
+            ects = s.Ects;
+        }
+
+        public SubjectDTO(SubjectDTO s)
+        {
+            id = s.Id;
+            code = s.Code;
+            name = s.Name;
+            semester = s.Semester;
+            yearOfStudy = s.YearOfStudy;
+            _professor = s.ProfessorDTO;
             ects = s.Ects;
         }
 
