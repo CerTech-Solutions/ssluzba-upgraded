@@ -6,22 +6,26 @@
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
         Title="Add student" 
-        Height="556" Width="400"
+        Height="600" Width="400"
         ResizeMode="NoResize">
-
+    
     <!-- Main grid -->
-    <Grid>
+    <Grid Margin="0,20,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="27*"/>
+            <ColumnDefinition Width="170*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="stackPanel">
+        <StackPanel x:Name="stackPanel" Grid.ColumnSpan="2">
 
             <!-- Info input -->
-            <Label HorizontalAlignment="Center" FontWeight="Bold" FontSize="20">INFO</Label>
-            <Grid Height="180">
+            <Label HorizontalAlignment="Center" FontWeight="Bold" FontSize="20">Information</Label>
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -38,32 +42,32 @@
 
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center">Name</Label>
                 <TextBox x:Name="textBoxName" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=studentDTO.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Surname</Label>
                 <TextBox x:Name="textBoxSurname" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=studentDTO.Surname,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding Path=Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Birth date</Label>
                 <DatePicker x:Name="datePickerBirthDate" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         SelectedDate="{Binding Path=studentDTO.BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            SelectedDate="{Binding Path=BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Phone number</Label>
                 <TextBox x:Name="textBoxPhoneNumber" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=studentDTO.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding Path=PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center">Email</Label>
                 <TextBox x:Name="textBoxEmail" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=studentDTO.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center">Current year</Label>
                 <TextBox x:Name="textBoxCurrentYear" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=studentDTO.CurrentYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding Path=CurrentYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center">Status</Label>
                 <ComboBox x:Name="comboBoxStatus" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2">
-                    <ComboBoxItem x:Name="comboBoxItem1" Content="Option 1"/>
-                    <ComboBoxItem x:Name="comboBoxItem2" Content="Option 2"/>
+                    <ComboBoxItem x:Name="comboBoxItemB">B</ComboBoxItem>
+                    <ComboBoxItem x:Name="comboBoxItemS">S</ComboBoxItem>
                 </ComboBox>
             </Grid>
 
@@ -75,27 +79,27 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center">Street</Label>
                 <TextBox x:Name="textBoxStreet" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=addressDTO.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                Text="{Binding Path=AddressDTO.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Number</Label>
                 <TextBox x:Name="textBoxNumber" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=addressDTO.Number, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                                Text="{Binding Path=AddressDTO.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">City</Label>
                 <TextBox x:Name="textBoxCity" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=addressDTO.City, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                                Text="{Binding Path=AddressDTO.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Country</Label>
                 <TextBox x:Name="textBoxCountry" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=addressDTO.Country, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                                Text="{Binding Path=AddressDTO.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=False}"/>
             </Grid>
 
             <!-- Index input -->
@@ -106,37 +110,35 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center">Course label</Label>
                 <TextBox x:Name="textBoxCourseLabel" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=indexDTO.CourseLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                Text="{Binding Path=IndexDTO.CourseLabel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Reg number</Label>
                 <TextBox x:Name="textBoxRegNumber" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=indexDTO.RegNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                Text="{Binding Path=IndexDTO.RegNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Enrollment Year</Label>
                 <TextBox x:Name="textBoxEnrollmentYear" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=indexDTO.EnrollmentYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                Text="{Binding Path=IndexDTO.EnrollmentYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             </Grid>
 
-            <Label Grid.Row="1" x:Name="labelError" HorizontalContentAlignment="Center" VerticalAlignment="Center" FontSize="12">[label]</Label>
-
-            <Grid>
+            <!-- Buttons -->
+            <Grid Height="50" Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="buttonAdd" HorizontalContentAlignment="Center" Click="AddStudent" Content="Add" Margin="0,10,0,10" HorizontalAlignment="Center" Width="120"/>
-                <Button Grid.Column="1" x:Name="butonCancel" HorizontalContentAlignment="Center" Click="Cancel" Content="Cancel" Margin="40,10,40,10"/>
+                <Button x:Name="buttonAdd" HorizontalContentAlignment="Center" Click="Add" Content="Add" Margin="0,10,0,10" HorizontalAlignment="Center" Width="177"/>
+                <Button Grid.Column="1" x:Name="butonCancel" HorizontalContentAlignment="Center" Click="Cancel" Content="Cancel" Margin="10,10,10,10"/>
             </Grid>
         </StackPanel>
-
     </Grid>
 </Window>

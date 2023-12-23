@@ -10,8 +10,8 @@ namespace CLI.Model;
 
 public enum StatusEnum
 {
-    B,                  // budzet
-    S                   // samofinansiranje
+    B,
+    S
 }
 
 public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
