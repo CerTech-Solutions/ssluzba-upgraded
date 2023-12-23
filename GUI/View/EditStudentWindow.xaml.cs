@@ -23,7 +23,7 @@ namespace GUI
     public partial class EditStudentWindow : Window
     {
         private HeadDAO _headDAO;
-        public StudentDTO studentDTO;
+        public StudentDTO _studentDTO;
 
         private Brush _defaultBrushBorder;
 
@@ -31,15 +31,19 @@ namespace GUI
         {
             InitializeComponent();
             _headDAO = headDAO;
-            labelError.Content = string.Empty;
 
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
-            studentDTO = new StudentDTO(studentOld);
-            DataContext = studentDTO;
+            if(studentOld.Status == StatusEnum.B)
+                comboBoxStatus.SelectedItem = comboBoxItemB;
+            else
+                comboBoxStatus.SelectedItem = comboBoxItemS;
+
+            _studentDTO = new StudentDTO(studentOld);
+            DataContext = _studentDTO;
         }
 
-        private bool InputCheck()
+        private bool EmptyTextBoxCheck()
         {
             bool validInput = true;
 
@@ -47,20 +51,18 @@ namespace GUI
             {
                 foreach (var control in grid.Children)
                 {
-                    if (control is TextBox)
+                    if (control is not TextBox)
+                        continue;
+
+                    TextBox textBox = (TextBox)control;
+                    if (textBox.Text == string.Empty)
                     {
-                        TextBox textBox = (TextBox)control;
-                        if (textBox.Text == string.Empty)
-                        {
-                            textBox.BorderBrush = Brushes.Red;
-                            textBox.BorderThickness = new Thickness(2);
-                            validInput = false;
-                        }
-                        else
-                        {
-                            textBox.BorderBrush = _defaultBrushBorder;
-                            textBox.BorderThickness = new Thickness(1);
-                        }
+                        BorderBrushToRed(textBox);
+                        validInput = false;
+                    }
+                    else
+                    {
+                        BorderBrushToDefault(textBox);
                     }
                 }
             }
@@ -68,20 +70,60 @@ namespace GUI
             return validInput;
         }
 
-        private void ApplyEdit(object sender, RoutedEventArgs e)
+        private void BorderBrushToRed(TextBox textBox)
+        {
+            textBox.BorderBrush = Brushes.Red;
+            textBox.BorderThickness = new Thickness(1.5);
+        }
+
+        private void BorderBrushToDefault(TextBox textBox)
+        {
+            textBox.BorderBrush = _defaultBrushBorder;
+            textBox.BorderThickness = new Thickness(1);
+        }
+
+        private bool InputCheck()
+        {
+            bool validInput = EmptyTextBoxCheck();
+
+            if (!int.TryParse(textBoxCurrentYear.Text, out _))
+            {
+                BorderBrushToRed(textBoxCurrentYear);
+                validInput = false;
+            }
+            else
+                BorderBrushToDefault(textBoxCurrentYear);
+
+            if (!int.TryParse(textBoxRegNumber.Text, out _))
+            {
+                BorderBrushToRed(textBoxRegNumber);
+                validInput = false;
+            }
+            else
+                BorderBrushToDefault(textBoxRegNumber);
+
+            if (!int.TryParse(textBoxEnrollmentYear.Text, out _))
+            {
+                BorderBrushToRed(textBoxEnrollmentYear);
+                validInput = false;
+            }
+            else
+                BorderBrushToDefault(textBoxEnrollmentYear);
+
+            return validInput;
+        }
+
+        private void Update(object sender, RoutedEventArgs e)
         {
             if (InputCheck())
             {
-                Student s = studentDTO.ToStudent();
+                if (comboBoxStatus.SelectedItem == comboBoxItemB)
+                    _studentDTO.Status = StatusEnum.B;
+                else
+                    _studentDTO.Status = StatusEnum.S;
 
-                _headDAO.daoStudent.UpdateObject(s);
-
+                _headDAO.daoStudent.UpdateObject(_studentDTO.ToStudent());
                 Close();
-            }
-            else
-            {
-                labelError.Content = "Invalid input!";
-                labelError.Foreground = new SolidColorBrush(Colors.Red);
             }
         }
 
