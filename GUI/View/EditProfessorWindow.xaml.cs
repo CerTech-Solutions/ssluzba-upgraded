@@ -30,8 +30,9 @@ namespace GUI
         public EditProfessorWindow(Controller controller, ProfessorDTO professorOld)
         {   
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             _controller = controller;
-            labelError.Content = string.Empty;
 
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
@@ -40,7 +41,7 @@ namespace GUI
         }
 
 
-        private void ApplyEdit(object sender, RoutedEventArgs e)
+        private void Update(object sender, RoutedEventArgs e)
         {
             if (InputCheck())
             {
@@ -50,14 +51,9 @@ namespace GUI
 
                 Close();
             }
-            else
-            {
-                labelError.Content = "Invalid input!";
-                labelError.Foreground = new SolidColorBrush(Colors.Red);
-            }
         }
 
-        private bool InputCheck()
+        private bool EmptyTextBoxCheck()
         {
             bool validInput = true;
 
@@ -65,39 +61,48 @@ namespace GUI
             {
                 foreach (var control in grid.Children)
                 {
-                    if (control is TextBox)
+                    if (control is not TextBox)
+                        continue;
+
+                    TextBox textBox = (TextBox)control;
+                    if (textBox.Text == string.Empty)
                     {
-                        TextBox textBox = (TextBox)control;
-                        if (textBox.Text == string.Empty)
-                        {
-                            textBox.BorderBrush = Brushes.Red;
-                            textBox.BorderThickness = new Thickness(2);
-                            validInput = false;
-                        }
-                        else
-                        {
-                            textBox.BorderBrush = _defaultBrushBorder;
-                            textBox.BorderThickness = new Thickness(1);
-                        }
+                        BorderBrushToRed(textBox);
+                        validInput = false;
+                    }
+                    else
+                    {
+                        BorderBrushToDefault(textBox);
                     }
                 }
             }
 
-            if (int.TryParse(textBoxServiceYears.Text, out _))
+            return validInput;
+        }
+
+        private void BorderBrushToRed(TextBox textBox)
+        {
+            textBox.BorderBrush = Brushes.Red;
+            textBox.BorderThickness = new Thickness(1.5);
+        }
+
+        private void BorderBrushToDefault(TextBox textBox)
+        {
+            textBox.BorderBrush = _defaultBrushBorder;
+            textBox.BorderThickness = new Thickness(1);
+        }
+
+        private bool InputCheck()
+        {
+            bool validInput = EmptyTextBoxCheck();
+
+            if (!int.TryParse(textBoxServiceYears.Text, out _))
             {
-                int serviceYears = int.Parse(textBoxServiceYears.Text);
-                if (serviceYears < 0)
-                {
-                    textBoxServiceYears.BorderBrush = Brushes.Red;
-                    textBoxServiceYears.BorderThickness = new Thickness(2);
-                    validInput = false;
-                }
-                else
-                {
-                    textBoxServiceYears.BorderBrush = _defaultBrushBorder;
-                    textBoxServiceYears.BorderThickness = new Thickness(1);
-                }
+                BorderBrushToRed(textBoxServiceYears);
+                validInput = false;
             }
+            else
+                BorderBrushToDefault(textBoxServiceYears);
 
             return validInput;
         }
@@ -106,12 +111,5 @@ namespace GUI
         {
             Close();
         }
-
-        private void textBoxName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
-
-    
 }
