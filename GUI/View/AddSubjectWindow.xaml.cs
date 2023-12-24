@@ -32,6 +32,8 @@ namespace GUI
         public AddSubjectWindow(HeadDAO headDAO, List<ProfessorDTO> _professors)
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             _headDAO = headDAO;
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 

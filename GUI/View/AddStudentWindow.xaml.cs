@@ -30,6 +30,7 @@ namespace GUI
         public AddStudentWindow(HeadDAO headDAO)
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             _headDAO = headDAO;
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();

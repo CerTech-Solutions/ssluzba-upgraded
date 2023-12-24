@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
         Title="Student services" Icon="Icons/main_window_icon.ico"
-        Height="600" Width="1000" MinWidth="1000" MinHeight="600">
+        Height="600" Width="1000" MinHeight="600" MinWidth="1000">
     <Grid>
         <StackPanel>
             <!-- Menubar -->
@@ -36,7 +36,7 @@
 
                 <DockPanel Grid.Column="1" LastChildFill="False">
                     <Button x:Name="buttonSearch" DockPanel.Dock="Right">Search</Button>
-                    <TextBox x:Name="textBoxSearch" Width="200" DockPanel.Dock="Right" TextAlignment="Center"/>
+                    <TextBox x:Name="textBoxSearch" Width="200" DockPanel.Dock="Right" TextAlignment="Left"/>
                 </DockPanel>
             </Grid>
         </StackPanel>

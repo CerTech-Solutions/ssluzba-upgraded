@@ -37,6 +37,7 @@ namespace GUI
         public MainWindow()
         {
             InitializeComponent();
+            SetWindowLocationAndSize();
 
             _headDAO = new HeadDAO();
 
@@ -49,6 +50,17 @@ namespace GUI
             fillProfessorDTOList();
             fillStudentDTOList();
             fillSubjectsDTOList();
+        }
+
+        public void SetWindowLocationAndSize()
+        {
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+
+            this.Width = (int) (3/4 * screenWidth);
+            this.Height = (int) (3/4 * screenHeight);
+            this.ResizeMode = ResizeMode.NoResize;
         }
 
         private void TimeTicker(object sender, EventArgs e)
@@ -99,7 +111,7 @@ namespace GUI
                     }
                     else
                     {
-                        MessageBox.Show("Please select an student to edit!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Please select student to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     break;
                 case "Professors":  
@@ -110,7 +122,7 @@ namespace GUI
                     }
                     else
                     {
-                        MessageBox.Show("Please select an professor to edit!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Please select professor to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     break;
                 case "Subjects":
@@ -121,7 +133,7 @@ namespace GUI
                     }
                     else
                     {
-                        MessageBox.Show("Please select an subject to edit!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Please select subject to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     break;
             }

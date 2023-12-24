@@ -31,6 +31,8 @@ namespace GUI
         public EditSubjectWindow(HeadDAO headDAO, SubjectDTO subjectOld, List<ProfessorDTO> _professors)
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             _headDAO = headDAO;
 
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
@@ -43,13 +45,9 @@ namespace GUI
             comboBoxProfessor.SelectedIndex = subjectOld.ProfessorDTO.Id;
 
             if (subjectOld.Semester == SemesterEnum.winter)
-            {
                 comboBoxSemester.SelectedItem = comboBoxItemWinter;
-            }  
             else
-            {
                 comboBoxSemester.SelectedItem = comboBoxItemSummer;
-            }
         }
 
         private bool EmptyTextBoxCheck()
@@ -121,6 +119,12 @@ namespace GUI
             if (InputCheck())
             {
                 _subjectDTO.ProfessorDTO = (ProfessorDTO)comboBoxProfessor.SelectedItem;
+                
+                if(comboBoxSemester.SelectedItem == comboBoxItemWinter)
+                    _subjectDTO.Semester = SemesterEnum.winter;
+                else
+                    _subjectDTO.Semester = SemesterEnum.summer;
+
                 _headDAO.UpdateSubject(_subjectDTO.ToSubject(), oldProfessorId);
                 Close();
             }
