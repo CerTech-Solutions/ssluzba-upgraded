@@ -31,19 +31,19 @@ namespace GUI
         public AddProfessorWindow(Controller controller)
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            
             DataContext = this;
 
             _controller = controller;
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
-
-            labelError.Content = string.Empty;
 
             // Initializing DTO objects
             addressDTO = new AddressDTO();
             professorDTO = new ProfessorDTO(addressDTO);
         }
 
-        private bool InputCheck()
+        private bool EmptyTextBoxCheck()
         {
             bool validInput = true;
 
@@ -51,20 +51,18 @@ namespace GUI
             {
                 foreach (var control in grid.Children)
                 {
-                    if (control is TextBox)
+                    if (control is not TextBox)
+                        continue;
+
+                    TextBox textBox = (TextBox)control;
+                    if (textBox.Text == string.Empty)
                     {
-                        TextBox textBox = (TextBox)control;
-                        if (textBox.Text == string.Empty)
-                        {
-                            textBox.BorderBrush = Brushes.Red;
-                            textBox.BorderThickness = new Thickness(2);
-                            validInput = false;
-                        }
-                        else
-                        {
-                            textBox.BorderBrush = _defaultBrushBorder;
-                            textBox.BorderThickness = new Thickness(1);
-                        }
+                        BorderBrushToRed(textBox);
+                        validInput = false;
+                    }
+                    else
+                    {
+                        BorderBrushToDefault(textBox);
                     }
                 }
             }
@@ -72,21 +70,31 @@ namespace GUI
             return validInput;
         }
 
-        private void ClearAllInput()
+        private void BorderBrushToRed(TextBox textBox)
         {
-            textBoxName.Text = string.Empty;
-            textBoxSurname.Text = string.Empty;
-            datePickerBirthDate.SelectedDate = null;
-            textBoxPhoneNumber.Text = string.Empty;
-            textBoxEmail.Text = string.Empty;
-            textBoxIdNumber.Text = string.Empty;
-            textBoxTitle.Text = string.Empty;
-            textBoxServiceYears.Text = string.Empty;
+            textBox.BorderBrush = Brushes.Red;
+            textBox.BorderThickness = new Thickness(1.5);
+        }
 
-            textBoxStreet.Text = string.Empty;
-            textBoxNumber.Text = string.Empty;
-            textBoxCity.Text = string.Empty;
-            textBoxCountry.Text = string.Empty;
+        private void BorderBrushToDefault(TextBox textBox)
+        {
+            textBox.BorderBrush = _defaultBrushBorder;
+            textBox.BorderThickness = new Thickness(1);
+        }
+
+        private bool InputCheck()
+        {
+            bool validInput = EmptyTextBoxCheck();
+
+            if (!int.TryParse(textBoxServiceYears.Text, out _))
+            {
+                BorderBrushToRed(textBoxServiceYears);
+                validInput = false;
+            }
+            else
+                BorderBrushToDefault(textBoxServiceYears);
+
+            return validInput;
         }
 
         private void AddProfessor(object sender, RoutedEventArgs e)
@@ -95,15 +103,7 @@ namespace GUI
             {
                 _controller.daoProfessor.AddObject(professorDTO.ToProfessor());
 
-                labelError.Content = "Student successuflly added!";
-                labelError.Foreground = new SolidColorBrush(Colors.Green);
-
-                ClearAllInput();
-            }
-            else
-            {
-                labelError.Content = "Invalid input!";
-                labelError.Foreground = new SolidColorBrush(Colors.Red);
+                Close();
             }
         }
 

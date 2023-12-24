@@ -27,11 +27,17 @@
             </Menu>
 
             <!-- Toolbar -->
-            <Grid Height="20" DockPanel.Dock="Top">
+            <Grid Height="30" DockPanel.Dock="Top" Margin="9,0,9,0">
                 <DockPanel Grid.Column="0" LastChildFill="False">
-                    <Button x:Name="buttonAdd" DockPanel.Dock="Left" Click="AddNewEntity">Add</Button>
-                    <Button x:Name="buttonEdit" DockPanel.Dock="Left" Click="EditEntity">Edit</Button>
-                    <Button x:Name="buttonDelete" DockPanel.Dock="Left" Click="DeleteEntity">Delete</Button>
+                    <Button x:Name="buttonAdd" DockPanel.Dock="Left" Click="AddNewEntity" BorderBrush="{x:Null}" Background="Transparent">
+                        <Image Source="/crud_add.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
+                    </Button>
+                    <Button x:Name="buttonEdit" DockPanel.Dock="Left" Click="EditEntity" BorderBrush="{x:Null}" Background="Transparent">
+                        <Image Source="/crud_edit.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
+                    </Button>
+                    <Button x:Name="buttonDelete" DockPanel.Dock="Left" Click="DeleteEntity" BorderBrush="{x:Null}" Background="Transparent">
+                        <Image  Source="/crud_delete.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
+                    </Button>
                 </DockPanel>
 
                 <DockPanel Grid.Column="1" LastChildFill="False">
@@ -61,16 +67,10 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridProfessor" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Width="*" Binding="{Binding Id}"/>
                             <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
                             <DataGridTextColumn Header="SURNAME" Width="*" Binding="{Binding Surname}"/>
-                            <DataGridTextColumn Header="BIRTH DATE" Width="*" Binding="{Binding BirthDate}"/>
-                            <DataGridTextColumn Header="ADDRESS" Width="*" Binding="{Binding Address}"/>
-                            <DataGridTextColumn Header="PHONE NUMBER" Width="*" Binding="{Binding PhoneNumber}"/>
-                            <DataGridTextColumn Header="EMAIL" Width="*" Binding="{Binding Email}"/>
-                            <DataGridTextColumn Header="ID NUMBER" Width="*" Binding="{Binding IdNumber}"/>
                             <DataGridTextColumn Header="TITLE" Width="*" Binding="{Binding Title}"/>
-                            <DataGridTextColumn Header="SERVICE YEARS" Width="*" Binding="{Binding ServiceYears}"/>
+                            <DataGridTextColumn Header="EMAIL" Width="*" Binding="{Binding Email}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
