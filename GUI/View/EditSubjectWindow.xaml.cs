@@ -1,4 +1,4 @@
-﻿using CLI.DAO;
+﻿using CLI.Controller;
 using CLI.Model;
 using GUI.DTO;
 using System;
@@ -22,41 +22,35 @@ namespace GUI
     /// </summary>
     public partial class EditSubjectWindow : Window
     {
-        private HeadDAO _headDAO;
+        private Controller _controller;
         private SubjectDTO _subjectDTO;
+        private int oldProfessorId;
 
         private Brush _defaultBrushBorder;
 
-        public EditSubjectWindow(HeadDAO headDAO, SubjectDTO subjectOld)
+        public EditSubjectWindow(Controller controller, SubjectDTO subjectOld, List<ProfessorDTO> _professors)
         {
             InitializeComponent();
-            _headDAO = headDAO;
-            labelError.Content = string.Empty;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            _controller = controller;
 
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
             _subjectDTO = new SubjectDTO(subjectOld);
             DataContext = _subjectDTO;
-        }
+            oldProfessorId = subjectOld.ProfessorDTO.Id;
 
-        private void ApplyEdit(object sender, RoutedEventArgs e)
-        {
-            if (InputCheck())
-            {
-                Subject subj = _subjectDTO.ToSubject();
+            comboBoxProfessor.ItemsSource = _professors;
+            comboBoxProfessor.SelectedIndex = subjectOld.ProfessorDTO.Id;
 
-                _headDAO.daoSubject.UpdateObject(subj);
-
-                Close();
-            }
+            if (subjectOld.Semester == SemesterEnum.winter)
+                comboBoxSemester.SelectedItem = comboBoxItemWinter;
             else
-            {
-                labelError.Content = "Invalid input!";
-                labelError.Foreground = new SolidColorBrush(Colors.Red);
-            }
+                comboBoxSemester.SelectedItem = comboBoxItemSummer;
         }
 
-        private bool InputCheck()
+        private bool EmptyTextBoxCheck()
         {
             bool validInput = true;
 
@@ -85,7 +79,56 @@ namespace GUI
             return validInput;
         }
 
+        private bool InputCheck()
+        {
+            bool validInput = EmptyTextBoxCheck();
 
+            if (!int.TryParse(textBoxYearOfStudy.Text, out _))
+            {
+                BorderBrushToRed(textBoxYearOfStudy);
+                validInput = false;
+            }
+            else
+                BorderBrushToDefault(textBoxYearOfStudy);
+
+            if (!int.TryParse(textBoxEcts.Text, out _))
+            {
+                BorderBrushToRed(textBoxEcts);
+                validInput = false;
+            }
+            else
+                BorderBrushToDefault(textBoxEcts);
+
+            return validInput;
+        }
+
+        private void BorderBrushToRed(TextBox textBox)
+        {
+            textBox.BorderBrush = Brushes.Red;
+            textBox.BorderThickness = new Thickness(1.5);
+        }
+
+        private void BorderBrushToDefault(TextBox textBox)
+        {
+            textBox.BorderBrush = _defaultBrushBorder;
+            textBox.BorderThickness = new Thickness(1);
+        }
+
+        private void Update(object sender, RoutedEventArgs e)
+        {
+            if (InputCheck())
+            {
+                _subjectDTO.ProfessorDTO = (ProfessorDTO)comboBoxProfessor.SelectedItem;
+                
+                if(comboBoxSemester.SelectedItem == comboBoxItemWinter)
+                    _subjectDTO.Semester = SemesterEnum.winter;
+                else
+                    _subjectDTO.Semester = SemesterEnum.summer;
+
+                _controller.UpdateSubject(_subjectDTO.ToSubject(), oldProfessorId);
+                Close();
+            }
+        }
 
         public void Cancel(object sender, RoutedEventArgs e)
         {

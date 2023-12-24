@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CLI.Controller;
 using CLI.DAO;
 using CLI.Model;
 using CLI.Storage;
@@ -12,11 +13,11 @@ namespace CLI.Console;
 
 public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsoleWriteRead, new()
 {
-    protected HeadDAO _headDAO;
+    protected Controller.Controller _controller;
 
-    public ConsoleView(HeadDAO headDAO)
+    public ConsoleView(Controller.Controller controller)
     {
-        _headDAO = headDAO;
+        _controller = controller;
     }
 
     protected void PrintObjects(List<T> objs)
@@ -89,21 +90,21 @@ public class ConsoleView<T> where T : class, IAccess<T>, ISerializable, IConsole
             else if (prop.PropertyType == typeof(Professor))
             {
                 System.Console.Write(prop.Name + " : \n");
-                Professor p = ConsoleViewUtils.SafeInputProfessorId(_headDAO.daoProfessor, skippable);
+                Professor p = ConsoleViewUtils.SafeInputProfessorId(_controller.daoProfessor, skippable);
                 if (p == null) continue;
                 prop.SetValue(obj, p);
             }
             else if (prop.PropertyType == typeof(Student))
             {
                 System.Console.Write(prop.Name + " : \n");
-                Student s = ConsoleViewUtils.SafeInputStudentId(_headDAO.daoStudent, skippable);
+                Student s = ConsoleViewUtils.SafeInputStudentId(_controller.daoStudent, skippable);
                 if (s == null) continue;
                 prop.SetValue(obj, s);
             }
             else if (prop.PropertyType == typeof(Subject))
             {
                 System.Console.Write(prop.Name + " : \n");
-                Subject p = ConsoleViewUtils.SafeInputSubjectId(_headDAO.daoSubject, skippable);
+                Subject p = ConsoleViewUtils.SafeInputSubjectId(_controller.daoSubject, skippable);
                 if (p == null) continue;
                 prop.SetValue(obj, p);
             }

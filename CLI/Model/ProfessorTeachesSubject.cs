@@ -9,7 +9,7 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-internal class ProfessorTeachesSubject : ISerializable, IAccess<ProfessorTeachesSubject>, IConsoleWriteRead
+public class ProfessorTeachesSubject : ISerializable, IAccess<ProfessorTeachesSubject>, IConsoleWriteRead
 {
     public ProfessorTeachesSubject() { }
 

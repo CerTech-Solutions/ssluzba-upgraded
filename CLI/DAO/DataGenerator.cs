@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CLI.Controller;
 using CLI.Model;
 
 namespace CLI.DAO;
@@ -19,7 +20,7 @@ public class DataGenerator
         string dataPath = AppDomain.CurrentDomain.BaseDirectory + "../../../../CLI/Data/";
 
         // Creating empty files
-        HeadDAO headDAO = new HeadDAO();
+        Controller.Controller controller = new Controller.Controller();
 
         foreach (string file in Directory.GetFiles(dataPath, "*.csv"))
             File.Delete(file);
@@ -46,10 +47,10 @@ public class DataGenerator
         daoDepartment.AddObject(k1);
 
         DAO<Subject> daoSubject = new DAO<Subject>();
-        Subject pr0 = new Subject(0, "bp1", "Baze podataka 1", SemesterEnum.winter, 3, 2, 8);
-        Subject pr1 = new Subject(1, "sau", "SAU", SemesterEnum.summer, 2, 1, 8);
-        Subject pr2 = new Subject(2, "os", "Operativni sistemi", SemesterEnum.summer, 2, 0, 8);
-        Subject pr3 = new Subject(3, "mo", "Metode optimizacije", SemesterEnum.winter, 3, 1, 8);
+        Subject pr0 = new Subject(0, "bp1", "Baze podataka 1", SemesterEnum.winter, 3, p2, 8);
+        Subject pr1 = new Subject(1, "sau", "SAU", SemesterEnum.summer, 2, p1, 8);
+        Subject pr2 = new Subject(2, "os", "Operativni sistemi", SemesterEnum.summer, 2, p0, 8);
+        Subject pr3 = new Subject(3, "mo", "Metode optimizacije", SemesterEnum.winter, 3, p1, 8);
         daoSubject.AddObject(pr0);
         daoSubject.AddObject(pr1);
         daoSubject.AddObject(pr2);

@@ -1,4 +1,4 @@
-﻿using CLI.DAO;
+﻿using CLI.Controller;
 using CLI.Model;
 using GUI.DTO;
 using System;
@@ -22,15 +22,15 @@ namespace GUI
     /// </summary>
     public partial class EditProfessorWindow : Window
     {
-        private HeadDAO _headDAO;
+        private Controller _controller;
         public ProfessorDTO professorDTO;
 
         private Brush _defaultBrushBorder;
 
-        public EditProfessorWindow(HeadDAO headDAO, ProfessorDTO professorOld)
+        public EditProfessorWindow(Controller controller, ProfessorDTO professorOld)
         {   
             InitializeComponent();
-            _headDAO = headDAO;
+            _controller = controller;
             labelError.Content = string.Empty;
 
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
@@ -46,7 +46,7 @@ namespace GUI
             {
                 Professor prof = professorDTO.ToProfessor();
 
-                _headDAO.daoProfessor.UpdateObject(prof);
+                _controller.daoProfessor.UpdateObject(prof);
 
                 Close();
             }

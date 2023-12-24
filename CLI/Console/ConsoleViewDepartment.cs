@@ -3,46 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CLI.DAO;
+using CLI.Controller;
 using CLI.Model;
 
 namespace CLI.Console;
 
 public class ConsoleViewDepartment : ConsoleView<Department>
 {
-    public ConsoleViewDepartment(HeadDAO headDAO) : base(headDAO) { }
+    public ConsoleViewDepartment(Controller.Controller controller) : base(controller) { }
 
     public override void ShowAll()
     {
-        PrintObjects(_headDAO.daoDepartment.GetAllObjects());
+        PrintObjects(_controller.daoDepartment.GetAllObjects());
     }
 
     public override void AddObject()
     {
         Department obj = new Department();
         InputObject(obj);
-        _headDAO.daoDepartment.AddObject(obj);
+        _controller.daoDepartment.AddObject(obj);
         ConsoleViewUtils.ConsoleWriteLineColor("Department added successfully!", ConsoleColor.Green);
     }
 
     public override void UpdateObject()
     {
-        Department kat = ConsoleViewUtils.SafeInputDepartmentId(_headDAO.daoDepartment, true);
+        Department kat = ConsoleViewUtils.SafeInputDepartmentId(_controller.daoDepartment, true);
         if (kat == null) return;
 
         InputObject(kat, true);
-        _headDAO.daoDepartment.UpdateObject(kat);
+        _controller.daoDepartment.UpdateObject(kat);
         ConsoleViewUtils.ConsoleWriteLineColor("Department updated successfully!", ConsoleColor.Green);
     }
 
     public override void RemoveObject()
     {
-        Department kat = ConsoleViewUtils.SafeInputDepartmentId(_headDAO.daoDepartment, true);
+        Department kat = ConsoleViewUtils.SafeInputDepartmentId(_controller.daoDepartment, true);
         if (kat == null) return;
 
         try
         {
-            _headDAO.DeleteDepartmant(kat.Id);
+            _controller.DeleteDepartmant(kat.Id);
             ConsoleViewUtils.ConsoleWriteLineColor("Department deleted successfully!", ConsoleColor.Green);
         }
         catch (Exception ex)

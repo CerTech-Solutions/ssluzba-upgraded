@@ -1,4 +1,4 @@
-﻿using CLI.DAO;
+﻿using CLI.Controller;
 using CLI.Model;
 using GUI;
 using GUI.DTO;
@@ -18,7 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Threading;  
+using System.Windows.Threading;
 
 namespace GUI
 {
@@ -28,7 +28,7 @@ namespace GUI
     public partial class MainWindow : Window
     {
         private DispatcherTimer _timer;
-        private HeadDAO _headDAO;
+        private Controller _controller;
 
         private List<ProfessorDTO> _professors;
         private List<StudentDTO> _students;
@@ -37,8 +37,9 @@ namespace GUI
         public MainWindow()
         {
             InitializeComponent();
+            SetWindowLocationAndSize();
 
-            _headDAO = new HeadDAO();
+            _controller = new Controller();
 
             // Initializing timer for statusbar
             _timer = new DispatcherTimer();
@@ -49,6 +50,17 @@ namespace GUI
             fillProfessorDTOList();
             fillStudentDTOList();
             fillSubjectsDTOList();
+        }
+
+        public void SetWindowLocationAndSize()
+        {
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+
+            this.Width = (int) (3/4 * screenWidth);
+            this.Height = (int) (3/4 * screenHeight);
+            this.ResizeMode = ResizeMode.NoResize;
         }
 
         private void TimeTicker(object sender, EventArgs e)
@@ -64,15 +76,15 @@ namespace GUI
                 switch (selectedTab.Header)
                 {
                     case "Students":
-                        AddStudentWindow addStudentWindow = new AddStudentWindow(_headDAO);
+                        AddStudentWindow addStudentWindow = new AddStudentWindow(_controller);
                         addStudentWindow.ShowDialog();
                         break;
                     case "Professors": 
-                        AddProfessorWindow addProfessorWindow = new AddProfessorWindow(_headDAO);
+                        AddProfessorWindow addProfessorWindow = new AddProfessorWindow(_controller);
                         addProfessorWindow.ShowDialog();
                         break;
                     case "Subjects": 
-                        AddSubjectWindow addSubjectWindow = new AddSubjectWindow(_headDAO);
+                        AddSubjectWindow addSubjectWindow = new AddSubjectWindow(_controller, _professors);
                         addSubjectWindow.ShowDialog();
                         break;
                 }
@@ -94,34 +106,34 @@ namespace GUI
                 case "Students":
                     if (dataGridStudents.SelectedItem != null)
                     {
-                        EditStudentWindow editStudentWindow = new EditStudentWindow(_headDAO, dataGridStudents.SelectedItem as StudentDTO);
+                        EditStudentWindow editStudentWindow = new EditStudentWindow(_controller, dataGridStudents.SelectedItem as StudentDTO);
                         editStudentWindow.ShowDialog();
                     }
                     else
                     {
-                        MessageBox.Show("Please select an student to edit!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Please select student to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     break;
                 case "Professors":  
                     if (dataGridProfessor.SelectedItem != null)
                     {
-                        EditProfessorWindow editProfessorWindow = new EditProfessorWindow(_headDAO, dataGridProfessor.SelectedItem as ProfessorDTO);
+                        EditProfessorWindow editProfessorWindow = new EditProfessorWindow(_controller, dataGridProfessor.SelectedItem as ProfessorDTO);
                         editProfessorWindow.ShowDialog();
                     }
                     else
                     {
-                        MessageBox.Show("Please select an professor to edit!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Please select professor to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     break;
                 case "Subjects":
                     if (dataGridSubjects.SelectedItem != null)
                     {
-                        EditSubjectWindow editSubjectWindow = new EditSubjectWindow(_headDAO, dataGridSubjects.SelectedItem as SubjectDTO);
+                        EditSubjectWindow editSubjectWindow = new EditSubjectWindow(_controller, dataGridSubjects.SelectedItem as SubjectDTO, _professors);
                         editSubjectWindow.ShowDialog();
                     }
                     else
                     {
-                        MessageBox.Show("Please select an subject to edit!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Please select subject to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     break;
             }
@@ -163,7 +175,7 @@ namespace GUI
                 {
                     try
                     {
-                        _headDAO.DeleteProfesor((dataGridProfessor.SelectedItem as ProfessorDTO).Id);
+                        _controller.DeleteProfesor((dataGridProfessor.SelectedItem as ProfessorDTO).Id);
                     }
                     catch (Exception ex)
                     {
@@ -182,7 +194,7 @@ namespace GUI
                 {
                     try
                     {
-                        _headDAO.DeleteStudent((dataGridStudents.SelectedItem as StudentDTO).Id);
+                        _controller.DeleteStudent((dataGridStudents.SelectedItem as StudentDTO).Id);
                     }
                     catch (Exception ex)
                     {
@@ -201,7 +213,7 @@ namespace GUI
                 {
                     try
                     {
-                        _headDAO.DeleteSubject((dataGridSubjects.SelectedItem as SubjectDTO).Id);
+                        _controller.DeleteSubject((dataGridSubjects.SelectedItem as SubjectDTO).Id);
                     }
                     catch (Exception ex)
                     {
@@ -214,7 +226,7 @@ namespace GUI
         private void fillProfessorDTOList()
         {
             _professors = new List<ProfessorDTO>();
-            foreach (Professor p in _headDAO.daoProfessor.GetAllObjects())
+            foreach (Professor p in _controller.daoProfessor.GetAllObjects())
             {
                 _professors.Add(new ProfessorDTO(p));
             }
@@ -224,7 +236,7 @@ namespace GUI
         private void fillStudentDTOList()
         {
             _students = new List<StudentDTO>();
-            foreach (Student s in _headDAO.daoStudent.GetAllObjects())
+            foreach (Student s in _controller.daoStudent.GetAllObjects())
             {
                 _students.Add(new StudentDTO(s));
             }
@@ -234,7 +246,7 @@ namespace GUI
         private void fillSubjectsDTOList()
         {
             _subjects = new List<SubjectDTO>();
-            foreach (Subject s in _headDAO.daoSubject.GetAllObjects())
+            foreach (Subject s in _controller.daoSubject.GetAllObjects())
             {
                 _subjects.Add(new SubjectDTO(s));
             }
