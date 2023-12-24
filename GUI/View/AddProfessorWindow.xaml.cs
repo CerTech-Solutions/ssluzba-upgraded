@@ -1,4 +1,4 @@
-﻿using CLI.DAO;
+﻿using CLI.Controller;
 using GUI.DTO;
 using System;
 using System.Collections.Generic;
@@ -22,18 +22,18 @@ namespace GUI
     /// </summary>
     public partial class AddProfessorWindow : Window
     {
-        private HeadDAO _headDAO;
+        private Controller _controller;
         private Brush _defaultBrushBorder;
 
         public ProfessorDTO professorDTO { get; set; }
         public AddressDTO addressDTO { get; set; }
 
-        public AddProfessorWindow(HeadDAO headDAO)
+        public AddProfessorWindow(Controller controller)
         {
             InitializeComponent();
             DataContext = this;
 
-            _headDAO = headDAO;
+            _controller = controller;
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
             labelError.Content = string.Empty;
@@ -93,7 +93,7 @@ namespace GUI
         {
             if (InputCheck())
             {
-                _headDAO.daoProfessor.AddObject(professorDTO.ToProfessor());
+                _controller.daoProfessor.AddObject(professorDTO.ToProfessor());
 
                 labelError.Content = "Student successuflly added!";
                 labelError.Foreground = new SolidColorBrush(Colors.Green);

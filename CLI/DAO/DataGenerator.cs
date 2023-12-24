@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CLI.Controller;
 using CLI.Model;
 
 namespace CLI.DAO;
@@ -19,7 +20,7 @@ public class DataGenerator
         string dataPath = AppDomain.CurrentDomain.BaseDirectory + "../../../../CLI/Data/";
 
         // Creating empty files
-        HeadDAO headDAO = new HeadDAO();
+        Controller.Controller controller = new Controller.Controller();
 
         foreach (string file in Directory.GetFiles(dataPath, "*.csv"))
             File.Delete(file);

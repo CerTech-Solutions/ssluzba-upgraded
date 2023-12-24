@@ -4,14 +4,14 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-using CLI.DAO;
+using CLI.Controller;
 using CLI.Model;
 
 namespace CLI.Console;
 
 public class ConsoleViewSelector
 {
-    private HeadDAO _headDAO;
+    private Controller.Controller _controller;
     private ConsoleViewDepartment consoleDepartment;
     private ConsoleViewGrade consoleGrade;
     private ConsoleViewStudent consoleStudent;
@@ -20,12 +20,12 @@ public class ConsoleViewSelector
 
     public ConsoleViewSelector()
     {
-        _headDAO = new HeadDAO();
-        consoleDepartment = new ConsoleViewDepartment(_headDAO);
-        consoleGrade = new ConsoleViewGrade(_headDAO);
-        consoleStudent = new ConsoleViewStudent(_headDAO);
-        consoleSubject = new ConsoleViewSubject(_headDAO);
-        consoleProfessor = new ConsoleViewProfessor(_headDAO);
+        _controller = new Controller.Controller();
+        consoleDepartment = new ConsoleViewDepartment(_controller);
+        consoleGrade = new ConsoleViewGrade(_controller);
+        consoleStudent = new ConsoleViewStudent(_controller);
+        consoleSubject = new ConsoleViewSubject(_controller);
+        consoleProfessor = new ConsoleViewProfessor(_controller);
     }
 
     public void RunSelector()
@@ -38,7 +38,7 @@ public class ConsoleViewSelector
             ConsoleViewUtils.ConsoleRefresh();
             if (userInput == "0")
             {
-                _headDAO.SaveAllToStorage();
+                _controller.SaveAllToStorage();
                 break;
             }
             HandleSelector(userInput);

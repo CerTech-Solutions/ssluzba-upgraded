@@ -1,4 +1,4 @@
-﻿using CLI.DAO;
+﻿using CLI.Controller;
 using CLI.Model;
 using GUI.DTO;
 using System;
@@ -23,16 +23,16 @@ namespace GUI
     /// </summary>
     public partial class AddStudentWindow : Window
     {
-        private HeadDAO _headDAO;
+        private Controller _controller;
         private StudentDTO _studentDTO;
         private Brush _defaultBrushBorder;
 
-        public AddStudentWindow(HeadDAO headDAO)
+        public AddStudentWindow(Controller controller)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            _headDAO = headDAO;
+            _controller = controller;
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
             comboBoxStatus.SelectedItem = comboBoxItemB;
@@ -120,7 +120,7 @@ namespace GUI
                 else
                     _studentDTO.Status = StatusEnum.S;
 
-                _headDAO.daoStudent.AddObject(_studentDTO.ToStudent());
+                _controller.daoStudent.AddObject(_studentDTO.ToStudent());
                 Close();
             }
         }

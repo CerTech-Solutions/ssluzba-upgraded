@@ -1,4 +1,4 @@
-﻿using CLI.DAO;
+﻿using CLI.Controller;
 using CLI.Model;
 using GUI.DTO;
 using System;
@@ -22,18 +22,18 @@ namespace GUI
     /// </summary>
     public partial class EditSubjectWindow : Window
     {
-        private HeadDAO _headDAO;
+        private Controller _controller;
         private SubjectDTO _subjectDTO;
         private int oldProfessorId;
 
         private Brush _defaultBrushBorder;
 
-        public EditSubjectWindow(HeadDAO headDAO, SubjectDTO subjectOld, List<ProfessorDTO> _professors)
+        public EditSubjectWindow(Controller controller, SubjectDTO subjectOld, List<ProfessorDTO> _professors)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            _headDAO = headDAO;
+            _controller = controller;
 
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
@@ -125,7 +125,7 @@ namespace GUI
                 else
                     _subjectDTO.Semester = SemesterEnum.summer;
 
-                _headDAO.UpdateSubject(_subjectDTO.ToSubject(), oldProfessorId);
+                _controller.UpdateSubject(_subjectDTO.ToSubject(), oldProfessorId);
                 Close();
             }
         }

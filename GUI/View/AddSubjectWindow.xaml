@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
         Title="Add subject" 
-        Height="320" Width="400"
+        Height="350" Width="400"
         ResizeMode="NoResize">
 
     <!-- Main grid -->
-    <Grid>
+    <Grid Margin="0,10,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -20,8 +20,8 @@
         <StackPanel x:Name="stackPanel">
 
             <!-- Info input -->
-            <Label HorizontalAlignment="Center" FontWeight="Bold" FontSize="20">INFO</Label>
-            <Grid Height="180">
+            <Label HorizontalAlignment="Center" FontWeight="Bold" FontSize="20">Subject</Label>
+            <Grid Height="180" Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -63,7 +63,7 @@
 
             </Grid>
 
-            <Grid Height="50">
+            <Grid Height="50"  Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>

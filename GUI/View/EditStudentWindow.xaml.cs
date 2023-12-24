@@ -1,4 +1,4 @@
-﻿using CLI.DAO;
+﻿using CLI.Controller;
 using CLI.Model;
 using GUI.DTO;
 using System;
@@ -22,16 +22,17 @@ namespace GUI
     /// </summary>
     public partial class EditStudentWindow : Window
     {
-        private HeadDAO _headDAO;
+        private Controller _controller;
         public StudentDTO _studentDTO;
 
         private Brush _defaultBrushBorder;
 
-        public EditStudentWindow(HeadDAO headDAO, StudentDTO studentOld)
+        public EditStudentWindow(Controller controller, StudentDTO studentOld)
         {
             InitializeComponent();
-            _headDAO = headDAO;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
+            _controller = controller;
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
             if(studentOld.Status == StatusEnum.B)
@@ -122,7 +123,7 @@ namespace GUI
                 else
                     _studentDTO.Status = StatusEnum.S;
 
-                _headDAO.daoStudent.UpdateObject(_studentDTO.ToStudent());
+                _controller.daoStudent.UpdateObject(_studentDTO.ToStudent());
                 Close();
             }
         }

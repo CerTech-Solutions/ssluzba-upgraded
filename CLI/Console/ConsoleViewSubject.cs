@@ -4,45 +4,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CLI.Model;
-using CLI.DAO;
+using CLI.Controller;
 
 namespace CLI.Console;
 
 public class ConsoleViewSubject : ConsoleView<Subject>
 {
-    public ConsoleViewSubject(HeadDAO headDAO) : base(headDAO) { }
+    public ConsoleViewSubject(Controller.Controller controller) : base(controller) { }
 
     public override void ShowAll()
     {
-        PrintObjects(_headDAO.daoSubject.GetAllObjects());
+        PrintObjects(_controller.daoSubject.GetAllObjects());
     }
 
     public override void AddObject()
     {
         Subject obj = new Subject();
         InputObject(obj);
-        _headDAO.daoSubject.AddObject(obj);
+        _controller.daoSubject.AddObject(obj);
         ConsoleViewUtils.ConsoleWriteLineColor("Subject added successfully!", ConsoleColor.Green);
     }
 
     public override void UpdateObject()
     {
-        Subject p = ConsoleViewUtils.SafeInputSubjectId(_headDAO.daoSubject, true);
+        Subject p = ConsoleViewUtils.SafeInputSubjectId(_controller.daoSubject, true);
         if (p == null) return;
 
         InputObject(p, true);
-        _headDAO.daoSubject.UpdateObject(p);
+        _controller.daoSubject.UpdateObject(p);
         ConsoleViewUtils.ConsoleWriteLineColor("Subject updated successfully!", ConsoleColor.Green);
     }
 
     public override void RemoveObject()
     {
-        Subject p = ConsoleViewUtils.SafeInputSubjectId(_headDAO.daoSubject, true);
+        Subject p = ConsoleViewUtils.SafeInputSubjectId(_controller.daoSubject, true);
         if (p == null) return;
 
         try
         {
-            _headDAO.DeleteSubject(p.Id);
+            _controller.DeleteSubject(p.Id);
             ConsoleViewUtils.ConsoleWriteLineColor("Subject removed successfully!", ConsoleColor.Green);
         }
         catch (Exception ex)

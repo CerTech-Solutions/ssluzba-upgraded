@@ -1,4 +1,4 @@
-﻿using CLI.DAO;
+﻿using CLI.Controller;
 using CLI.Model;
 using GUI.DTO;
 using System;
@@ -24,20 +24,20 @@ namespace GUI
     /// </summary>
     public partial class AddSubjectWindow : Window
     {
-        private HeadDAO _headDAO;
+        private Controller _controller;
         private Brush _defaultBrushBorder;
 
         public SubjectDTO _subjectDTO;
 
-        public AddSubjectWindow(HeadDAO headDAO, List<ProfessorDTO> _professors)
+        public AddSubjectWindow(Controller controller, List<ProfessorDTO> _professors)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            _headDAO = headDAO;
+            _controller = controller;
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
-            comboBoxProfessor.ItemsSource = headDAO.daoProfessor.GetAllObjects();
+            comboBoxProfessor.ItemsSource = controller.daoProfessor.GetAllObjects();
 
             comboBoxSemester.SelectedItem = comboBoxItemWinter;
             comboBoxProfessor.ItemsSource = _professors;
@@ -121,7 +121,7 @@ namespace GUI
                 else
                     _subjectDTO.Semester = SemesterEnum.summer;
 
-                _headDAO.AddSubject(_subjectDTO.ToSubject());
+                _controller.AddSubject(_subjectDTO.ToSubject());
                 Close();
             }
         }
