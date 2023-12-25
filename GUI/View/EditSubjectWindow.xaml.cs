@@ -3,6 +3,7 @@ using CLI.Model;
 using GUI.DTO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace GUI
 
         private Brush _defaultBrushBorder;
 
-        public EditSubjectWindow(Controller controller, SubjectDTO subjectOld, List<ProfessorDTO> _professors)
+        public EditSubjectWindow(Controller controller, SubjectDTO subjectOld, ObservableCollection<ProfessorDTO> _professors)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;

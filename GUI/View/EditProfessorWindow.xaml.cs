@@ -45,9 +45,7 @@ namespace GUI
         {
             if (InputCheck())
             {
-                Professor prof = professorDTO.ToProfessor();
-
-                _controller.daoProfessor.UpdateObject(prof);
+                _controller.UpdateProfessor(professorDTO.ToProfessor());
 
                 Close();
             }
