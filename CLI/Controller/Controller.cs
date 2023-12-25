@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using CLI.DAO;
 using CLI.Model;
+using CLI.Observer;
 
 namespace CLI.Controller;
 
@@ -20,8 +22,11 @@ public class Controller
     public DAO<ProfessorWorksAtDepartment> daoProfessorWorksAtDepartment;
     public DAO<StudentTakesSubject> daoStudentTakesSubject;
 
+    public Publisher publisher;
+
     public Controller()
     {
+        publisher = new Publisher();
         daoStudent = new DAO<Student>();
         daoProfessor = new DAO<Professor>();
         daoDepartment = new DAO<Department>();
@@ -87,6 +92,66 @@ public class Controller
         }
     }
 
+    public List<Student> GetAllStudents()
+    {
+        return daoStudent.GetAllObjects();
+    }
+
+    public List<Professor> GetAllProfessors()
+    {
+        return daoProfessor.GetAllObjects();
+    }
+
+    public List<Subject> GetAllSubjects()
+    {
+        return daoSubject.GetAllObjects();
+    }
+
+    public void AddSubject(Subject subject)
+    {
+        daoSubject.AddObject(subject);
+        subject.Professor = daoProfessor.GetObjectById(subject.Professor.Id);
+        daoProfessorTeachesSubject.AddObject(new ProfessorTeachesSubject(0, subject.Professor.Id, subject.Id));
+
+        publisher.NotifyObservers();
+    }
+
+    public void UpdateSubject(Subject subject, int oldProfessorId)
+    {
+        daoSubject.UpdateObject(subject);
+        if (subject.Professor.Id != oldProfessorId)
+        {
+            ProfessorTeachesSubject pts = daoProfessorTeachesSubject.GetAllObjects().Find(pts => pts.IdSub == subject.Id && pts.IdProf == oldProfessorId);
+            pts.IdProf = subject.Professor.Id;
+            daoProfessorTeachesSubject.UpdateObject(pts);
+        }
+        publisher.NotifyObservers();
+    }
+    
+    public void AddProfessor(Professor professor)
+    {
+        daoProfessor.AddObject(professor);
+        publisher.NotifyObservers();
+    }
+
+    public void UpdateProfessor(Professor professor)
+    {
+        daoProfessor.UpdateObject(professor);
+        publisher.NotifyObservers();
+    }
+
+    public void AddStudent(Student student)
+    {
+        daoStudent.AddObject(student);
+        publisher.NotifyObservers();
+    }
+
+    public void UpdateStudent(Student student)
+    {
+        daoStudent.UpdateObject(student);
+        publisher.NotifyObservers();
+    }
+
     public void DeleteDepartmant(int katedraId)
     {
         ProfessorWorksAtDepartment prk = daoProfessorWorksAtDepartment.GetAllObjects().Find(prk => prk.IdDep == katedraId);
@@ -107,6 +172,7 @@ public class Controller
         if (oc != null) throw new Exception("Some students have grade in that subject!");
 
         daoSubject.RemoveObject(predmetId);
+        publisher.NotifyObservers();
     }
 
     public void DeleteProfesor(int profesorId)
@@ -118,6 +184,7 @@ public class Controller
         if (prk != null) throw new Exception("Chosen professor  teaches at some department!");
 
         daoProfessor.RemoveObject(profesorId);
+        publisher.NotifyObservers();
     }
 
     public void DeleteStudent(int studentId)
@@ -129,6 +196,7 @@ public class Controller
         if (oc != null) throw new Exception("Chosen student has some grades!");
 
         daoStudent.RemoveObject(studentId);
+        publisher.NotifyObservers();
     }
 
     public void AddOcena(Grade ocena)
@@ -191,24 +259,7 @@ public class Controller
 
         student.GPA /= count;
     }
-
-    public void AddSubject(Subject subject)
-    {
-        daoSubject.AddObject(subject);
-        subject.Professor = daoProfessor.GetObjectById(subject.Professor.Id);
-        daoProfessorTeachesSubject.AddObject(new ProfessorTeachesSubject(0, subject.Professor.Id, subject.Id));
-    }
-
-    public void UpdateSubject(Subject subject, int oldProfessorId)
-    {
-        daoSubject.UpdateObject(subject);
-        if (subject.Professor.Id != oldProfessorId)
-        {
-            ProfessorTeachesSubject pts = daoProfessorTeachesSubject.GetAllObjects().Find(pts => pts.IdSub == subject.Id && pts.IdProf == oldProfessorId);
-            pts.IdProf = subject.Professor.Id;
-            daoProfessorTeachesSubject.UpdateObject(pts);
-        }
-    }
+    
     public void SaveAllToStorage()
     {
         daoStudent.SaveToStorage();

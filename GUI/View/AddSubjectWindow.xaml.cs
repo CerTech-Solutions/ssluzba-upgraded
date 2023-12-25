@@ -3,6 +3,7 @@ using CLI.Model;
 using GUI.DTO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -29,7 +30,7 @@ namespace GUI
 
         public SubjectDTO _subjectDTO;
 
-        public AddSubjectWindow(Controller controller, List<ProfessorDTO> _professors)
+        public AddSubjectWindow(Controller controller, ObservableCollection<ProfessorDTO> _professors)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;

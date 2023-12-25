@@ -101,7 +101,7 @@ namespace GUI
         {
             if (InputCheck())
             {
-                _controller.daoProfessor.AddObject(professorDTO.ToProfessor());
+                _controller.AddProfessor(professorDTO.ToProfessor());
 
                 Close();
             }

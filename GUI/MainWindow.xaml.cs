@@ -19,20 +19,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using CLI.Observer;
+using System.Collections.ObjectModel;
 
 namespace GUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IObserver
     {
         private DispatcherTimer _timer;
         private Controller _controller;
 
-        private List<ProfessorDTO> _professors;
-        private List<StudentDTO> _students;
-        private List<SubjectDTO> _subjects;
+        private ObservableCollection<ProfessorDTO> _professors;
+        private ObservableCollection<StudentDTO> _students;
+        private ObservableCollection<SubjectDTO> _subjects;
 
         public MainWindow()
         {
@@ -40,6 +42,7 @@ namespace GUI
             SetWindowLocationAndSize();
 
             _controller = new Controller();
+            _controller.publisher.Subscribe(this);
 
             // Initializing timer for statusbar
             _timer = new DispatcherTimer();
@@ -47,9 +50,15 @@ namespace GUI
             _timer.Tick += TimeTicker;
             _timer.Start();
 
-            fillProfessorDTOList();
-            fillStudentDTOList();
-            fillSubjectsDTOList();
+            _professors = new ObservableCollection<ProfessorDTO>();
+            _students = new ObservableCollection<StudentDTO>();
+            _subjects = new ObservableCollection<SubjectDTO>();
+
+            dataGridProfessor.ItemsSource = _professors;
+            dataGridStudents.ItemsSource = _students;
+            dataGridSubjects.ItemsSource = _subjects;
+
+            Update();
         }
 
         public void SetWindowLocationAndSize()
@@ -88,10 +97,6 @@ namespace GUI
                         addSubjectWindow.ShowDialog();
                         break;
                 }
-
-            fillProfessorDTOList();
-            fillStudentDTOList();
-            fillSubjectsDTOList();
         }
 
         private void EditEntity(object sender, RoutedEventArgs e)
@@ -138,9 +143,6 @@ namespace GUI
                     break;
             }
 
-            fillProfessorDTOList();
-            fillStudentDTOList();
-            fillSubjectsDTOList();
         }
 
         private void DeleteEntity(object sender, RoutedEventArgs e) 
@@ -161,9 +163,6 @@ namespace GUI
                         break;
                 }
 
-            fillProfessorDTOList();
-            fillStudentDTOList();
-            fillSubjectsDTOList();
         }
 
         private void deleteProfessor()
@@ -223,34 +222,39 @@ namespace GUI
             }
         }
 
+        public void Update()
+        {
+            fillStudentDTOList();
+            fillProfessorDTOList();
+            fillSubjectsDTOList();
+        }
+
         private void fillProfessorDTOList()
         {
-            _professors = new List<ProfessorDTO>();
-            foreach (Professor p in _controller.daoProfessor.GetAllObjects())
+            _professors.Clear();
+            foreach (Professor p in _controller.GetAllProfessors())
             {
                 _professors.Add(new ProfessorDTO(p));
             }
-            dataGridProfessor.ItemsSource = _professors;
+
         }
 
         private void fillStudentDTOList()
         {
-            _students = new List<StudentDTO>();
-            foreach (Student s in _controller.daoStudent.GetAllObjects())
+            _students.Clear();
+            foreach (Student s in _controller.GetAllStudents())
             {
                 _students.Add(new StudentDTO(s));
             }
-            dataGridStudents.ItemsSource = _students;
         }
 
         private void fillSubjectsDTOList()
         {
-            _subjects = new List<SubjectDTO>();
-            foreach (Subject s in _controller.daoSubject.GetAllObjects())
+            _subjects.Clear();
+            foreach (Subject s in _controller.GetAllSubjects())
             {
                 _subjects.Add(new SubjectDTO(s));
             }
-            dataGridSubjects.ItemsSource = _subjects;
         }
     }
 }

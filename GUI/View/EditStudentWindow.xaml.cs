@@ -123,7 +123,7 @@ namespace GUI
                 else
                     _studentDTO.Status = StatusEnum.S;
 
-                _controller.daoStudent.UpdateObject(_studentDTO.ToStudent());
+                _controller.UpdateStudent(_studentDTO.ToStudent());
                 Close();
             }
         }

@@ -8,8 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="crud_add.png" />
-    <None Remove="crud_delete.png" />
     <None Remove="crud_edit.png" />
     <None Remove="Icons\crud_add.png" />
     <None Remove="Icons\crud_delete.png" />
@@ -31,9 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="crud_add.png" />
-    <Resource Include="crud_delete.png" />
-    <Resource Include="crud_edit.png" />
     <Resource Include="Icons\crud_delete.png" />
     <Resource Include="Icons\crud_edit.png" />
     <Resource Include="Icons\main_window_icon.ico" />
