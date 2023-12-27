@@ -245,6 +245,7 @@ namespace GUI
             foreach (Student s in _controller.GetAllStudents())
             {
                 _students.Add(new StudentDTO(s));
+                _students.Last().CalculateGPA();
             }
         }
 

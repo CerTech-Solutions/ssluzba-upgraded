@@ -109,6 +109,17 @@ namespace GUI.DTO
             }
         }
 
+        public Grade ToGrade()
+        {
+            Grade grade = new Grade();
+            grade.Id = id;
+            grade.Student = student.ToStudent();
+            grade.Subject = subject.ToSubject();
+            grade.GradeValue = gradeValue;
+            grade.PassDate = DateOnly.FromDateTime(passDate);
+            return grade;
+        }
+
         public String PassDateString
         {
             get { return passDate.Date.ToString("dd/MM/yyyy"); }

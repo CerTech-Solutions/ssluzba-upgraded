@@ -203,38 +203,24 @@ public class Controller
         publisher.NotifyObservers();
     }
 
-    public void AddOcena(Grade ocena)
+    public void AddGrade(Grade ocena)
     {
         Grade temp = daoGrade.GetAllObjects().Find(o =>
             o.Student.Id == ocena.Student.Id && o.Subject.Id == ocena.Subject.Id);
 
         if (temp != null) throw new Exception("Student already has grade for that subject!");
 
+        StudentTakesSubject sts = daoStudentTakesSubject.GetAllObjects().Find(sts =>
+            sts.IdStud == ocena.Student.Id && sts.IdSub == ocena.Subject.Id);
+
         daoGrade.AddObject(ocena);
-
-        StudentTakesSubject sss = daoStudentTakesSubject.GetAllObjects().Find(sss =>
-            sss.IdSub == ocena.Subject.Id && sss.IdStud == ocena.Student.Id);
-
-        if (sss != null)
-            sss.Status = PassedSubjectEnum.PASSED;
-
-        PassSubjectForStudent(ocena.Student, ocena.Subject);
-        CalculateGPA(ocena.Student);
+        daoStudentTakesSubject.RemoveObject(sts.Id);
     }
 
     public void DeleteGrade(Grade grade)
     {
-        /*StudentTakesSubject sss = daoStudentTakesSubject.GetAllObjects().Find(sss =>
-             sss.IdSub == grade.Subject.Id && sss.IdStud == grade.Student.Id);
-
-        if (sss != null)
-            sss.Status = PassedSubjectEnum.NOTPASSED;
-
-        grade.Student.NotPassedSubjects.Add(grade.Subject);
-        grade.Student.PassedSubjects.Remove(grade.Subject);
-
         daoGrade.RemoveObject(grade.Id);
-        CalculateGPA(grade.Student);*/
+        daoStudentTakesSubject.AddObject(new StudentTakesSubject(0, grade.Student.Id, grade.Subject.Id, PassedSubjectEnum.PASSED));  
     }
 
     public void PassSubjectForStudent(Student student, Subject subject)

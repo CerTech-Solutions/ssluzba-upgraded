@@ -114,6 +114,7 @@ namespace GUI
             {
                 _studentDTO.PassedSubjects.Add(_gradeDTO);
                 _studentDTO.NotPassedSubjects.Remove(_subjectDTO);
+                _controller.AddGrade(_gradeDTO.ToGrade());
                 Close();
             }
         }

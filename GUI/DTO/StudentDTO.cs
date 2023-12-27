@@ -62,8 +62,8 @@ namespace GUI.DTO
             status = s.Status;
             gpa = s.Gpa;
             _index = new IndexDTO(s.IndexDTO);
-            passedSubjects = new ObservableCollection<GradeDTO>(s.PassedSubjects);
-            notPassedSubjects = new ObservableCollection<SubjectDTO>(s.NotPassedSubjects);
+            passedSubjects = s.PassedSubjects;
+            notPassedSubjects = s.NotPassedSubjects;
             CalculateGPA();
             CalculateTotalEcts();
         }

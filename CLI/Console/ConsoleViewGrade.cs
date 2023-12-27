@@ -23,7 +23,7 @@ public class ConsoleViewGrade : ConsoleView<Grade>
 
         try
         {
-            _controller.AddOcena(obj);
+            _controller.AddGrade(obj);
             ConsoleViewUtils.ConsoleWriteLineColor("Grade added successfully!", ConsoleColor.Green);
         }
         catch(Exception ex)
@@ -40,7 +40,7 @@ public class ConsoleViewGrade : ConsoleView<Grade>
 
         InputObject(o, true);
         _controller.DeleteGrade(o);
-        _controller.AddOcena(o);
+        _controller.AddGrade(o);
         ConsoleViewUtils.ConsoleWriteLineColor("Grade updated successfully!", ConsoleColor.Green);
     }
 
