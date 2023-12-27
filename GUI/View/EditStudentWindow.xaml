@@ -182,7 +182,7 @@
             <Grid Margin="0,20,0,0">
                 <DockPanel>
                     <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Margin="5,5,0,0">Add</Button>
-                    <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Margin="5,5,0,0">Delete</Button>
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Margin="5,5,0,0" Click="DeleteNotPassedSubject">Delete</Button>
                     <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Margin="5,5,0,0" Click="AddGrade">Pass Subject</Button>
                 </DockPanel>
                 <DataGrid x:Name="dataGridNotPassedSubjects" AutoGenerateColumns="False" IsReadOnly="True" Margin="15,50,15,50">
