@@ -9,6 +9,7 @@ using CLI.Model;
 using Index = CLI.Model.Index;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using System.Collections.ObjectModel;
 
 namespace GUI.DTO
 {
@@ -42,8 +43,8 @@ namespace GUI.DTO
             status = s.Status;
             gpa = s.GPA;
             _index = new IndexDTO(s.Index);
-            passedSubjects = s.PassedSubjects.Select(g => new GradeDTO(g, this)).ToList();
-            notPassedSubjects = s.NotPassedSubjects.Select(s => new SubjectDTO(s)).ToList();    
+            passedSubjects = new ObservableCollection<GradeDTO>(s.PassedSubjects.Select(g => new GradeDTO(g, this)).ToList());
+            notPassedSubjects = new ObservableCollection<SubjectDTO>(s.NotPassedSubjects.Select(s => new SubjectDTO(s)).ToList());
         }
 
         public StudentDTO(StudentDTO s)
@@ -220,8 +221,8 @@ namespace GUI.DTO
             }
         }
 
-        private List<SubjectDTO> notPassedSubjects;
-        public List<SubjectDTO> NotPassedSubjects
+        private ObservableCollection<SubjectDTO> notPassedSubjects;
+        public ObservableCollection<SubjectDTO> NotPassedSubjects
         {
             get { return notPassedSubjects; }
             set
@@ -234,8 +235,8 @@ namespace GUI.DTO
             }
         }
 
-        private List<GradeDTO> passedSubjects;
-        public List<GradeDTO> PassedSubjects
+        private ObservableCollection<GradeDTO> passedSubjects;
+        public ObservableCollection<GradeDTO> PassedSubjects
         {
             get { return passedSubjects; }
             set

@@ -111,7 +111,7 @@ namespace GUI.DTO
 
         public String PassDateString
         {
-            get { return passDate.Date.ToString(); }
+            get { return passDate.Date.ToString("dd/MM/yyyy"); }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

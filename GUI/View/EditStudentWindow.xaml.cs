@@ -147,5 +147,16 @@ namespace GUI
         {
             Close();
         }
+
+        private void CancelGrade(object sender, RoutedEventArgs e)
+        {
+            if (dataGridPassedSubjects.SelectedItem == null)
+                return;
+            
+            GradeDTO selectedGrade = (GradeDTO) dataGridPassedSubjects.SelectedItem;
+
+            _studentDTO.PassedSubjects.Remove(selectedGrade);
+            _studentDTO.NotPassedSubjects.Add(selectedGrade.Subject);
+        }
     }
 }
