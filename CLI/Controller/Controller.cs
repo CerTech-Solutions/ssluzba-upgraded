@@ -59,17 +59,9 @@ public class Controller
 
             g.Student = s;
             g.Subject = p;
-        }   
-      
-        //Povezivanje polozeni predmet-student
-        foreach(Grade g in daoGrade.GetAllObjects())
-        {
-            Student s = g.Student;
-            Subject p = g.Subject;
-
             s.PassedSubjects.Add(g);
             p.StudentsPassed.Add(s);
-        }
+        }   
 
         // Povezivanje predmet-profesor
         foreach (ProfessorTeachesSubject ppp in daoProfessorTeachesSubject.GetAllObjects())

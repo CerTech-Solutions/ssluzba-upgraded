@@ -34,14 +34,16 @@ namespace GUI.DTO
             id = s.Id;
             name = s.Name;
             surname = s.Surname;
-            birthDate = s.BirthDate.ToDateTime(TimeOnly.Parse("00:00"));
+            birthDate = s.BirthDate.ToDateTime(TimeOnly.MinValue);
             _address = new AddressDTO(s.Address);
             phoneNumber = s.PhoneNumber;
             email = s.Email;
             currentYear = s.CurrentYear;
             status = s.Status;
             gpa = s.GPA;
-            _index = new IndexDTO(s.Index);          
+            _index = new IndexDTO(s.Index);
+            passedSubjects = s.PassedSubjects.Select(g => new GradeDTO(g, this)).ToList();
+            notPassedSubjects = s.NotPassedSubjects.Select(s => new SubjectDTO(s)).ToList();    
         }
 
         public StudentDTO(StudentDTO s)
@@ -57,6 +59,8 @@ namespace GUI.DTO
             status = s.Status;
             gpa = s.Gpa;
             _index = new IndexDTO(s.IndexDTO);
+            passedSubjects = s.PassedSubjects;
+            notPassedSubjects = s.NotPassedSubjects;
         }
 
         private int id;

@@ -42,6 +42,8 @@ namespace GUI
 
             _studentDTO = new StudentDTO(studentOld);
             DataContext = _studentDTO;
+            dataGridPassedSubjects.ItemsSource = _studentDTO.PassedSubjects;
+            dataGridNotPassedSubjects.ItemsSource = _studentDTO.NotPassedSubjects;
         }
 
         private bool EmptyTextBoxCheck()
