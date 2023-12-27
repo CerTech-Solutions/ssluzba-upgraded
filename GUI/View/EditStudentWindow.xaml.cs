@@ -158,5 +158,14 @@ namespace GUI
             _studentDTO.PassedSubjects.Remove(selectedGrade);
             _studentDTO.NotPassedSubjects.Add(selectedGrade.Subject);
         }
+
+        private void DeleteNotPassedSubject(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult dr = MessageBox.Show("Are you sure you want to remove this subject from subjects this student is taking?", "Delete professor", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+            if (dr == MessageBoxResult.Yes)
+            {
+                _studentDTO.NotPassedSubjects.Remove(dataGridNotPassedSubjects.SelectedItem as SubjectDTO);
+            }
+        }
     }
 }
