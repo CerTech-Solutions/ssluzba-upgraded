@@ -45,6 +45,8 @@ namespace GUI.DTO
             _index = new IndexDTO(s.Index);
             passedSubjects = new ObservableCollection<GradeDTO>(s.PassedSubjects.Select(g => new GradeDTO(g, this)).ToList());
             notPassedSubjects = new ObservableCollection<SubjectDTO>(s.NotPassedSubjects.Select(s => new SubjectDTO(s)).ToList());
+            CalculateGPA();
+            CalculateTotalEcts();
         }
 
         public StudentDTO(StudentDTO s)
@@ -60,8 +62,10 @@ namespace GUI.DTO
             status = s.Status;
             gpa = s.Gpa;
             _index = new IndexDTO(s.IndexDTO);
-            passedSubjects = s.PassedSubjects;
-            notPassedSubjects = s.NotPassedSubjects;
+            passedSubjects = new ObservableCollection<GradeDTO>(s.PassedSubjects);
+            notPassedSubjects = new ObservableCollection<SubjectDTO>(s.NotPassedSubjects);
+            CalculateGPA();
+            CalculateTotalEcts();
         }
 
         private int id;
@@ -208,6 +212,20 @@ namespace GUI.DTO
             }
         }
 
+        private int totalEcts;
+        public int TotalEcts
+        {
+            get { return totalEcts; }
+            set
+            {
+                if (value != totalEcts)
+                {
+                    totalEcts = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public IndexDTO IndexDTO
         {
             get { return _index;  }
@@ -252,6 +270,25 @@ namespace GUI.DTO
         public String Index
         {
             get { return _index.ToString(); }
+        }
+
+        public void CalculateGPA()
+        {
+            double sum = 0;
+            foreach (GradeDTO grade in passedSubjects)
+                sum += grade.GradeValue;
+
+            if (passedSubjects.Count > 0)
+                Gpa = sum / passedSubjects.Count;
+            else
+                Gpa = 0.0d;
+        }
+
+        public void CalculateTotalEcts()
+        {
+            TotalEcts = 0;
+            foreach (GradeDTO grade in passedSubjects)
+                TotalEcts += grade.Subject.Ects;
         }
 
         public Student ToStudent()
