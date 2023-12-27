@@ -256,5 +256,30 @@ namespace GUI
                 _subjects.Add(new SubjectDTO(s));
             }
         }
+
+        private void Cancel(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void OpenAbout(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Version 0.1.7 - Made by passionate developers from CerTech-Solutions®\n\nNemanja Zekanovic \n\t Young developer who has a lot more to learn,\n\t also known as nemanjatelep\nNikola Kuslakovic \n\t The greateast programmer of all time,\n\t even though he has a lot more to learn");
+        }
+
+        private void OpenStudents(object sender, RoutedEventArgs e)
+        {
+            tabControl.SelectedItem = tabItemStudents;
+        }
+
+        private void OpenProfessors(object sender, RoutedEventArgs e)
+        {
+            tabControl.SelectedItem = tabItemProfessors;
+        }
+
+        private void OpenSubjects(object sender, RoutedEventArgs e)
+        {
+            tabControl.SelectedItem = tabItemSubjects;
+        }
     }
 }

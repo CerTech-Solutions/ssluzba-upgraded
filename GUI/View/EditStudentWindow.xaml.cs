@@ -165,10 +165,17 @@ namespace GUI
 
         private void DeleteNotPassedSubject(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dr = MessageBox.Show("Are you sure you want to remove this subject from subjects this student is taking?", "Delete professor", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-            if (dr == MessageBoxResult.Yes)
+            if(dataGridNotPassedSubjects.SelectedItem != null)
+            { 
+                MessageBoxResult dr = MessageBox.Show("Are you sure you want to remove this subject from subjects this student is taking?", "Delete professor", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                if (dr == MessageBoxResult.Yes)
+                {
+                    _studentDTO.NotPassedSubjects.Remove(dataGridNotPassedSubjects.SelectedItem as SubjectDTO);
+                }
+            }
+            else
             {
-                _studentDTO.NotPassedSubjects.Remove(dataGridNotPassedSubjects.SelectedItem as SubjectDTO);
+                MessageBox.Show("Please select subject to remove from subject list!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }
