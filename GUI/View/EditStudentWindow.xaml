@@ -166,12 +166,14 @@
                     <Label Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="1" 
                            VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold">Average grade:</Label>
                     <Label x:Name="labelAverageGrade" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="1" 
-                           VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontWeight="Bold">9.81</Label>
+                           VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontWeight="Bold"
+                           Content="{Binding Gpa}"></Label>
 
                     <Label Grid.Column="2" Grid.RowSpan="1" Grid.ColumnSpan="1" 
                             VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Bold">Total ECTS:</Label>
                     <Label x:Name="labelEcts" Grid.Column="3" Grid.RowSpan="1" Grid.ColumnSpan="1"
-                           VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontWeight="Bold">60</Label>
+                           VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontWeight="Bold"
+                           Content="{Binding TotalEcts}"></Label>
                 </Grid>
             </Grid>
         </TabItem>
