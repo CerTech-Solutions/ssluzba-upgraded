@@ -15,10 +15,10 @@ namespace GUI.DTO
             subject = new SubjectDTO();
         }   
 
-        public GradeDTO(Grade grade)
+        public GradeDTO(Grade grade, StudentDTO studentDTO)
         {
             id = grade.Id;
-            student = new StudentDTO(grade.Student);
+            student = studentDTO;
             subject = new SubjectDTO(grade.Subject);
             gradeValue = grade.GradeValue;
             passDate = grade.PassDate.ToDateTime(TimeOnly.Parse("00:00"));
@@ -98,6 +98,11 @@ namespace GUI.DTO
                     passDate = value;
                 }
             }
-        }       
+        }
+
+        public String PassDateString
+        {
+            get { return passDate.Date.ToString(); }
+        }
     }
 }
