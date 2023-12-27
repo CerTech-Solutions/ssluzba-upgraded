@@ -136,6 +136,8 @@ namespace GUI
             {
                 AddGradeWindow addGradeWindow = new AddGradeWindow(_controller, _studentDTO, dataGridNotPassedSubjects.SelectedItem as SubjectDTO);
                 addGradeWindow.ShowDialog();
+                _studentDTO.CalculateGPA();
+                _studentDTO.CalculateTotalEcts();
             }
             else
             {
@@ -157,6 +159,8 @@ namespace GUI
 
             _studentDTO.PassedSubjects.Remove(selectedGrade);
             _studentDTO.NotPassedSubjects.Add(selectedGrade.Subject);
+            _studentDTO.CalculateGPA();
+            _studentDTO.CalculateTotalEcts();
         }
 
         private void DeleteNotPassedSubject(object sender, RoutedEventArgs e)
