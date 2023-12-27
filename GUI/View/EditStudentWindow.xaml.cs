@@ -130,6 +130,19 @@ namespace GUI
             }
         }
 
+        private void AddGrade(object sender, RoutedEventArgs e)
+        {
+            if (dataGridNotPassedSubjects.SelectedItem != null)
+            {
+                AddGradeWindow addGradeWindow = new AddGradeWindow(_controller, _studentDTO, dataGridNotPassedSubjects.SelectedItem as SubjectDTO);
+                addGradeWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please select subject to add grade!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
         private void Cancel(object sender, RoutedEventArgs e)
         {
             Close();

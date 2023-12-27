@@ -1,19 +1,27 @@
 ﻿using CLI.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GUI.DTO
+namespace GUI.DTO 
 {
-    public class GradeDTO
+    public class GradeDTO : INotifyPropertyChanged
     {
         public GradeDTO()
         {
             student = new StudentDTO();
             subject = new SubjectDTO();
         }   
+
+        public GradeDTO(StudentDTO studentDTO, SubjectDTO subjectDTO)
+        {
+            student = studentDTO;
+            subject = subjectDTO;
+        }
 
         public GradeDTO(Grade grade, StudentDTO studentDTO)
         {
@@ -88,6 +96,7 @@ namespace GUI.DTO
         }
 
         private DateTime passDate;
+
         public DateTime PassDate
         {
             get { return passDate; }
@@ -103,6 +112,13 @@ namespace GUI.DTO
         public String PassDateString
         {
             get { return passDate.Date.ToString(); }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
