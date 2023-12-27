@@ -195,7 +195,7 @@ namespace GUI.DTO
                     OnPropertyChanged();
                 }
             }
-        }   
+        } 
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

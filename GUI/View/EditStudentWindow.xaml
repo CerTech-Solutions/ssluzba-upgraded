@@ -140,9 +140,65 @@
         </TabItem>
 
         <TabItem x:Name="tabItemPassed" Header="Passed">
+            <Grid Margin="0,20,0,0">
+                <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Margin="5,5,0,0">Cancel Grade</Button>
+                <DataGrid Margin="15,50,15,50">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Subject Code" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Subject Name" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Ects" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Grade" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Date" Width="*"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Grid VerticalAlignment="Bottom" Height="40">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <Label Grid.Column="0" Height="30" Width="100" VerticalAlignment="Top" FontWeight="Bold">Average Grade:</Label>
+                    <Label Grid.Column="1" VerticalAlignment="Top" FontWeight="Bold">9.81</Label>
+
+                    <Label Grid.Column="2" Height="30" Width="100" VerticalAlignment="Top" FontWeight="Bold" Margin="32,0,0,0">Total Ects:</Label>
+                    <Label Grid.Column="3" VerticalAlignment="Top" FontWeight="Bold">85</Label>
+                </Grid>
+            </Grid>
         </TabItem>
 
         <TabItem x:Name="tabItemNotPassed" Header="Not passed">
+            <Grid Margin="0,20,0,0">
+                <DockPanel>
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Margin="5,5,0,0">Add</Button>
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Margin="5,5,0,0">Delete</Button>
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Margin="5,5,0,0">Pass Subject</Button>
+                </DockPanel>
+                <DataGrid Margin="15,50,15,50">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Subject Code" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Subject Name" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Ects" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Year of Study" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Semester" Width="*"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Grid VerticalAlignment="Bottom" Height="40">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                </Grid>
+            </Grid>
         </TabItem>
     </TabControl>
 </Window>

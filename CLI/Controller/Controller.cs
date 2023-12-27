@@ -41,22 +41,34 @@ public class Controller
 
     private void LinkObjectLists()
     {
-        // Povezivanje predmeta-studentima
+        // Povezivanje nepolozeni predmet-student
         foreach (StudentTakesSubject ssp in daoStudentTakesSubject.GetAllObjects())
         {
             Student s = daoStudent.GetObjectById(ssp.IdStud);
             Subject p = daoSubject.GetObjectById(ssp.IdSub);
 
-            if (ssp.Status == PassedSubjectEnum.NOTPASSED)
-            {
-                s.NotPassedSubjects.Add(p);
-                p.StudentiNisuPolozili.Add(s);
-            }
-            else
-            {
-                s.PassedSubjects.Add(p);
-                p.StudentiPolozili.Add(s);
-            }
+            s.NotPassedSubjects.Add(p);
+            p.StudentsNotPassed.Add(s);
+        }
+
+        //Povezivanje ocena-student-predmet
+        foreach(Grade g in daoGrade.GetAllObjects())
+        {
+            Student s = daoStudent.GetObjectById(g.Student.Id);
+            Subject p = daoSubject.GetObjectById(g.Subject.Id);
+
+            g.Student = s;
+            g.Subject = p;
+        }   
+      
+        //Povezivanje polozeni predmet-student
+        foreach(Grade g in daoGrade.GetAllObjects())
+        {
+            Student s = g.Student;
+            Subject p = g.Subject;
+
+            s.PassedSubjects.Add(g);
+            p.StudentsPassed.Add(s);
         }
 
         // Povezivanje predmet-profesor
@@ -220,7 +232,7 @@ public class Controller
 
     public void DeleteGrade(Grade grade)
     {
-        StudentTakesSubject sss = daoStudentTakesSubject.GetAllObjects().Find(sss =>
+        /*StudentTakesSubject sss = daoStudentTakesSubject.GetAllObjects().Find(sss =>
              sss.IdSub == grade.Subject.Id && sss.IdStud == grade.Student.Id);
 
         if (sss != null)
@@ -230,17 +242,17 @@ public class Controller
         grade.Student.PassedSubjects.Remove(grade.Subject);
 
         daoGrade.RemoveObject(grade.Id);
-        CalculateGPA(grade.Student);
+        CalculateGPA(grade.Student);*/
     }
 
     public void PassSubjectForStudent(Student student, Subject subject)
     {
-        student.PassedSubjects.Add(subject);
+        /*student.PassedSubjects.Add(subject);
         Subject np = student.NotPassedSubjects.Find(np => np.Id == subject.Id);
 
         if (np == null) return;
 
-        student.NotPassedSubjects.Remove(np);
+        student.NotPassedSubjects.Remove(np);*/
     }
 
     public void CalculateGPA(Student student)

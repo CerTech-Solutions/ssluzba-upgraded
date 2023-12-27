@@ -22,8 +22,8 @@ public class Subject : ISerializable, IAccess<Subject>, IConsoleWriteRead
     public Subject()
     {
         Professor = new Professor();
-        StudentiPolozili = new List<Student>();
-        StudentiNisuPolozili = new List<Student>();
+        StudentsPassed = new List<Student>();
+        StudentsNotPassed = new List<Student>();
     }
 
     public Subject(int idSub, string code, string name, SemesterEnum semester, int yearOfStudy, Professor p, int ects)
@@ -35,8 +35,8 @@ public class Subject : ISerializable, IAccess<Subject>, IConsoleWriteRead
         YearOfStudy = yearOfStudy;
         Ects = ects;
         Professor = p;
-        StudentiPolozili = new List<Student>();
-        StudentiNisuPolozili = new List<Student>();
+        StudentsPassed = new List<Student>();
+        StudentsNotPassed = new List<Student>();
     }
 
     public int Id
@@ -57,9 +57,9 @@ public class Subject : ISerializable, IAccess<Subject>, IConsoleWriteRead
 
     public int Ects { get; set; }
 
-    public List<Student> StudentiPolozili { get; set; }
+    public List<Student> StudentsPassed { get; set; }
 
-    public List<Student> StudentiNisuPolozili { get; set; }
+    public List<Student> StudentsNotPassed { get; set; }
 
     public void Copy(Subject obj)
     {
@@ -105,12 +105,12 @@ public class Subject : ISerializable, IAccess<Subject>, IConsoleWriteRead
     {
         string str = $"{Id,6} | {Code,8} | {Name,20} | {Semester,8} | {YearOfStudy,11} | {Ects,6} | {Professor.Name + " " + Professor.Surname,32} |";
         str += "\n\t* Students that passed: \n";
-        foreach (Student p in StudentiPolozili)
+        foreach (Student p in StudentsPassed)
         {
             str += $"\t\t{p.Id} {p.Index.ToString()} {p.Name} {p.Surname}\n";
         }
         str += "\n\t* Students that didn't pass: \n";
-        foreach (Student np in StudentiNisuPolozili)
+        foreach (Student np in StudentsNotPassed)
         {
             str += $"\t\t{np.Id} {np.Index.ToString()} {np.Name} {np.Surname}\n";
         }

@@ -22,7 +22,7 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
     {
         Address = new Address();
         Index = new Index();
-        PassedSubjects = new List<Subject>();
+        PassedSubjects = new List<Grade>();
         NotPassedSubjects = new List<Subject>();
     }
 
@@ -41,7 +41,7 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
         GPA = gpa;
         Index = index;
 
-        PassedSubjects = new List<Subject>();
+        PassedSubjects = new List<Grade>();
         NotPassedSubjects = new List<Subject>();
     }
 
@@ -65,7 +65,7 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
 
     public StatusEnum Status { get; set; }
 
-    public List<Subject> PassedSubjects { get; set; }
+    public List<Grade> PassedSubjects { get; set; }
 
     public List<Subject> NotPassedSubjects { get; set; }
 
@@ -136,9 +136,9 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
             str += $"\t\t{np.Code} {np.Name}\n";
         }
         str += "\n\t* Passed subjects: \n";
-        foreach (Subject np in PassedSubjects)
+        foreach (Grade np in PassedSubjects)
         {
-            str += $"\t\t{np.Code} {np.Name}\n";
+            str += $"\t\t{np.Subject.Code} {np.Subject.Name}\n";
         }
         return str;
     }

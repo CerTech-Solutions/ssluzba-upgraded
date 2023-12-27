@@ -41,7 +41,7 @@ namespace GUI.DTO
             currentYear = s.CurrentYear;
             status = s.Status;
             gpa = s.GPA;
-            _index = new IndexDTO(s.Index);
+            _index = new IndexDTO(s.Index);          
         }
 
         public StudentDTO(StudentDTO s)
@@ -211,6 +211,34 @@ namespace GUI.DTO
                 if (value != _index)
                 {
                     _index = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private List<SubjectDTO> notPassedSubjects;
+        public List<SubjectDTO> NotPassedSubjects
+        {
+            get { return notPassedSubjects; }
+            set
+            {
+                if (value != notPassedSubjects)
+                {
+                    notPassedSubjects = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private List<GradeDTO> passedSubjects;
+        public List<GradeDTO> PassedSubjects
+        {
+            get { return passedSubjects; }
+            set
+            {
+                if (value != passedSubjects)
+                {
+                    passedSubjects = value;
                     OnPropertyChanged();
                 }
             }
