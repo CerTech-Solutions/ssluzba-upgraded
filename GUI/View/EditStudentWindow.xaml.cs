@@ -95,7 +95,15 @@ namespace GUI
                 validInput = false;
             }
             else
-                BorderBrushToDefault(textBoxCurrentYear);
+            {
+                if (int.Parse(textBoxCurrentYear.Text) <= 0)
+                {
+                    BorderBrushToRed(textBoxCurrentYear);
+                    validInput = false;
+                }
+                else
+                    BorderBrushToDefault(textBoxCurrentYear);
+            }
 
             if (!int.TryParse(textBoxRegNumber.Text, out _))
             {
@@ -103,7 +111,15 @@ namespace GUI
                 validInput = false;
             }
             else
-                BorderBrushToDefault(textBoxRegNumber);
+            {
+                if (int.Parse(textBoxRegNumber.Text) <= 0)
+                {
+                    BorderBrushToRed(textBoxRegNumber);
+                    validInput = false;
+                }
+                else
+                    BorderBrushToDefault(textBoxRegNumber);
+            }
 
             if (!int.TryParse(textBoxEnrollmentYear.Text, out _))
             {
@@ -111,7 +127,15 @@ namespace GUI
                 validInput = false;
             }
             else
-                BorderBrushToDefault(textBoxEnrollmentYear);
+            {
+                if (int.Parse(textBoxEnrollmentYear.Text) <= 0 || int.Parse(textBoxEnrollmentYear.Text) > DateTime.Now.Year)
+                {
+                    BorderBrushToRed(textBoxEnrollmentYear);
+                    validInput = false;
+                }
+                else
+                    BorderBrushToDefault(textBoxEnrollmentYear);
+            }
 
             return validInput;
         }

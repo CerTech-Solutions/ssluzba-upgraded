@@ -169,7 +169,7 @@ namespace GUI
         {
             if (dataGridProfessor.SelectedItem != null)
             {
-                MessageBoxResult dr = MessageBox.Show("Are you sure you want to delete this professor?", "Delete professor", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                MessageBoxResult dr = MessageBox.Show("Are you sure you want to delete this professor?", "Delete professor", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (dr == MessageBoxResult.Yes)
                 {
                     try
@@ -182,13 +182,17 @@ namespace GUI
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("Please select professor to delete!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void deleteStudent()
         {
             if (dataGridStudents.SelectedItem != null)
             {
-                MessageBoxResult dr = MessageBox.Show("Are you sure you want to delete this student?", "Delete student", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                MessageBoxResult dr = MessageBox.Show("Are you sure you want to delete this student?", "Delete student", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (dr == MessageBoxResult.Yes)
                 {
                     try
@@ -201,13 +205,17 @@ namespace GUI
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("Please select student to delete!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void deleteSubject()
         {
             if (dataGridSubjects.SelectedItem != null)
             {
-                MessageBoxResult dr = MessageBox.Show("Are you sure you want to delete this subject?", "Delete subject", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                MessageBoxResult dr = MessageBox.Show("Are you sure you want to delete this subject?", "Delete subject", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (dr == MessageBoxResult.Yes)
                 {
                     try
@@ -219,6 +227,10 @@ namespace GUI
                         MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Please select subject to delete!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -265,7 +277,7 @@ namespace GUI
 
         private void OpenAbout(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Version 0.1.7 - Made by passionate developers from CerTech-Solutions®\n\nNemanja Zekanovic \n\t Young developer who has a lot more to learn,\n\t also known as nemanjatelep\nNikola Kuslakovic \n\t The greateast programmer of all time,\n\t even though he has a lot more to learn");
+            MessageBox.Show("Version 0.1.7 - Made by passionate developers from CerTech-Solutions®\n\nNemanja Zekanovic \n\t Young developer who has a lot more to learn,\n\t also known as telepnemanja\nNikola Kuslakovic \n\t Legends tell that he is \n\t the greateast programmer of all time");
         }
 
         private void OpenStudents(object sender, RoutedEventArgs e)

@@ -90,7 +90,15 @@ namespace GUI
                 validInput = false;
             }
             else
-                BorderBrushToDefault(textBoxYearOfStudy);
+            {
+                if(int.Parse(textBoxYearOfStudy.Text) <= 0)
+                {
+                    BorderBrushToRed(textBoxYearOfStudy);
+                    validInput = false;
+                }
+                else
+                    BorderBrushToDefault(textBoxYearOfStudy);
+            }
 
             if (!int.TryParse(textBoxEcts.Text, out _))
             {
@@ -98,7 +106,15 @@ namespace GUI
                 validInput = false;
             }
             else
-                BorderBrushToDefault(textBoxEcts);
+            {
+                if (int.Parse(textBoxEcts.Text) <= 0)
+                {
+                    BorderBrushToRed(textBoxEcts);
+                    validInput = false;
+                }
+                else
+                    BorderBrushToDefault(textBoxEcts);
+            }
 
             return validInput;
         }

@@ -92,7 +92,15 @@ namespace GUI
                 validInput = false;
             }
             else
-                BorderBrushToDefault(textBoxServiceYears);
+            {
+                if (int.Parse(textBoxServiceYears.Text) < 0)
+                {
+                    BorderBrushToRed(textBoxServiceYears);
+                    validInput = false;
+                }
+                else
+                    BorderBrushToDefault(textBoxServiceYears);
+            }
 
             return validInput;
         }
