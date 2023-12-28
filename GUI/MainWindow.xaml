@@ -45,15 +45,15 @@
                 </DockPanel>
 
                 <DockPanel Grid.Column="1" LastChildFill="False">
-                    <Button Margin="5,0,5,0" x:Name="buttonSearch" DockPanel.Dock="Right" BorderBrush="{x:Null}" Background="Transparent">
+                    <Button Margin="5,0,5,0" x:Name="buttonSearch" DockPanel.Dock="Right" BorderBrush="{x:Null}" Background="Transparent" Click="ApplySearch">
                         <Image Source="Icons/search.png" Height="20" Width="20" Stretch="Fill" Cursor="Hand"/>
                     </Button>
                     <TextBox x:Name="textBoxSearch" Width="300" DockPanel.Dock="Right"
-                             VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Left" KeyDown="textBoxSearch_KeyDown"/>
                 </DockPanel>
             </Grid>
         </StackPanel>
-
+        
         <!-- Tab control -->
         <TabControl x:Name="tabControl" RenderTransformOrigin="0.5,0.5" Margin="20,70,20,45">
             <TabItem x:Name="tabItemStudents" Header="Students">
