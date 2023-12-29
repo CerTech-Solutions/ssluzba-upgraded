@@ -22,6 +22,7 @@ using System.Windows.Threading;
 using CLI.Observer;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Tracing;
+using System.ComponentModel;
 
 namespace GUI
 {
@@ -229,56 +230,51 @@ namespace GUI
 
         public void Update()
         {
-                fillStudentDTOList();
-                fillProfessorDTOList();
-                fillSubjectsDTOList();
+            fillStudentDTOList();
+            fillProfessorDTOList();
+            fillSubjectsDTOList();
+
+            ApplySearch(this, new RoutedEventArgs());
         }
 
         private void fillProfessorDTOList()
         {
             _professors.Clear();
-            if(textBoxSearch.Text == string.Empty)
-            { 
-                foreach (Professor p in _controller.GetAllProfessors())
-                {
-                    _professors.Add(new ProfessorDTO(p));
-                }
-            }
-            else
-            {
-                FilterProfessors();
-            }
-        }
-
-        private void FilterProfessors()
-        {
-            string[] words = textBoxSearch.Text.Split(", ");
             foreach (Professor p in _controller.GetAllProfessors())
             {
-                if (words.Length == 1)
-                {
-                    if (!_professorsSearchList.Any(prof => prof.Id == p.Id) && p.Surname.ToLower().Contains(words[0].ToLower()))
-                    {
-                        _professorsSearchList.Add(new ProfessorDTO(p));
-                    }
-                }
-                else if (words.Length == 2)
-                {
-                    if (!_professorsSearchList.Any(prof => prof.Id == p.Id) && p.Name.ToLower().Contains(words[1].ToLower()) && p.Surname.ToLower().Contains(words[0].ToLower()))
-                    {
-                        _professorsSearchList.Add(new ProfessorDTO(p));
-                    }
-                }
-
-                foreach (ProfessorDTO pDTO in _professorsSearchList)
-                {
-                    if (p.Id == pDTO.Id)
-                    {
-                        _professors.Add(new ProfessorDTO(p));
-                    }
-                }
+                _professors.Add(new ProfessorDTO(p));
             }
         }
+
+        //private void FilterProfessors()
+        //{
+        //    string[] words = textBoxSearch.Text.Split(", ");
+        //    foreach (Professor p in _controller.GetAllProfessors())
+        //    {
+        //        if (words.Length == 1)
+        //        {
+        //            if (!_professorsSearchList.Any(prof => prof.Id == p.Id) && p.Surname.ToLower().Contains(words[0].ToLower()))
+        //            {
+        //                _professorsSearchList.Add(new ProfessorDTO(p));
+        //            }
+        //        }
+        //        else if (words.Length == 2)
+        //        {
+        //            if (!_professorsSearchList.Any(prof => prof.Id == p.Id) && p.Name.ToLower().Contains(words[1].ToLower()) && p.Surname.ToLower().Contains(words[0].ToLower()))
+        //            {
+        //                _professorsSearchList.Add(new ProfessorDTO(p));
+        //            }
+        //        }
+
+        //        foreach (ProfessorDTO pDTO in _professorsSearchList)
+        //        {
+        //            if (p.Id == pDTO.Id)
+        //            {
+        //                _professors.Add(new ProfessorDTO(p));
+        //            }
+        //        }
+        //    }
+        //}
 
         private void fillStudentDTOList()
         {
@@ -323,61 +319,67 @@ namespace GUI
             tabControl.SelectedItem = tabItemSubjects;
         }
 
-        private void ApplyFilter()
-        {
-            if (tabControl.SelectedItem == tabItemStudents)
-            {
-
-            }
-            else if (tabControl.SelectedItem == tabItemProfessors)
-            {
-                _professorsSearchList.Clear();
-                string[] words = textBoxSearch.Text.Split(", ");
-                foreach (Professor p in _controller.GetAllProfessors())
-                {     
-                    if(words.Length == 1)
-                    {
-                        if (p.Surname.ToLower().Contains(words[0].ToLower()))
-                            _professorsSearchList.Add(new ProfessorDTO(p));
-                    }
-                    else if(words.Length == 2)
-                    {
-                        if (p.Surname.ToLower().Contains(words[0].ToLower()) && p.Name.ToLower().Contains(words[1].ToLower()))
-                            _professorsSearchList.Add(new ProfessorDTO(p));
-                    }
-                }
-            }
-            else if (tabControl.SelectedItem == tabItemSubjects)
-            {
-
-            }
-        }
-
         private void ApplySearch(object sender, RoutedEventArgs e)
         {
-            if (tabControl.SelectedItem == tabItemStudents)
-            {
+            ICollectionView collectionView;
 
+            if (tabControl.SelectedItem == null)
+                return;
+
+            if(tabControl.SelectedItem == tabItemStudents)
+            {
+                collectionView = CollectionViewSource.GetDefaultView(_students);
+                collectionView.Filter = FilterStudentFunction;
             }
             else if (tabControl.SelectedItem == tabItemProfessors)
             {
-                ApplyFilter();
-
-                _professors = new ObservableCollection<ProfessorDTO>(_professorsSearchList);
-                dataGridProfessor.ItemsSource = _professors;
+                collectionView = CollectionViewSource.GetDefaultView(_professors);
+                collectionView.Filter = FilterProfessorFunction;
             }
-            else if (tabControl.SelectedItem == tabItemSubjects)
+            else
             {
-
+                collectionView = CollectionViewSource.GetDefaultView(_subjects);
+                collectionView.Filter = FilterSubjectFunction;
             }
+
+            collectionView.Refresh();
         }
 
-        private void textBoxSearch_KeyDown(object sender, KeyEventArgs e)
+        private void TextBoxSearchKeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter)
             {
                 ApplySearch(sender, e);
             }
+        }
+
+        private bool FilterProfessorFunction(object item)
+        {
+            ProfessorDTO p = (ProfessorDTO)item;
+            string[] words = textBoxSearch.Text.Split(", ");
+            if (words.Length == 1)
+            {
+                if (p.Surname.ToLower().Contains(words[0].ToLower()))
+                    return true;
+            }
+            else if (words.Length == 2)
+            {
+                if (p.Surname.ToLower().Contains(words[0].ToLower()) && p.Name.ToLower().Contains(words[1].ToLower()))
+                    return true;
+            }
+            return false;
+        }
+
+        private bool FilterStudentFunction(object item)
+        {
+            // TODO - Implement
+            return true;
+        }
+
+        private bool FilterSubjectFunction(object item)
+        {
+            // TODO - Implement
+            return true;
         }
     }
 }
