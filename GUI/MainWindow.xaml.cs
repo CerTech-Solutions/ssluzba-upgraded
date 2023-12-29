@@ -258,36 +258,6 @@ namespace GUI
             }
         }
 
-        //private void FilterProfessors()
-        //{
-        //    string[] words = textBoxSearch.Text.Split(", ");
-        //    foreach (Professor p in _controller.GetAllProfessors())
-        //    {
-        //        if (words.Length == 1)
-        //        {
-        //            if (!_professorsSearchList.Any(prof => prof.Id == p.Id) && p.Surname.ToLower().Contains(words[0].ToLower()))
-        //            {
-        //                _professorsSearchList.Add(new ProfessorDTO(p));
-        //            }
-        //        }
-        //        else if (words.Length == 2)
-        //        {
-        //            if (!_professorsSearchList.Any(prof => prof.Id == p.Id) && p.Name.ToLower().Contains(words[1].ToLower()) && p.Surname.ToLower().Contains(words[0].ToLower()))
-        //            {
-        //                _professorsSearchList.Add(new ProfessorDTO(p));
-        //            }
-        //        }
-
-        //        foreach (ProfessorDTO pDTO in _professorsSearchList)
-        //        {
-        //            if (p.Id == pDTO.Id)
-        //            {
-        //                _professors.Add(new ProfessorDTO(p));
-        //            }
-        //        }
-        //    }
-        //}
-
         private void fillStudentDTOList()
         {
             _students.Clear();
@@ -342,17 +312,17 @@ namespace GUI
             if(tabControl.SelectedItem == tabItemStudents)
             {
                 collectionView = CollectionViewSource.GetDefaultView(_students);
-                collectionView.Filter = FilterStudentFunction;
+                collectionView.Filter = FilterStudent;
             }
             else if (tabControl.SelectedItem == tabItemProfessors)
             {
                 collectionView = CollectionViewSource.GetDefaultView(_professors);
-                collectionView.Filter = FilterProfessorFunction;
+                collectionView.Filter = FilterProfessor;
             }
             else
             {
                 collectionView = CollectionViewSource.GetDefaultView(_subjects);
-                collectionView.Filter = FilterSubjectFunction;
+                collectionView.Filter = FilterSubject;
             }
 
             collectionView.Refresh();
@@ -366,30 +336,56 @@ namespace GUI
             }
         }
 
-        private bool FilterProfessorFunction(object item)
+        private bool FilterProfessor(object item)
         {
             ProfessorDTO p = (ProfessorDTO)item;
             string[] words = textBoxSearch.Text.Split(", ");
+
+            words = words.Select(w => w.ToLower().Replace(" ", "")).ToArray();
+
             if (words.Length == 1)
             {
-                if (p.Surname.ToLower().Contains(words[0].ToLower()))
+                if (p.Surname.ToLower().Contains(words[0]))
                     return true;
             }
             else if (words.Length == 2)
             {
-                if (p.Surname.ToLower().Contains(words[0].ToLower()) && p.Name.ToLower().Contains(words[1].ToLower()))
+                if (p.Surname.ToLower().Contains(words[0]) 
+                        && p.Name.ToLower().Contains(words[1]))
                     return true;
             }
             return false;
         }
 
-        private bool FilterStudentFunction(object item)
+        private bool FilterStudent(object item)
         {
-            // TODO - Implement
-            return true;
+            StudentDTO p = (StudentDTO)item;
+            string[] words = textBoxSearch.Text.Split(", ");
+
+            words = words.Select(w => w.ToLower().Replace(" ", "")).ToArray();
+
+            if (words.Length == 1)
+            {
+                if (p.Surname.ToLower().Contains(words[0]))
+                    return true;
+            }
+            else if (words.Length == 2)
+            {
+                if (p.Surname.ToLower().Contains(words[0]) 
+                        && p.Name.ToLower().Contains(words[1]))
+                    return true;
+            }
+            else if (words.Length == 3)
+            {
+                if (p.Index.ToLower().Replace(" ", "").Contains(words[0])
+                        && p.Name.ToLower().Contains(words[1])
+                        && p.Surname.ToLower().Contains(words[2]))
+                    return true;
+            }
+            return false;
         }
 
-        private bool FilterSubjectFunction(object item)
+        private bool FilterSubject(object item)
         {
             // TODO - Implement
             return true;

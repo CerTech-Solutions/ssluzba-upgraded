@@ -9,7 +9,7 @@
         Height="600" Width="1000" MinHeight="600" MinWidth="1000">
 
     <Window.Resources>
-        <CollectionViewSource x:Key="FilteredItems" Source="{Binding _professors}" />
+        <CollectionViewSource x:Key="FilteredItems"/>
     </Window.Resources>
     
     <Grid>
@@ -60,10 +60,13 @@
         </StackPanel>
         
         <!-- Tab control -->
-        <TabControl x:Name="tabControl" RenderTransformOrigin="0.5,0.5" Margin="20,70,20,45">
+        <TabControl x:Name="tabControl" RenderTransformOrigin="0.5,0.5" Margin="20,70,20,45"
+                    SelectionChanged="ApplySearch">
             <TabItem x:Name="tabItemStudents" Header="Students">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="dataGridStudents" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid x:Name="dataGridStudents" 
+                              ItemsSource="{Binding Source={StaticResource FilteredItems}}"
+                              AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="INDEX" Width="*" Binding="{Binding Index}"/>
                             <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
@@ -92,7 +95,9 @@
     
             <TabItem x:Name="tabItemSubjects" Header="Subjects">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="dataGridSubjects" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid x:Name="dataGridSubjects"
+                              ItemsSource="{Binding Source={StaticResource FilteredItems}}"
+                              AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="CODE" Width="*" Binding="{Binding Code}"/>
                             <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
