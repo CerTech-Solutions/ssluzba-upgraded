@@ -248,8 +248,7 @@ public class Controller
 
         publisher.NotifyObservers();
     }
-
-    public void AddSubjectToStudentList(int subjectId, int studentId)
+    public void AddSubjectToStudent(int subjectId, int studentId)
     {
         Subject sub = daoSubject.GetObjectById(subjectId);
         Student stud = daoStudent.GetObjectById(studentId);

@@ -25,7 +25,7 @@ namespace GUI
     public partial class EditStudentWindow : Window, IObserver
     {
         private Controller _controller;
-        public StudentDTO _studentDTO;
+        private StudentDTO _studentDTO;
 
         private Brush _defaultBrushBorder;
 
@@ -144,7 +144,7 @@ namespace GUI
             return validInput;
         }
 
-        private void Update(object sender, RoutedEventArgs e)
+        private void UpdateStudent(object sender, RoutedEventArgs e)
         {
             if (InputCheck())
             {
@@ -158,7 +158,13 @@ namespace GUI
             }
         }
 
-        private void AddGrade(object sender, RoutedEventArgs e)
+        private void AddSubject(object sender, RoutedEventArgs e)
+        {
+            AddSubjectToStudent addSubjectToStudent = new AddSubjectToStudent(_controller, _studentDTO);
+            addSubjectToStudent.ShowDialog();
+        }
+
+        private void PassSubject(object sender, RoutedEventArgs e)
         {
             if (dataGridNotPassedSubjects.SelectedItem != null)
             {
@@ -183,15 +189,15 @@ namespace GUI
         {
             if (dataGridPassedSubjects.SelectedItem == null)
                 return;
-            
-            GradeDTO selectedGrade = (GradeDTO) dataGridPassedSubjects.SelectedItem;
+
+            GradeDTO selectedGrade = (GradeDTO)dataGridPassedSubjects.SelectedItem;
             _controller.DeleteGrade(selectedGrade.ToGrade());
         }
 
         public void Update()
         {
             Student student = _controller.GetAllStudents().Find(s => s.Id == _studentDTO.Id);
-            
+
             _studentDTO.PassedSubjects.Clear();
             foreach (Grade grade in student.PassedSubjects)
                 _studentDTO.PassedSubjects.Add(new GradeDTO(grade, _studentDTO));

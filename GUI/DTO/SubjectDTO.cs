@@ -145,6 +145,11 @@ namespace GUI.DTO
             }
         }
 
+        public String CodeAndName
+        {
+            get { return code + " - " + name; }
+        }
+
         public Subject ToSubject()
         {
             return new Subject(id, code, name, semester, yearOfStudy, _professor.ToProfessor(), ects);
