@@ -264,7 +264,6 @@ namespace GUI
             foreach (Student s in _controller.GetAllStudents())
             {
                 _students.Add(new StudentDTO(s));
-                _students.Last().CalculateGPA();
             }
         }
 
@@ -277,8 +276,14 @@ namespace GUI
             }
         }
 
-        private void Cancel(object sender, RoutedEventArgs e)
+        private void Save(object sender, RoutedEventArgs e)
         {
+            _controller.SaveAllToStorage();
+        }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            _controller.SaveAllToStorage();
             Close();
         }
 

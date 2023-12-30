@@ -19,13 +19,13 @@
                 
                 <MenuItem x:Name="menuItemFile" Header="_File">
                     <MenuItem Header="New" InputGestureText="Ctrl+N" Click="AddNewEntity"/>
-                    <MenuItem Header="Save" InputGestureText="Ctrl+S"/>
+                    <MenuItem Header="Save" InputGestureText="Ctrl+S" Click="Save"/>
                     <MenuItem Header="Open">
                         <MenuItem Header="Students" Click="OpenStudents"/>
                         <MenuItem Header="Professors" Click="OpenProfessors"/>
                         <MenuItem Header="Subjects" Click="OpenSubjects"/>
                     </MenuItem>
-                    <MenuItem Header="Close" InputGestureText="Ctrl+X" Click="Cancel"/>
+                    <MenuItem Header="Close" InputGestureText="Ctrl+X" Click="CloseWindow"/>
                 </MenuItem>
                 
                 <MenuItem x:Name="menuItemEdit" Header="_Edit">

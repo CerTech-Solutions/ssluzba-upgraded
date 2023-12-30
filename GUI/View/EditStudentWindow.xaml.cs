@@ -1,8 +1,10 @@
 ﻿using CLI.Controller;
 using CLI.Model;
+using CLI.Observer;
 using GUI.DTO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +22,7 @@ namespace GUI
     /// <summary>
     /// Interaction logic for EditStudentWindow.xaml
     /// </summary>
-    public partial class EditStudentWindow : Window
+    public partial class EditStudentWindow : Window, IObserver
     {
         private Controller _controller;
         public StudentDTO _studentDTO;
@@ -44,6 +46,8 @@ namespace GUI
             DataContext = _studentDTO;
             dataGridPassedSubjects.ItemsSource = _studentDTO.PassedSubjects;
             dataGridNotPassedSubjects.ItemsSource = _studentDTO.NotPassedSubjects;
+
+            controller.publisher.Subscribe(this);
         }
 
         private bool EmptyTextBoxCheck()
@@ -158,10 +162,11 @@ namespace GUI
         {
             if (dataGridNotPassedSubjects.SelectedItem != null)
             {
-                AddGradeWindow addGradeWindow = new AddGradeWindow(_controller, _studentDTO, dataGridNotPassedSubjects.SelectedItem as SubjectDTO);
+                SubjectDTO _subjectDTO = dataGridNotPassedSubjects.SelectedItem as SubjectDTO;
+                GradeDTO _gradeDTO = new GradeDTO(_studentDTO, _subjectDTO);
+
+                AddGradeWindow addGradeWindow = new AddGradeWindow(_controller, _gradeDTO);
                 addGradeWindow.ShowDialog();
-                _studentDTO.CalculateGPA();
-                _studentDTO.CalculateTotalEcts();
             }
             else
             {
@@ -180,11 +185,22 @@ namespace GUI
                 return;
             
             GradeDTO selectedGrade = (GradeDTO) dataGridPassedSubjects.SelectedItem;
+            _controller.DeleteGrade(selectedGrade.ToGrade());
+        }
 
-            _studentDTO.PassedSubjects.Remove(selectedGrade);
-            _studentDTO.NotPassedSubjects.Add(selectedGrade.Subject);
-            _controller.DeleteGrade(selectedGrade.ToGrade()); 
-            _studentDTO.CalculateGPA();
+        public void Update()
+        {
+            Student student = _controller.GetAllStudents().Find(s => s.Id == _studentDTO.Id);
+            
+            _studentDTO.PassedSubjects.Clear();
+            foreach (Grade grade in student.PassedSubjects)
+                _studentDTO.PassedSubjects.Add(new GradeDTO(grade, _studentDTO));
+
+            _studentDTO.NotPassedSubjects.Clear();
+            foreach (Subject subject in student.NotPassedSubjects)
+                _studentDTO.NotPassedSubjects.Add(new SubjectDTO(subject));
+
+            _studentDTO.Gpa = student.GPA;
             _studentDTO.CalculateTotalEcts();
         }
     }
