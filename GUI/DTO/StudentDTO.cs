@@ -45,7 +45,6 @@ namespace GUI.DTO
             _index = new IndexDTO(s.Index);
             passedSubjects = new ObservableCollection<GradeDTO>(s.PassedSubjects.Select(g => new GradeDTO(g, this)).ToList());
             notPassedSubjects = new ObservableCollection<SubjectDTO>(s.NotPassedSubjects.Select(s => new SubjectDTO(s)).ToList());
-            CalculateGPA();
             CalculateTotalEcts();
         }
 
@@ -64,7 +63,6 @@ namespace GUI.DTO
             _index = new IndexDTO(s.IndexDTO);
             passedSubjects = s.PassedSubjects;
             notPassedSubjects = s.NotPassedSubjects;
-            CalculateGPA();
             CalculateTotalEcts();
         }
 
@@ -201,7 +199,7 @@ namespace GUI.DTO
         private double gpa;
         public double Gpa
         {
-            get { return gpa; }
+            get { return Math.Round(gpa, 2); }
             set
             {
                 if (value != gpa)
@@ -270,18 +268,6 @@ namespace GUI.DTO
         public String Index
         {
             get { return _index.ToString(); }
-        }
-
-        public void CalculateGPA()
-        {
-            double sum = 0;
-            foreach (GradeDTO grade in passedSubjects)
-                sum += grade.GradeValue;
-
-            if (passedSubjects.Count > 0)
-                Gpa = sum / passedSubjects.Count;
-            else
-                Gpa = 0.0d;
         }
 
         public void CalculateTotalEcts()

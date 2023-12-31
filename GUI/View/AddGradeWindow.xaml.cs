@@ -28,7 +28,7 @@ namespace GUI
 
         private Brush _defaultBrushBorder;
 
-        public AddGradeWindow(Controller controller, StudentDTO student, SubjectDTO subject)
+        public AddGradeWindow(Controller controller, GradeDTO gradeDTO)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -36,9 +36,7 @@ namespace GUI
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
             _controller = controller;
-            _studentDTO = student;
-            _subjectDTO = subject;
-            _gradeDTO = new GradeDTO(student, subject);
+            _gradeDTO = gradeDTO;
 
             DataContext = _gradeDTO;
         }
@@ -112,8 +110,6 @@ namespace GUI
         {
             if(InputCheck())
             {
-                _studentDTO.PassedSubjects.Add(_gradeDTO);
-                _studentDTO.NotPassedSubjects.Remove(_subjectDTO);
                 _controller.AddGrade(_gradeDTO.ToGrade());
                 Close();
             }

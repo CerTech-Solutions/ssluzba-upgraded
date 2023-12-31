@@ -69,11 +69,22 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
 
     public List<Subject> NotPassedSubjects { get; set; }
 
-    public double GPA {  get; set; }
+    public double GPA { get; set; }
 
     public Index Index { get; set; }
 
     public Address Address { get; set; }
+
+    public void CalculateGPA()
+    {
+        GPA = 0.0;
+
+        foreach (Grade o in PassedSubjects)
+            GPA += o.GradeValue;
+
+        if(PassedSubjects.Count > 0)
+            GPA /= PassedSubjects.Count;
+    }
 
     public void Copy(Student obj)
     {
