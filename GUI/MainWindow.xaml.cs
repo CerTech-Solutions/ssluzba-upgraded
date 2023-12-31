@@ -23,6 +23,7 @@ using CLI.Observer;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Tracing;
 using System.ComponentModel;
+using GUI.View;
 
 namespace GUI
 {
@@ -37,8 +38,7 @@ namespace GUI
         private ObservableCollection<ProfessorDTO> _professors;
         private ObservableCollection<StudentDTO> _students;
         private ObservableCollection<SubjectDTO> _subjects;
-
-        private List<ProfessorDTO> _professorsSearchList;
+        private ObservableCollection<DepartmentDTO> _departments;
 
         public MainWindow()
         {
@@ -57,12 +57,12 @@ namespace GUI
             _professors = new ObservableCollection<ProfessorDTO>();
             _students = new ObservableCollection<StudentDTO>();
             _subjects = new ObservableCollection<SubjectDTO>();
+            _departments = new ObservableCollection<DepartmentDTO>();
 
             dataGridProfessor.ItemsSource = _professors;
             dataGridStudents.ItemsSource = _students;
             dataGridSubjects.ItemsSource = _subjects;
-
-            _professorsSearchList = new List<ProfessorDTO>();
+            dataGridDepartments.ItemsSource = _departments;
 
             Update();
         }
@@ -122,7 +122,7 @@ namespace GUI
                     }
                     else
                     {
-                        MessageBox.Show("Please select student to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Please select a student to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     break;
                 case "Professors":  
@@ -133,7 +133,7 @@ namespace GUI
                     }
                     else
                     {
-                        MessageBox.Show("Please select professor to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Please select a professor to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     break;
                 case "Subjects":
@@ -144,7 +144,18 @@ namespace GUI
                     }
                     else
                     {
-                        MessageBox.Show("Please select subject to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Please select a subject to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    break;
+                case "Departments":
+                    if (dataGridDepartments.SelectedItem != null)
+                    {
+                        AddChiefToDepartment addChiefToDepartment = new AddChiefToDepartment(_controller, dataGridDepartments.SelectedItem as DepartmentDTO);
+                        addChiefToDepartment.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a department to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     break;
             }
@@ -245,6 +256,7 @@ namespace GUI
             fillStudentDTOList();
             fillProfessorDTOList();
             fillSubjectsDTOList();
+            fillDepartmeDTOList();
 
             ApplySearch(this, new RoutedEventArgs());
         }
@@ -273,6 +285,15 @@ namespace GUI
             foreach (Subject s in _controller.GetAllSubjects())
             {
                 _subjects.Add(new SubjectDTO(s));
+            }
+        }
+
+        private void fillDepartmeDTOList()
+        {
+            _departments.Clear();
+            foreach (Department d in _controller.GetAllDepartments())
+            {
+                _departments.Add(new DepartmentDTO(d));
             }
         }
 
@@ -324,10 +345,14 @@ namespace GUI
                 collectionView = CollectionViewSource.GetDefaultView(_professors);
                 collectionView.Filter = FilterProfessor;
             }
-            else
+            else if (tabControl.SelectedItem == tabItemSubjects)
             {
                 collectionView = CollectionViewSource.GetDefaultView(_subjects);
                 collectionView.Filter = FilterSubject;
+            }
+            else
+            {
+                return;
             }
 
             collectionView.Refresh();
@@ -394,6 +419,79 @@ namespace GUI
         {
             // TODO - Implement
             return true;
+        }
+
+        private void ShowInfo(object sender, RoutedEventArgs e)
+        {
+            TabItem selectedTab = tabControl.SelectedItem as TabItem;
+
+            if (selectedTab == null)
+                return;
+
+            switch (selectedTab.Header)
+            {
+                case "Students":
+                    if (dataGridStudents.SelectedItem != null)
+                    {
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a student for more information!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    break;
+                case "Professors":
+                    if (dataGridProfessor.SelectedItem != null)
+                    {
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a professor for more information!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    break;
+                case "Subjects":
+                    if (dataGridSubjects.SelectedItem != null)
+                    {
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a subject for more information!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    break;
+                case "Departments":
+                    if (dataGridDepartments.SelectedItem != null)
+                    {
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a department for more information!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    break;
+            }
+        }
+
+        private void TabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(tabControl.SelectedItem == tabItemDepartments)
+            {
+                buttonAdd.IsEnabled = false;
+                buttonAdd.Opacity = 0.5;
+
+                buttonDelete.IsEnabled = false;
+                buttonDelete.Opacity = 0.5;
+            }
+            else
+            {
+                buttonAdd.IsEnabled = true;
+                buttonAdd.Opacity = 1.0;
+
+                buttonDelete.IsEnabled = true;
+                buttonDelete.Opacity = 1.0;
+            }
+            
         }
     }
 }

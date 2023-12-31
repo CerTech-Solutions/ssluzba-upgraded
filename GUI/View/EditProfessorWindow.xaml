@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Edit professor" 
+        Title="Edit professor"
         Height="510" Width="500"
         ResizeMode="NoResize">
 

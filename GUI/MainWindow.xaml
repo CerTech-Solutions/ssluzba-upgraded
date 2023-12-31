@@ -43,17 +43,21 @@
             <!-- Toolbar -->
             <Grid Height="30" DockPanel.Dock="Top" Margin="5,5,5,0">
                 <DockPanel Grid.Column="0" LastChildFill="False">
-                    <Button Margin="5,0,5,0" x:Name="buttonAdd" DockPanel.Dock="Left" Click="AddNewEntity" BorderBrush="{x:Null}" Background="Transparent"
+                    <Button Margin="5,0,5,0" x:Name="buttonAdd" DockPanel.Dock="Left" Click="AddNewEntity" BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0"
                             ToolTip="Add selected item">
                         <Image Source="Icons/crud_add.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
                     </Button>
-                    <Button Margin="5,0,5,0" x:Name="buttonEdit" DockPanel.Dock="Left" Click="EditEntity" BorderBrush="{x:Null}" Background="Transparent"
+                    <Button Margin="5,0,5,0" x:Name="buttonEdit" DockPanel.Dock="Left" Click="EditEntity" BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0"
                             ToolTip="Edit selected item">
                         <Image Source="Icons/crud_edit.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
                     </Button>
-                    <Button Margin="5,0,5,0" x:Name="buttonDelete" DockPanel.Dock="Left" Click="DeleteEntity" BorderBrush="{x:Null}" Background="Transparent"
+                    <Button Margin="5,0,5,0" x:Name="buttonDelete" DockPanel.Dock="Left" Click="DeleteEntity" BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0"
                             ToolTip="Delete selected item">
                         <Image Source="Icons/crud_delete.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
+                    </Button>
+                    <Button Margin="5,0,5,0" x:Name="buttonInfo" DockPanel.Dock="Left" Click="ShowInfo" BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0"
+                            ToolTip="Information about selected item">
+                        <Image Source="Icons/info.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
                     </Button>
                 </DockPanel>
 
@@ -68,7 +72,9 @@
         </StackPanel>
         
         <!-- Tab control -->
-        <TabControl x:Name="tabControl" RenderTransformOrigin="0.5,0.5" Margin="20,70,20,45">
+        <TabControl x:Name="tabControl" RenderTransformOrigin="0.5,0.5" Margin="20,70,20,45"
+                    SelectionChanged="TabControlSelectionChanged">
+            
             <TabItem x:Name="tabItemStudents" Header="Students">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridStudents" 
@@ -85,6 +91,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
+            
             <TabItem x:Name="tabItemProfessors" Header="Professors">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridProfessor" 
@@ -110,12 +117,26 @@
                             <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
                             <DataGridTextColumn Header="YEAR OF STUDY" Width="*" Binding="{Binding YearOfStudy}"/>
                             <DataGridTextColumn Header="SEMESTER" Width="*" Binding="{Binding Semester}"/>
-                            <DataGridTextColumn Header="PROFESSOR" Width="*" Binding="{Binding Path=ProfessorDTO.NameSurname}"/>
+                            <DataGridTextColumn Header="PROFESSOR" Width="*" Binding="{Binding Path=Professor.NameSurname}"/>
                             <DataGridTextColumn Header="ECTS" Width="*" Binding="{Binding Ects}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
+
+            <TabItem x:Name="tabItemDepartments" Header="Departments">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="dataGridDepartments"
+                              AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="CODE" Width="80" Binding="{Binding Code}"/>
+                            <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="CHIEF" Width="*" Binding="{Binding Path=Chief.NameSurname}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
         </TabControl>
 
         <!-- Status bar -->
