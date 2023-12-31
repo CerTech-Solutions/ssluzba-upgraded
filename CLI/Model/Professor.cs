@@ -16,7 +16,7 @@ public class Professor : ISerializable, IAccess<Professor>, IConsoleWriteRead
 
     public Professor()
     {
-        Predmeti = new List<Subject>();
+        Subjects = new List<Subject>();
         Adresa = new Address();
     }
 
@@ -32,6 +32,7 @@ public class Professor : ISerializable, IAccess<Professor>, IConsoleWriteRead
         IdNumber = idNumber;
         Title = title;
         ServiceYears = serviceYears;
+        Subjects = new List<Subject>();
     }
 
     public int Id
@@ -56,7 +57,7 @@ public class Professor : ISerializable, IAccess<Professor>, IConsoleWriteRead
 
     public int ServiceYears { get; set; }
 
-    public List<Subject> Predmeti { get; set; }
+    public List<Subject> Subjects { get; set; }
 
     public Address Adresa { get; set; }
 
@@ -110,7 +111,7 @@ public class Professor : ISerializable, IAccess<Professor>, IConsoleWriteRead
     {
         string str = $"{Id,6} | {Name,12} | {Surname,12} | {BirthDate.ToString("dd/MM/yyyy"),13} | {PhoneNumber,12} | {Email,20} | {IdNumber,16} | {Title,8} | {ServiceYears,12} |" + Adresa.ToString();
         str += "\n\t* Teaches subjects: \n";
-        foreach (Subject p in Predmeti)
+        foreach (Subject p in Subjects)
         {
             str += $"\t\t{p.Code} {p.Name}\n";
         }

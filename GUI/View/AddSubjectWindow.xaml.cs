@@ -132,7 +132,7 @@ namespace GUI
         { 
             if (InputCheck())
             {
-                _subjectDTO.ProfessorDTO = (ProfessorDTO)comboBoxProfessor.SelectedItem;
+                _subjectDTO.Professor = (ProfessorDTO)comboBoxProfessor.SelectedItem;
                 if (comboBoxSemester.SelectedItem == comboBoxItemWinter)
                     _subjectDTO.Semester = SemesterEnum.winter;
                 else

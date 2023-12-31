@@ -1,6 +1,7 @@
 ﻿using CLI.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.Metrics;
 using System.IO;
@@ -51,6 +52,7 @@ namespace GUI.DTO
             title = p.Title;
             serviceYears = p.ServiceYears;
             _address = new AddressDTO(p.Adresa);
+            _subjects = new ObservableCollection<SubjectDTO>(p.Subjects.Select(s => new SubjectDTO(s, this)).ToList());
         }
 
         public ProfessorDTO(ProfessorDTO p)
@@ -65,6 +67,7 @@ namespace GUI.DTO
             title = p.Title;
             serviceYears = p.ServiceYears;
             _address = new AddressDTO(p.AddressDTO);
+            _subjects = p.Subjects;
         }
 
         private DateTime birthDate;
@@ -195,7 +198,21 @@ namespace GUI.DTO
                     OnPropertyChanged();
                 }
             }
-        } 
+        }
+
+        private ObservableCollection<SubjectDTO> _subjects;
+        public ObservableCollection<SubjectDTO> Subjects
+        {
+            get { return _subjects; }
+            set
+            {
+                if (value != _subjects)
+                {
+                    _subjects = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
