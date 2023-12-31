@@ -14,8 +14,6 @@ namespace GUI.DTO
 {
     public class SubjectDTO : INotifyPropertyChanged
     {
-        private ProfessorDTO _professor;
-
         public SubjectDTO()
         {
             _professor = new ProfessorDTO();
@@ -33,7 +31,8 @@ namespace GUI.DTO
             name = s.Name;
             semester = s.Semester;
             yearOfStudy = s.YearOfStudy;
-            _professor = new ProfessorDTO(s.Professor);
+            if(s.Professor != null)
+                _professor = new ProfessorDTO(s.Professor);
             ects = s.Ects;
         }
 
@@ -55,7 +54,7 @@ namespace GUI.DTO
             name = s.Name;
             semester = s.Semester;
             yearOfStudy = s.YearOfStudy;
-            _professor = s.ProfessorDTO;
+            _professor = s.Professor;
             ects = s.Ects;
         }
 
@@ -129,7 +128,8 @@ namespace GUI.DTO
             }
         }
 
-        public ProfessorDTO ProfessorDTO
+        private ProfessorDTO _professor;
+        public ProfessorDTO Professor
         {
             get { return _professor; }
             set

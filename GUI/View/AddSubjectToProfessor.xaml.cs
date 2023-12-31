@@ -19,36 +19,34 @@ using System.Windows.Shapes;
 namespace GUI
 {
     /// <summary>
-    /// Interaction logic for AddSubjectToStudent.xaml
+    /// Interaction logic for AddSubjectToProfessor.xaml
     /// </summary>
-    public partial class AddSubjectToStudent : Window
+    public partial class AddSubjectToProfessor : Window
     {
         private Controller _controller;
-        private StudentDTO _student;
+        private ProfessorDTO _professor;
         private ObservableCollection<SubjectDTO> _subjects;
 
-        public AddSubjectToStudent(Controller controller, StudentDTO studentDTO)
+        public AddSubjectToProfessor(Controller controller, ProfessorDTO professorDTO)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             _controller = controller;
-            _student = studentDTO;
-
+            _professor = professorDTO;
 
             // This should be moved to the controller
 
-            Student stud = _controller.GetAllStudents().Find(s => s.Id == _student.Id);
+            Professor prof = _controller.GetAllProfessors().Find(p => p.Id == _professor.Id);
 
             _subjects = new ObservableCollection<SubjectDTO>(
                 _controller.GetAllSubjects()
-
-                .FindAll(s => s.YearOfStudy == stud.CurrentYear 
-                        && !stud.NotPassedSubjects.Exists(sub => sub.Id == s.Id)
-                        && !stud.PassedSubjects.Exists(sub => sub.Subject.Id == s.Id))
-
+                               
+                .FindAll(s => s.Professor == null &&
+                    !prof.Subjects.Exists(sub => sub.Id == s.Id))
+                                              
                 .Select(s => new SubjectDTO(s))
-
+                                                             
                 .ToList());
 
             // -----------------------------
@@ -63,15 +61,15 @@ namespace GUI
 
         private void AddSubject(object sender, RoutedEventArgs e)
         {
-            if(listViewSubjects.SelectedItem == null)
+            if (listViewSubjects.SelectedItem == null)
             {
                 MessageBox.Show("Please select a subject to add!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            SubjectDTO selectedSubject = (SubjectDTO) listViewSubjects.SelectedItem;
+            SubjectDTO selectedSubject = (SubjectDTO)listViewSubjects.SelectedItem;
 
-            _controller.AddSubjectToStudent(selectedSubject.Id, _student.Id);
+            _controller.AddSubjectToProfessor(selectedSubject.Id, _professor.Id);
 
             Close();
         }

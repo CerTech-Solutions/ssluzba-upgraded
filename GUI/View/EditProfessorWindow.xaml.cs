@@ -1,5 +1,6 @@
 ﻿using CLI.Controller;
 using CLI.Model;
+using CLI.Observer;
 using GUI.DTO;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,10 @@ namespace GUI
     /// <summary>
     /// Interaction logic for EditProfessorWindow.xaml
     /// </summary>
-    public partial class EditProfessorWindow : Window
+    public partial class EditProfessorWindow : Window, IObserver
     {
         private Controller _controller;
-        private ProfessorDTO _professorDTO;
+        private ProfessorDTO _professor;
 
         private Brush _defaultBrushBorder;
 
@@ -37,18 +38,19 @@ namespace GUI
 
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
-            _professorDTO = new ProfessorDTO(professorOld);
-            DataContext = _professorDTO;
+            _professor = new ProfessorDTO(professorOld);
+            DataContext = _professor;
 
-            dataGridSubjects.ItemsSource = _professorDTO.Subjects;
+            dataGridSubjects.ItemsSource = _professor.Subjects;
+
+            controller.publisher.Subscribe(this);
         }
-
 
         private void Update(object sender, RoutedEventArgs e)
         {
             if (InputCheck())
             {
-                _controller.UpdateProfessor(_professorDTO.ToProfessor());
+                _controller.UpdateProfessor(_professor.ToProfessor());
 
                 Close();
             }
@@ -123,12 +125,29 @@ namespace GUI
 
         private void AddSubject(object sender, RoutedEventArgs e)
         {
-
+            AddSubjectToProfessor addSubjectToProfessor = new AddSubjectToProfessor(_controller, _professor);
+            addSubjectToProfessor.ShowDialog();
         }
 
         private void DeleteSubject(object sender, RoutedEventArgs e)
         {
+            if(dataGridSubjects.SelectedItem == null)
+            {
+                MessageBox.Show("Please select subject to delete!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
+            SubjectDTO subjectDTO = (SubjectDTO) dataGridSubjects.SelectedItem;
+            _controller.DeleteSubjectFromProfessorList(subjectDTO.Id, _professor.Id);
+        }
+
+        public void Update()
+        {
+            Professor prof = _controller.GetAllProfessors().Find(p => p.Id == _professor.Id);
+
+            _professor.Subjects.Clear();
+            foreach (Subject subject in prof.Subjects)
+                    _professor.Subjects.Add(new SubjectDTO(subject, _professor));
         }
     }
 }

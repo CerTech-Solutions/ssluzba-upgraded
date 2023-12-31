@@ -32,6 +32,7 @@ public class Professor : ISerializable, IAccess<Professor>, IConsoleWriteRead
         IdNumber = idNumber;
         Title = title;
         ServiceYears = serviceYears;
+        Subjects = new List<Subject>();
     }
 
     public int Id

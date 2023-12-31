@@ -40,10 +40,10 @@ namespace GUI
 
             _subjectDTO = new SubjectDTO(subjectOld);
             DataContext = _subjectDTO;
-            oldProfessorId = subjectOld.ProfessorDTO.Id;
+            oldProfessorId = subjectOld.Professor.Id;
 
             comboBoxProfessor.ItemsSource = _professors;
-            comboBoxProfessor.SelectedIndex = subjectOld.ProfessorDTO.Id;
+            comboBoxProfessor.SelectedIndex = subjectOld.Professor.Id;
 
             if (subjectOld.Semester == SemesterEnum.winter)
                 comboBoxSemester.SelectedItem = comboBoxItemWinter;
@@ -135,7 +135,7 @@ namespace GUI
         {
             if (InputCheck())
             {
-                _subjectDTO.ProfessorDTO = (ProfessorDTO)comboBoxProfessor.SelectedItem;
+                _subjectDTO.Professor = (ProfessorDTO)comboBoxProfessor.SelectedItem;
                 
                 if(comboBoxSemester.SelectedItem == comboBoxItemWinter)
                     _subjectDTO.Semester = SemesterEnum.winter;
