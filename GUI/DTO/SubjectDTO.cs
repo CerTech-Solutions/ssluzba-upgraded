@@ -37,6 +37,17 @@ namespace GUI.DTO
             ects = s.Ects;
         }
 
+        public SubjectDTO(Subject s, ProfessorDTO professor)
+        {
+            id = s.Id;
+            code = s.Code;
+            name = s.Name;
+            semester = s.Semester;
+            yearOfStudy = s.YearOfStudy;
+            _professor = professor;
+            ects = s.Ects;
+        }
+
         public SubjectDTO(SubjectDTO s)
         {
             id = s.Id;

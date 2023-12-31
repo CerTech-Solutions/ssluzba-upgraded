@@ -3,6 +3,7 @@ using CLI.Model;
 using GUI.DTO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace GUI
     public partial class EditProfessorWindow : Window
     {
         private Controller _controller;
-        public ProfessorDTO professorDTO;
+        private ProfessorDTO _professorDTO;
 
         private Brush _defaultBrushBorder;
 
@@ -36,8 +37,10 @@ namespace GUI
 
             _defaultBrushBorder = textBoxName.BorderBrush.Clone();
 
-            professorDTO = new ProfessorDTO(professorOld);
-            DataContext = professorDTO;
+            _professorDTO = new ProfessorDTO(professorOld);
+            DataContext = _professorDTO;
+
+            dataGridSubjects.ItemsSource = _professorDTO.Subjects;
         }
 
 
@@ -45,7 +48,7 @@ namespace GUI
         {
             if (InputCheck())
             {
-                _controller.UpdateProfessor(professorDTO.ToProfessor());
+                _controller.UpdateProfessor(_professorDTO.ToProfessor());
 
                 Close();
             }
@@ -116,6 +119,16 @@ namespace GUI
         private void Cancel(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void AddSubject(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteSubject(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

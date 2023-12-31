@@ -70,7 +70,7 @@ public class Controller
             Professor prof = daoProfessor.GetObjectById(ppp.IdProf);
             Subject p = daoSubject.GetObjectById(ppp.IdSub);
 
-            prof.Predmeti.Add(p);
+            prof.Subjects.Add(p);
             p.Professor = prof;
         }
 
