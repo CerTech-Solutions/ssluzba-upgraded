@@ -180,6 +180,11 @@ namespace GUI
             }
         }
 
+        private void DeleteSubject(object sender, RoutedEventArgs e)
+        {
+            // TODO: Implement delete subject
+        }
+
         private void Cancel(object sender, RoutedEventArgs e)
         {
             Close();
@@ -188,10 +193,18 @@ namespace GUI
         private void CancelGrade(object sender, RoutedEventArgs e)
         {
             if (dataGridPassedSubjects.SelectedItem == null)
+            {
+                MessageBox.Show("Please select grade to cancel!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
+            }
 
-            GradeDTO selectedGrade = (GradeDTO)dataGridPassedSubjects.SelectedItem;
-            _controller.DeleteGrade(selectedGrade.ToGrade());
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this grade?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                GradeDTO selectedGrade = (GradeDTO)dataGridPassedSubjects.SelectedItem;
+                _controller.DeleteGrade(selectedGrade.ToGrade());
+            }
         }
 
         public void Update()

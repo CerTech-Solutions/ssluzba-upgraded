@@ -39,8 +39,13 @@ namespace GUI
 
             _subjects = new ObservableCollection<SubjectDTO>(
                 _controller.GetAllSubjects()
-                .FindAll(s => s.YearOfStudy == stud.CurrentYear && !stud.NotPassedSubjects.Contains(s))
+
+                .FindAll(s => s.YearOfStudy == stud.CurrentYear 
+                        && !stud.NotPassedSubjects.Exists(sub => sub.Id == s.Id)
+                        && !stud.PassedSubjects.Exists(sub => sub.Subject.Id == s.Id))
+
                 .Select(s => new SubjectDTO(s))
+
                 .ToList());
 
             listViewSubjects.ItemsSource = _subjects;
@@ -61,7 +66,7 @@ namespace GUI
 
             SubjectDTO selectedSubject = (SubjectDTO) listViewSubjects.SelectedItem;
 
-            _controller.AddSubjectToStudent(_student.Id, selectedSubject.Id);
+            _controller.AddSubjectToStudent(selectedSubject.Id, _student.Id);
 
             Close();
         }

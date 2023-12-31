@@ -199,7 +199,7 @@ namespace GUI.DTO
         private double gpa;
         public double Gpa
         {
-            get { return gpa; }
+            get { return Math.Round(gpa, 2); }
             set
             {
                 if (value != gpa)
