@@ -112,6 +112,11 @@ public class Controller
         return daoSubject.GetAllObjects();
     }
 
+    public List<Department> GetAllDepartments()
+    {
+        return daoDepartment.GetAllObjects();
+    }
+
     public void AddSubject(Subject subject)
     {
         daoSubject.AddObject(subject);
@@ -304,6 +309,19 @@ public class Controller
 
         daoProfessorTeachesSubject.RemoveObject(pts.Id);
 
+        publisher.NotifyObservers();
+    }
+
+    public void AddChiefToDepartment(int professorId, int departmentId)
+    {
+        Professor prof = daoProfessor.GetObjectById(professorId);
+        Department dep = daoDepartment.GetObjectById(departmentId);
+
+        // Add additional check for professor title
+        if(prof.ServiceYears < 5)
+            throw new Exception("Professor must have at least 5 years of service\nto become chief of department!");
+
+        dep.Chief = prof;
         publisher.NotifyObservers();
     }
 

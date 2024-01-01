@@ -41,7 +41,7 @@ public class DataGenerator
         daoProfessor.AddObject(p3);
 
         DAO<Department> daoDepartment = new DAO<Department>();
-        Department k0 = new Department(0, "mat", "Katedra za PRN", p0);
+        Department k0 = new Department(0, "mat", "Katedra za PRNI", p0);
         Department k1 = new Department(1, "aut", "Katedra za automatiku", p1);
         daoDepartment.AddObject(k0);
         daoDepartment.AddObject(k1);
@@ -63,13 +63,7 @@ public class DataGenerator
         daoStudent.AddObject(s1);
 
         DAO<StudentTakesSubject> daoStudentTakesSubject = new DAO<StudentTakesSubject>();
-        /*StudentTakesSubject ssp0 = new StudentTakesSubject(0, 1, 3, PassedSubjectEnum.PASSED);
-        StudentTakesSubject ssp1 = new StudentTakesSubject(0, 1, 0, PassedSubjectEnum.PASSED);
-        StudentTakesSubject ssp2 = new StudentTakesSubject(0, 0, 2, PassedSubjectEnum.PASSED);*/
         StudentTakesSubject ssp3 = new StudentTakesSubject(0, 1, 2, PassedSubjectEnum.NOTPASSED);
-        /*daoStudentTakesSubject.AddObject(ssp0);
-        daoStudentTakesSubject.AddObject(ssp1);
-        daoStudentTakesSubject.AddObject(ssp2);*/
         daoStudentTakesSubject.AddObject(ssp3);
 
         DAO<ProfessorWorksAtDepartment> daoProfessorWorksAtDepartment = new DAO<ProfessorWorksAtDepartment>();
