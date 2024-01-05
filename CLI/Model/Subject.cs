@@ -69,7 +69,7 @@ public class Subject : ISerializable, IAccess<Subject>, IConsoleWriteRead
         Semester = obj.Semester;
         YearOfStudy= obj.YearOfStudy;
         Ects = obj.Ects;
-        Professor = obj.Professor;
+        //Professor = obj.Professor;
     }
 
     public string[] ToCSV()

@@ -135,18 +135,24 @@ namespace GUI
             return validInput;
         }
 
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (InputCheck())
+                buttonAdd.IsEnabled = true;
+            else
+                buttonAdd.IsEnabled = false;
+        }
+
         private void Add(object sender, RoutedEventArgs e)
         {
-            if(InputCheck())
-            {
-                if(comboBoxStatus.SelectedItem == comboBoxItemB)
-                    _studentDTO.Status = StatusEnum.B;
-                else
-                    _studentDTO.Status = StatusEnum.S;
+            
+            if(comboBoxStatus.SelectedItem == comboBoxItemB)
+                _studentDTO.Status = StatusEnum.B;
+            else
+                _studentDTO.Status = StatusEnum.S;
 
-                _controller.AddStudent(_studentDTO.ToStudent());
-                Close();
-            }
+            _controller.AddStudent(_studentDTO.ToStudent());
+            Close();
         }
         
         private void Cancel(object sender, RoutedEventArgs e)

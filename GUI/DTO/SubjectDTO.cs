@@ -31,7 +31,7 @@ namespace GUI.DTO
             name = s.Name;
             semester = s.Semester;
             yearOfStudy = s.YearOfStudy;
-            if(s.Professor != null)
+            if (s.Professor != null)
                 _professor = new ProfessorDTO(s.Professor);
             ects = s.Ects;
         }
@@ -163,7 +163,9 @@ namespace GUI.DTO
 
         public Subject ToSubject()
         {
-            return new Subject(id, code, name, semester, yearOfStudy, _professor.ToProfessor(), ects);
+            return new Subject(id, code, name, semester, yearOfStudy,
+                _professor == null ? null : _professor.ToProfessor(), 
+                ects);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

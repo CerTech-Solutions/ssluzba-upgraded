@@ -48,12 +48,9 @@ namespace GUI
 
         private void Update(object sender, RoutedEventArgs e)
         {
-            if (InputCheck())
-            {
-                _controller.UpdateProfessor(_professor.ToProfessor());
+            _controller.UpdateProfessor(_professor.ToProfessor());
 
-                Close();
-            }
+            Close();
         }
 
         private bool EmptyTextBoxCheck()
@@ -116,6 +113,14 @@ namespace GUI
             }
 
             return validInput;
+        }
+
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (InputCheck())
+                buttonUpdate.IsEnabled = true;
+            else
+                buttonUpdate.IsEnabled = false;
         }
 
         private void Cancel(object sender, RoutedEventArgs e)

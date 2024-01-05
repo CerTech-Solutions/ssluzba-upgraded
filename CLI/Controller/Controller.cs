@@ -126,15 +126,35 @@ public class Controller
         publisher.NotifyObservers();
     }
 
-    public void UpdateSubject(Subject subject, int oldProfessorId)
+    public void UpdateSubject(Subject subject)
     {
-        daoSubject.UpdateObject(subject);
-        if (subject.Professor.Id != oldProfessorId)
+        // Ovo azurira sva polja sem profesora
+        Subject oldSubject = daoSubject.UpdateObject(subject);
+
+        if (oldSubject.Professor == null && subject.Professor != null)
         {
-            ProfessorTeachesSubject pts = daoProfessorTeachesSubject.GetAllObjects().Find(pts => pts.IdSub == subject.Id && pts.IdProf == oldProfessorId);
+            AddSubjectToProfessor(oldSubject.Id, subject.Professor.Id);
+        }
+        else if (oldSubject.Professor != null && subject.Professor == null)
+        {
+            DeleteSubjectFromProfessorList(oldSubject.Id, oldSubject.Professor.Id);
+
+        }
+        else if (oldSubject.Professor.Id != subject.Professor.Id)
+        {
+            ProfessorTeachesSubject pts = daoProfessorTeachesSubject.GetAllObjects().Find(pts => pts.IdSub == subject.Id && pts.IdProf == oldSubject.Professor.Id);
             pts.IdProf = subject.Professor.Id;
             daoProfessorTeachesSubject.UpdateObject(pts);
+
+            Professor oldProf = daoProfessor.GetObjectById(oldSubject.Professor.Id);
+            Professor newProf = daoProfessor.GetObjectById(subject.Professor.Id);
+
+            oldProf.Subjects.Remove(oldSubject);
+            newProf.Subjects.Add(oldSubject);
+
+            oldSubject.Professor = newProf;
         }
+
         publisher.NotifyObservers();
     }
     

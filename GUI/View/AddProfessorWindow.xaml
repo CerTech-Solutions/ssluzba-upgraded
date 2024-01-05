@@ -43,11 +43,11 @@
 
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center">Name</Label>
                 <TextBox x:Name="textBoxName" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=professorDTO.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=professorDTO.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Surname</Label>
                 <TextBox x:Name="textBoxSurname" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"
-                         Text="{Binding Path=professorDTO.Surname,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=professorDTO.Surname,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Birth date</Label>
                 <DatePicker x:Name="datePickerBirthDate" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"
@@ -55,23 +55,23 @@
 
                 <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Phone number</Label>
                 <TextBox x:Name="textBoxPhoneNumber" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Margin="0,4,10,0"
-                         Text="{Binding Path=professorDTO.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2"/>
+                         Text="{Binding Path=professorDTO.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center">Email</Label>
                 <TextBox x:Name="textBoxEmail" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"
-                         Text="{Binding Path=professorDTO.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=professorDTO.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center">Id Number</Label>
                 <TextBox x:Name="textBoxIdNumber" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"
-                         Text="{Binding Path=professorDTO.IdNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=professorDTO.IdNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center">Service Years</Label>
                 <TextBox x:Name="textBoxServiceYears" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"
-                        Text="{Binding Path=professorDTO.ServiceYears, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        Text="{Binding Path=professorDTO.ServiceYears, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center">Title</Label>
                 <TextBox x:Name="textBoxTitle" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"
-                        Text="{Binding Path=professorDTO.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        Text="{Binding Path=professorDTO.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
             </Grid>
 
             <!-- Address input -->
@@ -90,19 +90,19 @@
 
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center">Street</Label>
                 <TextBox x:Name="textBoxStreet" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=addressDTO.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=addressDTO.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Number</Label>
                 <TextBox x:Name="textBoxNumber" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=addressDTO.Number, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=addressDTO.Number, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">City</Label>
                 <TextBox x:Name="textBoxCity" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=addressDTO.City, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=addressDTO.City, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Country</Label>
                 <TextBox x:Name="textBoxCountry" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=addressDTO.Country, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=addressDTO.Country, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
             </Grid>
 
             <Grid Height="50" Margin="0,20,0,0">

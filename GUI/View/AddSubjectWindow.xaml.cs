@@ -116,6 +116,14 @@ namespace GUI
             return validInput;
         }
 
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (InputCheck())
+                buttonAdd.IsEnabled = true;
+            else
+                buttonAdd.IsEnabled = false;
+        }
+
         private void BorderBrushToRed(TextBox textBox)
         {
             textBox.BorderBrush = Brushes.Red;
@@ -130,8 +138,6 @@ namespace GUI
 
         public void AddSubject(object sender, RoutedEventArgs e)
         { 
-            if (InputCheck())
-            {
                 _subjectDTO.Professor = (ProfessorDTO)comboBoxProfessor.SelectedItem;
                 if (comboBoxSemester.SelectedItem == comboBoxItemWinter)
                     _subjectDTO.Semester = SemesterEnum.winter;
@@ -140,7 +146,6 @@ namespace GUI
 
                 _controller.AddSubject(_subjectDTO.ToSubject());
                 Close();
-            }
         }
 
         public void Cancel(object sender, RoutedEventArgs e)

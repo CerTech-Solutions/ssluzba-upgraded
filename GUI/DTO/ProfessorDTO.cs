@@ -234,6 +234,10 @@ namespace GUI.DTO
         public String NameSurname
         {
             get { return name + " " + surname; }
+            set
+            {
+                //da bi radilo moram dodati setter
+            }
         }
     }
 }
