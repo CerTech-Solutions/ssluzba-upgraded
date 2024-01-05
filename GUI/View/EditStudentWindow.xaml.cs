@@ -144,18 +144,23 @@ namespace GUI
             return validInput;
         }
 
-        private void UpdateStudent(object sender, RoutedEventArgs e)
+        private void textBox_TextChanged(object sender, EventArgs e)
         {
             if (InputCheck())
-            {
-                if (comboBoxStatus.SelectedItem == comboBoxItemB)
-                    _studentDTO.Status = StatusEnum.B;
-                else
-                    _studentDTO.Status = StatusEnum.S;
+                buttonUpdate.IsEnabled = true;
+            else
+                buttonUpdate.IsEnabled = false;
+        }
 
-                _controller.UpdateStudent(_studentDTO.ToStudent());
-                Close();
-            }
+        private void UpdateStudent(object sender, RoutedEventArgs e)
+        {
+            if (comboBoxStatus.SelectedItem == comboBoxItemB)
+                _studentDTO.Status = StatusEnum.B;
+            else
+                 _studentDTO.Status = StatusEnum.S;
+
+            _controller.UpdateStudent(_studentDTO.ToStudent());
+            Close();
         }
 
         private void AddSubject(object sender, RoutedEventArgs e)
@@ -182,7 +187,25 @@ namespace GUI
 
         private void DeleteSubject(object sender, RoutedEventArgs e)
         {
-            // TODO: Implement delete subject
+            if (dataGridNotPassedSubjects.SelectedItem != null)
+            {
+                MessageBoxResult dr = MessageBox.Show("Are you sure you want to delete this subject from student list?", "Delete professor", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (dr == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        _controller.DeleteSubjectFromStudentList((dataGridNotPassedSubjects.SelectedItem as SubjectDTO).Id, _studentDTO.Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select subject to delete!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
         }
 
         private void Cancel(object sender, RoutedEventArgs e)

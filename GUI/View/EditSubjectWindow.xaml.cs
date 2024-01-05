@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace GUI
 {
@@ -25,11 +26,12 @@ namespace GUI
     {
         private Controller _controller;
         private SubjectDTO _subjectDTO;
-        private int oldProfessorId;
+
+        private ObservableCollection<ProfessorDTO> _professors;
 
         private Brush _defaultBrushBorder;
 
-        public EditSubjectWindow(Controller controller, SubjectDTO subjectOld, ObservableCollection<ProfessorDTO> _professors)
+        public EditSubjectWindow(Controller controller, SubjectDTO subjectOld, ObservableCollection<ProfessorDTO> professors)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -40,15 +42,57 @@ namespace GUI
 
             _subjectDTO = new SubjectDTO(subjectOld);
             DataContext = _subjectDTO;
-            oldProfessorId = subjectOld.Professor.Id;
 
-            comboBoxProfessor.ItemsSource = _professors;
-            comboBoxProfessor.SelectedIndex = subjectOld.Professor.Id;
+            //comboBoxProfessor.ItemsSource = _professors;
+            _professors = new ObservableCollection<ProfessorDTO>(professors);
 
             if (subjectOld.Semester == SemesterEnum.winter)
                 comboBoxSemester.SelectedItem = comboBoxItemWinter;
             else
                 comboBoxSemester.SelectedItem = comboBoxItemSummer;
+        }
+
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            String prof = textBoxProfessor.Text;
+            prof = prof.Replace(" ", "");
+            if (prof == String.Empty)
+            {
+                buttonAddProfessor.IsEnabled = true;
+                buttonDeleteProfessor.IsEnabled = false;
+            }
+            else
+            {
+                buttonAddProfessor.IsEnabled = false;
+                buttonDeleteProfessor.IsEnabled = true;
+            }
+
+            if(InputCheck())
+                buttonUpdate.IsEnabled = true;
+            else
+                buttonUpdate.IsEnabled = false;
+        }
+
+        private void addProfessorToSubject(object sender, RoutedEventArgs e)
+        {
+            AddProfessorToSubjectWindow addProfessorToSubjectWindow = new AddProfessorToSubjectWindow(_controller, _subjectDTO, _professors);
+            addProfessorToSubjectWindow.ShowDialog();
+        }
+
+        private void deleteProfessorFromSubject(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult dr = MessageBox.Show("Are you sure you want to delete professor from subject?", "Delete professor", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (dr == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    _subjectDTO.Professor = null;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         private bool EmptyTextBoxCheck()
@@ -133,18 +177,13 @@ namespace GUI
 
         private void Update(object sender, RoutedEventArgs e)
         {
-            if (InputCheck())
-            {
-                _subjectDTO.Professor = (ProfessorDTO)comboBoxProfessor.SelectedItem;
-                
-                if(comboBoxSemester.SelectedItem == comboBoxItemWinter)
-                    _subjectDTO.Semester = SemesterEnum.winter;
-                else
-                    _subjectDTO.Semester = SemesterEnum.summer;
+            if(comboBoxSemester.SelectedItem == comboBoxItemWinter)
+                _subjectDTO.Semester = SemesterEnum.winter;
+            else
+                _subjectDTO.Semester = SemesterEnum.summer;
 
-                _controller.UpdateSubject(_subjectDTO.ToSubject(), oldProfessorId);
-                Close();
-            }
+            _controller.UpdateSubject(_subjectDTO.ToSubject());
+            Close();
         }
 
         public void Cancel(object sender, RoutedEventArgs e)

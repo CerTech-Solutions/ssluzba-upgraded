@@ -417,8 +417,23 @@ namespace GUI
 
         private bool FilterSubject(object item)
         {
-            // TODO - Implement
-            return true;
+            SubjectDTO p = (SubjectDTO)item;
+            string[] words = textBoxSearch.Text.Split(", ");
+
+            words = words.Select(w => w.ToLower().Replace(" ", "")).ToArray();
+
+            if (words.Length == 1)
+            {
+                if (p.Name.ToLower().Contains(words[0]))
+                    return true;
+            }
+            else if (words.Length == 2)
+            {
+                if (p.Name.ToLower().Contains(words[0])
+                        && p.Code.ToLower().Contains(words[1]))
+                    return true;
+            }
+            return false;
         }
 
         private void ShowInfo(object sender, RoutedEventArgs e)
@@ -433,7 +448,8 @@ namespace GUI
                 case "Students":
                     if (dataGridStudents.SelectedItem != null)
                     {
-
+                        InfoStudentWindow infoSubjectWindow = new InfoStudentWindow(dataGridStudents.SelectedItem as StudentDTO);
+                        infoSubjectWindow.ShowDialog();
                     }
                     else
                     {
@@ -443,7 +459,8 @@ namespace GUI
                 case "Professors":
                     if (dataGridProfessor.SelectedItem != null)
                     {
-
+                        InfoProfessorWindow infoProfessorWindow = new InfoProfessorWindow(dataGridProfessor.SelectedItem as ProfessorDTO, _students);
+                        infoProfessorWindow.ShowDialog();
                     }
                     else
                     {
@@ -463,7 +480,8 @@ namespace GUI
                 case "Departments":
                     if (dataGridDepartments.SelectedItem != null)
                     {
-
+                        InfoDepartmentWindow infoDepartmentWindow = new InfoDepartmentWindow(dataGridDepartments.SelectedItem as DepartmentDTO);
+                        infoDepartmentWindow.ShowDialog();
                     }
                     else
                     {

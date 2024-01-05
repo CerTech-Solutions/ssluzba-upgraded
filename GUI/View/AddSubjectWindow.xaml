@@ -37,11 +37,11 @@
 
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center">Code</Label>
                 <TextBox x:Name="textBoxCode" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Name</Label>
                 <TextBox x:Name="textBoxName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=Name,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=Name,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Semester</Label>
                 <ComboBox x:Name="comboBoxSemester" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2">
@@ -51,11 +51,11 @@
 
                 <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Year of study</Label>
                 <TextBox x:Name="textBoxYearOfStudy" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=YearOfStudy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=YearOfStudy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center">ECTS</Label>
                 <TextBox x:Name="textBoxEcts" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
-                         Text="{Binding Path=Ects, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=Ects, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center">Professor</Label>
                 <ComboBox x:Name="comboBoxProfessor" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"

@@ -289,6 +289,10 @@ namespace GUI.DTO
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public String NameSurname
+        {
+            get { return name + " " + surname; }
+        }
     }
 
     public class IndexDTO : INotifyPropertyChanged

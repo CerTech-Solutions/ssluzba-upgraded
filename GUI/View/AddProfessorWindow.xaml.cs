@@ -105,14 +105,19 @@ namespace GUI
             return validInput;
         }
 
-        private void AddProfessor(object sender, RoutedEventArgs e)
+        private void textBox_TextChanged(object sender, EventArgs e)
         {
             if (InputCheck())
-            {
-                _controller.AddProfessor(professorDTO.ToProfessor());
+                buttonAdd.IsEnabled = true;
+            else
+                buttonAdd.IsEnabled = false;
+        }
 
-                Close();
-            }
+        private void AddProfessor(object sender, RoutedEventArgs e)
+        {
+            _controller.AddProfessor(professorDTO.ToProfessor());
+
+            Close();
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
