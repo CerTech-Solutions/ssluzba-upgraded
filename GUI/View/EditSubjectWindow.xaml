@@ -74,9 +74,9 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label HorizontalAlignment="Center" VerticalAlignment="Center">Professor</Label>
-                    <TextBox x:Name="textBoxProfessor" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=Professor.NameSurname}" IsReadOnly="True" TextChanged="textBox_TextChanged"/>
-                    <Button x:Name="buttonAddProfessor" Grid.Column="2" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Margin="25,0,0,0" Style="{StaticResource SquareButtonStyle}" Click="addProfessorToSubject">+</Button>
-                    <Button x:Name="buttonDeleteProfessor" Grid.Column="2" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Margin="0,0,25,0" Style="{StaticResource SquareButtonStyle}" Click="deleteProfessorFromSubject">-</Button>
+                    <TextBox x:Name="textBoxProfessor" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=Professor.NameSurname}" IsReadOnly="True" TextChanged="textBox_TextChanged" Grid.ColumnSpan="2" Margin="0,0,100,0"/>
+                    <Button x:Name="buttonAddProfessor" Grid.Column="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" Height="26" Margin="0,2,0,2" Style="{StaticResource SquareButtonStyle}" Click="addProfessorToSubject" FontSize="16">+</Button>
+                    <Button x:Name="buttonDeleteProfessor" Grid.Column="2" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" Height="26" Margin="102,2,0,2" Style="{StaticResource SquareButtonStyle}" Click="deleteProfessorFromSubject" FontSize="16">-</Button>
                 </Grid>
             </Grid>
 

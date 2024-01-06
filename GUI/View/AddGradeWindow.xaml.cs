@@ -106,13 +106,18 @@ namespace GUI
             textBox.BorderThickness = new Thickness(1);
         }
 
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (InputCheck())
+                buttonAdd.IsEnabled = true;
+            else
+                buttonAdd.IsEnabled = false;
+        }
+
         private void Add(object sender, RoutedEventArgs e)
         {
-            if(InputCheck())
-            {
-                _controller.AddGrade(_gradeDTO.ToGrade());
-                Close();
-            }
+            _controller.AddGrade(_gradeDTO.ToGrade());
+            Close();
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
