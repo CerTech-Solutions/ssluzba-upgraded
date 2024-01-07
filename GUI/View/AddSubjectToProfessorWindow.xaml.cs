@@ -19,15 +19,15 @@ using System.Windows.Shapes;
 namespace GUI
 {
     /// <summary>
-    /// Interaction logic for AddSubjectToProfessor.xaml
+    /// Interaction logic for AddSubjectToProfessorWindow.xaml
     /// </summary>
-    public partial class AddSubjectToProfessor : Window
+    public partial class AddSubjectToProfessorWindow : Window
     {
         private Controller _controller;
         private ProfessorDTO _professor;
-        private ObservableCollection<SubjectDTO> _subjects;
+        private List<SubjectDTO> _subjects;
 
-        public AddSubjectToProfessor(Controller controller, ProfessorDTO professorDTO)
+        public AddSubjectToProfessorWindow(Controller controller, ProfessorDTO professorDTO)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -35,21 +35,10 @@ namespace GUI
             _controller = controller;
             _professor = professorDTO;
 
-            // This should be moved to the controller
-
-            Professor prof = _controller.GetAllProfessors().Find(p => p.Id == _professor.Id);
-
-            _subjects = new ObservableCollection<SubjectDTO>(
-                _controller.GetAllSubjects()
-                               
-                .FindAll(s => s.Professor == null &&
-                    !prof.Subjects.Exists(sub => sub.Id == s.Id))
-                                              
+            _subjects = new List<SubjectDTO>(
+                _controller.GetSubjectsForProfessor(_professor.Id)
                 .Select(s => new SubjectDTO(s))
-                                                             
-                .ToList());
-
-            // -----------------------------
+                );
 
             listViewSubjects.ItemsSource = _subjects;
         }

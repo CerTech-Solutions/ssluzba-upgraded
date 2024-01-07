@@ -150,7 +150,7 @@ namespace GUI
                 case "Departments":
                     if (dataGridDepartments.SelectedItem != null)
                     {
-                        AddChiefToDepartment addChiefToDepartment = new AddChiefToDepartment(_controller, dataGridDepartments.SelectedItem as DepartmentDTO);
+                        AddChiefToDepartmentWindow addChiefToDepartment = new AddChiefToDepartmentWindow(_controller, dataGridDepartments.SelectedItem as DepartmentDTO);
                         addChiefToDepartment.ShowDialog();
                     }
                     else

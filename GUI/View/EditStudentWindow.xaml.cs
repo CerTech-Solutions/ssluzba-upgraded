@@ -165,7 +165,7 @@ namespace GUI
 
         private void AddSubject(object sender, RoutedEventArgs e)
         {
-            AddSubjectToStudent addSubjectToStudent = new AddSubjectToStudent(_controller, _studentDTO);
+            AddSubjectToStudentWindow addSubjectToStudent = new AddSubjectToStudentWindow(_controller, _studentDTO);
             addSubjectToStudent.ShowDialog();
         }
 
@@ -210,6 +210,7 @@ namespace GUI
 
         private void Cancel(object sender, RoutedEventArgs e)
         {
+            _controller.publisher.Unsubscribe(this);
             Close();
         }
 
