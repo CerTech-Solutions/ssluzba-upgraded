@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,9 +32,9 @@ namespace GUI
 
             _professorDTO = professorDTO;
             _students = new ObservableCollection<StudentDTO>(students);
+            _students = createNewStudentList();
 
-            ObservableCollection<StudentDTO> studentsForProfessor = createNewStudentList();
-            listViewStudents.ItemsSource = studentsForProfessor;
+            listViewStudents.ItemsSource = _students;
         }
 
         private ObservableCollection<StudentDTO> createNewStudentList()
@@ -56,9 +57,50 @@ namespace GUI
             return studentsForProfessor;
         }
 
-        private void textBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private void ApplySearch(object sender, RoutedEventArgs e)
         {
+            ICollectionView collectionView;
 
+            collectionView = CollectionViewSource.GetDefaultView(_students);
+            collectionView.Filter = FilterStudent;
+
+            collectionView.Refresh();
+        }
+
+        private bool FilterStudent(object item)
+        {
+            StudentDTO p = (StudentDTO)item;
+            string[] words = textBoxSearch.Text.Split(", ");
+
+            words = words.Select(w => w.ToLower().Replace(" ", "")).ToArray();
+
+            if (words.Length == 1)
+            {
+                if (p.Surname.ToLower().Contains(words[0]))
+                    return true;
+            }
+            else if (words.Length == 2)
+            {
+                if (p.Surname.ToLower().Contains(words[0])
+                        && p.Name.ToLower().Contains(words[1]))
+                    return true;
+            }
+            else if (words.Length == 3)
+            {
+                if (p.Index.ToLower().Replace(" ", "").Contains(words[0])
+                        && p.Name.ToLower().Contains(words[1])
+                        && p.Surname.ToLower().Contains(words[2]))
+                    return true;
+            }
+            return false;
+        }
+
+        private void TextBoxSearchKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ApplySearch(sender, e);
+            }
         }
     }
 }
