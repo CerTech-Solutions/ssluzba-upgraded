@@ -1,4 +1,4 @@
-﻿<Window x:Class="GUI.AddSubjectToProfessor"
+﻿<Window x:Class="GUI.AddSubjectToStudentWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,6 +8,7 @@
         Title="Add subject"
         Height="450" Width="400"
         ResizeMode="NoResize">
+
     <Grid Margin="0,10,0,0">
         <ListView VerticalAlignment="Top" Margin="10,10,10,0" x:Name="listViewSubjects" ItemsSource="{Binding _subjects}" Height="331">
             <ListView.View>

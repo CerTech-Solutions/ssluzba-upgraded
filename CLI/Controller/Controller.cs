@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.Diagnostics;
 using System.Linq;
@@ -115,6 +116,25 @@ public class Controller
     public List<Department> GetAllDepartments()
     {
         return daoDepartment.GetAllObjects();
+    }
+
+    public List<Subject> GetSubjectsForStudent(int studentId)
+    {
+        Student stud = daoStudent.GetObjectById(studentId);
+
+        return daoSubject.GetAllObjects().FindAll(
+            s => s.YearOfStudy == stud.CurrentYear 
+            && !stud.NotPassedSubjects.Exists(sub => sub.Id == s.Id)
+            && !stud.PassedSubjects.Exists(sub => sub.Subject.Id == s.Id));
+    }
+
+    public List<Subject> GetSubjectsForProfessor(int professorId)
+    {
+        Professor prof = daoProfessor.GetObjectById(professorId);
+
+        return daoSubject.GetAllObjects().FindAll(
+            s => s.Professor == null
+            && !prof.Subjects.Exists(sub => sub.Id == s.Id));
     }
 
     public void AddSubject(Subject subject)
