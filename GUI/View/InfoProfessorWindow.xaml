@@ -41,7 +41,7 @@
     
 
     <Grid>
-        <TextBox x:Name="textBoxSearch" Style="{StaticResource WaterMarkStyle}" Tag="Press enter to search" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="200" Margin="0,10,0,0" KeyDown="TextBoxSearchKeyDown"></TextBox>
+        <TextBox x:Name="textBoxSearch" Style="{StaticResource WaterMarkStyle}" Tag="Press enter to search" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="200" Margin="0,10,0,0" KeyDown="TextBoxSearchKeyDown"/>
         <ListView VerticalAlignment="Top" Margin="10,40,10,0" x:Name="listViewStudents" Height="380">
             <ListView.View>
                 <GridView>

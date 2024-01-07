@@ -470,7 +470,8 @@ namespace GUI
                 case "Subjects":
                     if (dataGridSubjects.SelectedItem != null)
                     {
-
+                        InfoSubjectWindow infoSubjectWindow = new InfoSubjectWindow(_controller, dataGridSubjects.SelectedItem as SubjectDTO);
+                        infoSubjectWindow.ShowDialog();
                     }
                     else
                     {
