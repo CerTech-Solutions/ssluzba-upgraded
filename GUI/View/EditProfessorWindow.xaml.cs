@@ -125,12 +125,13 @@ namespace GUI
 
         private void Cancel(object sender, RoutedEventArgs e)
         {
+            _controller.publisher.Unsubscribe(this);
             Close();
         }
 
         private void AddSubject(object sender, RoutedEventArgs e)
         {
-            AddSubjectToProfessor addSubjectToProfessor = new AddSubjectToProfessor(_controller, _professor);
+            AddSubjectToProfessorWindow addSubjectToProfessor = new AddSubjectToProfessorWindow(_controller, _professor);
             addSubjectToProfessor.ShowDialog();
         }
 

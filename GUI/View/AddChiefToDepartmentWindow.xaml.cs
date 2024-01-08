@@ -18,14 +18,14 @@ using System.Windows.Shapes;
 namespace GUI.View
 {
     /// <summary>
-    /// Interaction logic for AddChiefToDepartment.xaml
+    /// Interaction logic for AddChiefToDepartmentWindow.xaml
     /// </summary>
-    public partial class AddChiefToDepartment : Window
+    public partial class AddChiefToDepartmentWindow : Window
     {
         private Controller _controller;
         private DepartmentDTO _department;
 
-        public AddChiefToDepartment(Controller controller, DepartmentDTO department)
+        public AddChiefToDepartmentWindow(Controller controller, DepartmentDTO department)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;

@@ -32,7 +32,7 @@
 
                 <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Grade value</Label>
                 <TextBox x:Name="textBoxGradeValue" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"
-             Text="{Binding Path=GradeValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+             Text="{Binding Path=GradeValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
                 <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Grade date</Label>
                 <DatePicker x:Name="datePickerGradeDate" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"

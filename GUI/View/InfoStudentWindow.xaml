@@ -12,9 +12,7 @@
         <ListView VerticalAlignment="Top" Margin="10,10,10,0" x:Name="listViewProfessors" Height="380">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding NameSurname}">
-                        <GridViewColumnHeader IsEnabled="False">Professors</GridViewColumnHeader>
-                    </GridViewColumn>
+                    <GridViewColumn Header="Professor" DisplayMemberBinding="{Binding NameSurname}"/>
                 </GridView>
             </ListView.View>
         </ListView>
