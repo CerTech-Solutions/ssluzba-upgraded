@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="AboutWindow" Height="315" Width="425"
+        Title="AboutWindow" Height="315" Width="425" ResizeMode="NoResize"
         xmlns:gif ="https://github.com/XamlAnimatedGif/XamlAnimatedGif">
     <Grid>
         <DockPanel>
-            <TextBlock x:Name="textBlockAbout" DockPanel.Dock="Top">
+            <TextBlock x:Name="textBlockAbout" DockPanel.Dock="Top" Margin="10,10,10,10">
                 <Run Text="Version 0.1.7 - Made by passionate developers from CerTech-Solutions®" FontStyle="Italic"/>
                 <LineBreak/>
                 <LineBreak/>
@@ -35,6 +35,6 @@
                             <GradientStop Color="#00ffffff" Offset="0.8" />
                </RadialGradientBrush>
        </Image.OpacityMask>
-        </Image>
+       </Image>
     </Grid>
 </Window>
