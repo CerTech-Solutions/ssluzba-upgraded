@@ -62,7 +62,7 @@ namespace GUI
             dataGridProfessor.ItemsSource = _professors;
             dataGridStudents.ItemsSource = _students;
             dataGridSubjects.ItemsSource = _subjects;
-            dataGridDepartments.ItemsSource = _departments;
+            dataGridDepartments.ItemsSource = _departments;  
 
             Update();
         }
