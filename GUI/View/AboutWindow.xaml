@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="AboutWindow" Height="315" Width="425" ResizeMode="NoResize"
-        xmlns:gif ="https://github.com/XamlAnimatedGif/XamlAnimatedGif">
+        Title="AboutWindow" Height="315" Width="425" ResizeMode="NoResize">
     <Grid>
         <DockPanel>
             <TextBlock x:Name="textBlockAbout" DockPanel.Dock="Top" Margin="10,10,10,10">
@@ -27,8 +26,7 @@
                 <Run Text="                 the greatest programmer of all time"/>
             </TextBlock>
         </DockPanel>
-        <Image x:Name="imageCatGif" gif:AnimationBehavior.SourceUri="../Icons/cat.gif" Height="125" Width="125" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-        <Image x:Name="imageCerTechLogoGif" gif:AnimationBehavior.SourceUri="../Icons/CerTechLogo.gif" Height="125" Width="125" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <Image x:Name="imageCerTechLogo" Source="../Icons/CerTechLogo.gif" Height="125" Width="125" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <Image.OpacityMask>
               <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">                          
                             <GradientStop Color="#ffffffff" Offset="0.5" />
