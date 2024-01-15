@@ -24,6 +24,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.Tracing;
 using System.ComponentModel;
 using GUI.View;
+using System.Windows.Automation.Provider;
 
 namespace GUI
 {
@@ -132,22 +133,24 @@ namespace GUI
         {
             TabItem selectedTab = tabControl.SelectedItem as TabItem;
 
-            if (selectedTab != null)
-                switch (selectedTab.Header)
-                {
-                    case "Students":
-                        AddStudentWindow addStudentWindow = new AddStudentWindow(_controller);
-                        addStudentWindow.ShowDialog();
-                        break;
-                    case "Professors": 
-                        AddProfessorWindow addProfessorWindow = new AddProfessorWindow(_controller);
-                        addProfessorWindow.ShowDialog();
-                        break;
-                    case "Subjects": 
-                        AddSubjectWindow addSubjectWindow = new AddSubjectWindow(_controller, _professors);
-                        addSubjectWindow.ShowDialog();
-                        break;
-                }
+            if (selectedTab == null)
+                return;
+
+            if (selectedTab == tabItemStudents)
+            {
+                AddStudentWindow addStudentWindow = new AddStudentWindow(_controller);
+                addStudentWindow.ShowDialog();
+            }
+            else if (selectedTab == tabItemProfessors)
+            {
+                AddProfessorWindow addProfessorWindow = new AddProfessorWindow(_controller);
+                addProfessorWindow.ShowDialog();
+            }
+            else if (selectedTab == tabItemSubjects)
+            {
+                AddSubjectWindow addSubjectWindow = new AddSubjectWindow(_controller, _professors);
+                addSubjectWindow.ShowDialog();
+            }
         }
 
         private void EditEntity(object sender, RoutedEventArgs e)
@@ -157,74 +160,75 @@ namespace GUI
             if (selectedTab == null)
                 return;
 
-            switch (selectedTab.Header)
+            if (selectedTab == tabItemStudents)
             {
-                case "Students":
-                    if (dataGridStudents.SelectedItem != null)
-                    {
-                        EditStudentWindow editStudentWindow = new EditStudentWindow(_controller, dataGridStudents.SelectedItem as StudentDTO);
-                        editStudentWindow.ShowDialog();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select a student to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    break;
-                case "Professors":  
-                    if (dataGridProfessor.SelectedItem != null)
-                    {
-                        EditProfessorWindow editProfessorWindow = new EditProfessorWindow(_controller, dataGridProfessor.SelectedItem as ProfessorDTO);
-                        editProfessorWindow.ShowDialog();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select a professor to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    break;
-                case "Subjects":
-                    if (dataGridSubjects.SelectedItem != null)
-                    {
-                        EditSubjectWindow editSubjectWindow = new EditSubjectWindow(_controller, dataGridSubjects.SelectedItem as SubjectDTO, _professors);
-                        editSubjectWindow.ShowDialog();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select a subject to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    break;
-                case "Departments":
-                    if (dataGridDepartments.SelectedItem != null)
-                    {
-                        AddChiefToDepartmentWindow addChiefToDepartment = new AddChiefToDepartmentWindow(_controller, dataGridDepartments.SelectedItem as DepartmentDTO);
-                        addChiefToDepartment.ShowDialog();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select a department to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    break;
+                if (dataGridStudents.SelectedItem != null)
+                {
+                    EditStudentWindow editStudentWindow = new EditStudentWindow(_controller, dataGridStudents.SelectedItem as StudentDTO);
+                    editStudentWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a student to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
-
+            else if (selectedTab == tabItemProfessors)
+            {
+                if (dataGridProfessor.SelectedItem != null)
+                {
+                    EditProfessorWindow editProfessorWindow = new EditProfessorWindow(_controller, dataGridProfessor.SelectedItem as ProfessorDTO);
+                    editProfessorWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a professor to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            else if (selectedTab == tabItemSubjects)
+            {
+                if (dataGridSubjects.SelectedItem != null)
+                {
+                    EditSubjectWindow editSubjectWindow = new EditSubjectWindow(_controller, dataGridSubjects.SelectedItem as SubjectDTO, _professors);
+                    editSubjectWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a subject to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            else if (selectedTab == tabItemDepartments)
+            {
+                if (dataGridDepartments.SelectedItem != null)
+                {
+                    AddChiefToDepartmentWindow addChiefToDepartment = new AddChiefToDepartmentWindow(_controller, dataGridDepartments.SelectedItem as DepartmentDTO);
+                    addChiefToDepartment.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a department to edit!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
         }
 
         private void DeleteEntity(object sender, RoutedEventArgs e) 
         {
             TabItem selectedTab = tabControl.SelectedItem as TabItem;
 
-            if (selectedTab != null)
-                switch (selectedTab.Header)
-                {
-                    case "Students":
-                        deleteStudent();
-                        break;
-                    case "Professors":
-                        deleteProfessor();
-                        break;
-                    case "Subjects":
-                        deleteSubject();
-                        break;
-                }
+            if (selectedTab == null)
+                return;
 
+            if (selectedTab == tabItemStudents)
+            {
+                deleteStudent();
+            }
+            else if (selectedTab == tabItemProfessors)
+            {
+                deleteProfessor();
+            }
+            else if (selectedTab == tabItemSubjects)
+            {
+                deleteSubject();
+            }
         }
 
         private void deleteProfessor()
@@ -298,10 +302,17 @@ namespace GUI
 
         public void Update()
         {
-            fillStudentDTOList();
-            fillProfessorDTOList();
-            fillSubjectsDTOList();
-            fillDepartmeDTOList();
+            _students.Clear();
+            _controller.GetAllStudents().ForEach(s => _students.Add(new StudentDTO(s)));
+
+            _professors.Clear();
+            _controller.GetAllProfessors().ForEach(p => _professors.Add(new ProfessorDTO(p)));
+
+            _subjects.Clear();
+            _controller.GetAllSubjects().ForEach(s => _subjects.Add(new SubjectDTO(s)));
+
+            _departments.Clear();
+            _controller.GetAllDepartments().ForEach(d => _departments.Add(new DepartmentDTO(d)));
 
             ApplySearch(this, new RoutedEventArgs());
             
@@ -309,42 +320,6 @@ namespace GUI
             ChangeMovePageButtonsVisibility();
 
             ApplyPaging(this, new RoutedEventArgs());
-        }
-
-        private void fillProfessorDTOList()
-        {
-            _professors.Clear();
-            foreach (Professor p in _controller.GetAllProfessors())
-            {
-                _professors.Add(new ProfessorDTO(p));
-            }
-        }
-
-        private void fillStudentDTOList()
-        {
-            _students.Clear();
-            foreach (Student s in _controller.GetAllStudents())
-            {
-                _students.Add(new StudentDTO(s));
-            }
-        }
-
-        private void fillSubjectsDTOList()
-        {
-            _subjects.Clear();
-            foreach (Subject s in _controller.GetAllSubjects())
-            {
-                _subjects.Add(new SubjectDTO(s));
-            }
-        }
-
-        private void fillDepartmeDTOList()
-        {
-            _departments.Clear();
-            foreach (Department d in _controller.GetAllDepartments())
-            {
-                _departments.Add(new DepartmentDTO(d));
-            }
         }
 
         private void Save(object sender, RoutedEventArgs e)
@@ -601,52 +576,53 @@ namespace GUI
             if (selectedTab == null)
                 return;
 
-            switch (selectedTab.Header)
+            if (selectedTab == tabItemStudents)
             {
-                case "Students":
-                    if (dataGridStudents.SelectedItem != null)
-                    {
-                        InfoStudentWindow infoSubjectWindow = new InfoStudentWindow(dataGridStudents.SelectedItem as StudentDTO);
-                        infoSubjectWindow.ShowDialog();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select a student for more information!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    break;
-                case "Professors":
-                    if (dataGridProfessor.SelectedItem != null)
-                    {
-                        InfoProfessorWindow infoProfessorWindow = new InfoProfessorWindow(dataGridProfessor.SelectedItem as ProfessorDTO, _students);
-                        infoProfessorWindow.ShowDialog();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select a professor for more information!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    break;
-                case "Subjects":
-                    if (dataGridSubjects.SelectedItem != null)
-                    {
-                        InfoSubjectWindow infoSubjectWindow = new InfoSubjectWindow(_controller, dataGridSubjects.SelectedItem as SubjectDTO);
-                        infoSubjectWindow.ShowDialog();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select a subject for more information!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    break;
-                case "Departments":
-                    if (dataGridDepartments.SelectedItem != null)
-                    {
-                        InfoDepartmentWindow infoDepartmentWindow = new InfoDepartmentWindow(dataGridDepartments.SelectedItem as DepartmentDTO);
-                        infoDepartmentWindow.ShowDialog();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select a department for more information!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-                    break;
+                if (dataGridStudents.SelectedItem != null)
+                {
+                    InfoStudentWindow infoSubjectWindow = new InfoStudentWindow(dataGridStudents.SelectedItem as StudentDTO);
+                    infoSubjectWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a student for more information!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            else if (selectedTab == tabItemProfessors)
+            {
+                if (dataGridProfessor.SelectedItem != null)
+                {
+                    InfoProfessorWindow infoProfessorWindow = new InfoProfessorWindow(dataGridProfessor.SelectedItem as ProfessorDTO, _students);
+                    infoProfessorWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a professor for more information!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            else if (selectedTab == tabItemSubjects)
+            {
+                if (dataGridSubjects.SelectedItem != null)
+                {
+                    InfoSubjectWindow infoSubjectWindow = new InfoSubjectWindow(_controller, dataGridSubjects.SelectedItem as SubjectDTO);
+                    infoSubjectWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a subject for more information!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            else if (selectedTab == tabItemDepartments)
+            {
+                if (dataGridDepartments.SelectedItem != null)
+                {
+                    InfoDepartmentWindow infoDepartmentWindow = new InfoDepartmentWindow(dataGridDepartments.SelectedItem as DepartmentDTO);
+                    infoDepartmentWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a department for more information!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
 
