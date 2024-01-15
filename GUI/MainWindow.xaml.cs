@@ -35,7 +35,7 @@ namespace GUI
         private DispatcherTimer _timer;
         private Controller _controller;
         private int _currentPageNumber = 1;
-        private int _maxItemsPerPage = 3;
+        private int _maxItemsPerPage = 4;
         private int _totalNumberOfPages = 1;
 
         private ObservableCollection<ProfessorDTO> _professors = new ObservableCollection<ProfessorDTO>();
@@ -56,11 +56,6 @@ namespace GUI
             _controller = new Controller();
             _controller.publisher.Subscribe(this);
 
-            dataGridProfessor.ItemsSource = _filteredProfessors;
-            dataGridStudents.ItemsSource = _filteredStudents;
-            dataGridSubjects.ItemsSource = _filteredSubjects;
-            dataGridDepartments.ItemsSource = _departments;
-
             labelCurrentPage.DataContext = this;
 
             Update();
@@ -68,6 +63,11 @@ namespace GUI
             _filteredProfessors = new ObservableCollection<ProfessorDTO>(_professors);
             _filteredStudents = new ObservableCollection<StudentDTO>(_students);
             _filteredSubjects = new ObservableCollection<SubjectDTO>(_subjects);
+
+            dataGridProfessor.ItemsSource = _filteredProfessors;
+            dataGridStudents.ItemsSource = _filteredStudents;
+            dataGridSubjects.ItemsSource = _filteredSubjects;
+            dataGridDepartments.ItemsSource = _departments;
         }
 
         public int CurrentPageNumber
@@ -76,7 +76,17 @@ namespace GUI
             set
             {
                 _currentPageNumber = value;
-                labelCurrentPage.Content = _currentPageNumber.ToString();
+                labelCurrentPage.Content = $"{_currentPageNumber} / {_totalNumberOfPages}";
+            }
+        }
+
+        public int TotalNumberOfPages
+        {
+            get { return _totalNumberOfPages; }
+            set
+            {
+                _totalNumberOfPages = value;
+                labelCurrentPage.Content = $"{_currentPageNumber} / {_totalNumberOfPages}";
             }
         }
 
@@ -277,7 +287,10 @@ namespace GUI
             fillDepartmeDTOList();
 
             ApplySearch(this, new RoutedEventArgs());
+            
             RestartTotalNumberOfPages();
+            ChangeMovePageButtonsVisibility();
+
             ApplyPaging(this, new RoutedEventArgs());
         }
 
@@ -389,7 +402,7 @@ namespace GUI
                 totalNumberOfItems = _filteredSubjects.Count;
             }
 
-            _totalNumberOfPages = (int)Math.Ceiling((double)totalNumberOfItems / _maxItemsPerPage);
+            TotalNumberOfPages = (int)Math.Ceiling((double)totalNumberOfItems / _maxItemsPerPage);
         }
 
         private void ApplyPaging(object sender, RoutedEventArgs e)
@@ -415,42 +428,66 @@ namespace GUI
         {
             CurrentPageNumber = Math.Max(1, CurrentPageNumber - 1);
 
-            buttonRightPage.IsEnabled = true;
-            buttonRightPage.Opacity = 1.0;
-
-            if(CurrentPageNumber == 1)
-            {
-                buttonLeftPage.IsEnabled = false;
-                buttonLeftPage.Opacity = 0.5;
-            }
-            else
-            {
-                buttonRightPage.IsEnabled = true;
-                buttonRightPage.Opacity = 1.0;
-            }
+            ChangeMovePageButtonsVisibility();
 
             ApplyPaging(sender, e);
         }
 
         private void MoveToRightPage(object sender, RoutedEventArgs e)
         {
-            CurrentPageNumber = Math.Min(_totalNumberOfPages, CurrentPageNumber + 1);
+            CurrentPageNumber = Math.Min(TotalNumberOfPages, CurrentPageNumber + 1);
 
-            buttonLeftPage.IsEnabled = true;
-            buttonLeftPage.Opacity = 1.0;
+            ChangeMovePageButtonsVisibility();
 
-            if(CurrentPageNumber == _totalNumberOfPages)
+            ApplyPaging(sender, e);
+        }
+
+        private void ChangeMovePageButtonsVisibility()
+        {
+            if(TotalNumberOfPages == 1)
             {
+                buttonLeftPage.IsEnabled = false;
+                buttonLeftPage.Opacity = 0.5;
+
+                labelCurrentPage.IsEnabled = false;
+                labelCurrentPage.Opacity = 0.5;
+
                 buttonRightPage.IsEnabled = false;
                 buttonRightPage.Opacity = 0.5;
             }
+            else if(CurrentPageNumber == TotalNumberOfPages)
+            {
+                buttonLeftPage.IsEnabled = true;
+                buttonLeftPage.Opacity = 1.0;
+
+                labelCurrentPage.IsEnabled = true;
+                labelCurrentPage.Opacity = 1.0;
+
+                buttonRightPage.IsEnabled = false;
+                buttonRightPage.Opacity = 0.5;
+            }
+            else if (CurrentPageNumber == 1 && TotalNumberOfPages > 1)
+            {
+                buttonLeftPage.IsEnabled = false;
+                buttonLeftPage.Opacity = 0.5;
+
+                labelCurrentPage.IsEnabled = true;
+                labelCurrentPage.Opacity = 1.0;
+
+                buttonRightPage.IsEnabled = true;
+                buttonRightPage.Opacity = 1.0;
+            }
             else
             {
-                buttonAdd.IsEnabled = true;
-                buttonAdd.Opacity = 1.0;
-            }
+                buttonLeftPage.IsEnabled = true;
+                buttonLeftPage.Opacity = 1.0;
 
-            ApplyPaging(sender, e);
+                labelCurrentPage.IsEnabled = true;
+                labelCurrentPage.Opacity = 1.0;
+
+                buttonRightPage.IsEnabled = true;
+                buttonRightPage.Opacity = 1.0;
+            }
         }
 
         private void Search(object sender, RoutedEventArgs e)
@@ -459,6 +496,7 @@ namespace GUI
             CurrentPageNumber = 1;
             RestartTotalNumberOfPages();
             ApplyPaging(sender, e);
+            ChangeMovePageButtonsVisibility();
         }
 
         private void TextBoxSearchKeyDown(object sender, KeyEventArgs e)
@@ -631,28 +669,9 @@ namespace GUI
 
                 textBoxSearch.IsEnabled = true;
                 textBoxSearch.Opacity = 1.0;
-
-                buttonLeftPage.IsEnabled = false;
-                buttonLeftPage.Opacity = 0.5;
-
-                buttonRightPage.IsEnabled = true;
-                buttonRightPage.Opacity = 1.0;
-
-                labelCurrentPage.IsEnabled = true;
-                labelCurrentPage.Opacity = 1.0;
             }
 
-            if (_totalNumberOfPages == 1)
-            {
-                buttonLeftPage.IsEnabled = false;
-                buttonLeftPage.Opacity = 0.5;
-
-                buttonRightPage.IsEnabled = false;
-                buttonRightPage.Opacity = 0.5;
-
-                labelCurrentPage.IsEnabled = false;
-                labelCurrentPage.Opacity = 0.5;
-            }
+            ChangeMovePageButtonsVisibility();
         }
     }
 }

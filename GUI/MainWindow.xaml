@@ -170,7 +170,7 @@
                 <Image Source="Icons/right_arrow.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
             </Button>
             
-            <Label x:Name="labelCurrentPage" Height="25" Width="40" DockPanel.Dock="Right" Content="{Binding CurrentPageNumber}"
+            <Label x:Name="labelCurrentPage" Height="25" Width="40" DockPanel.Dock="Right"
                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14"/>
 
             <Button x:Name="buttonLeftPage" DockPanel.Dock="Right" Click="MoveToLeftPage"
