@@ -39,6 +39,7 @@ namespace GUI
 
         private DispatcherTimer _timer;
         private Controller _controller;
+
         private int _currentPageNumber = 1;
         private int _maxItemsPerPage = 4;
         private int _totalNumberOfPages = 1;
@@ -74,7 +75,7 @@ namespace GUI
             dataGridSubjects.ItemsSource = _filteredSubjects;
             dataGridDepartments.ItemsSource = _departments;
 
-            app = (App)Application.Current;
+            app = (App) Application.Current;
             app.ChangeLanguage(ENG);
         }
 
@@ -219,19 +220,19 @@ namespace GUI
 
             if (selectedTab == tabItemStudents)
             {
-                deleteStudent();
+                DeleteStudent();
             }
             else if (selectedTab == tabItemProfessors)
             {
-                deleteProfessor();
+                DeleteProfessor();
             }
             else if (selectedTab == tabItemSubjects)
             {
-                deleteSubject();
+                DeleteSubject();
             }
         }
 
-        private void deleteProfessor()
+        private void DeleteProfessor()
         {
             if (dataGridProfessor.SelectedItem != null)
             {
@@ -254,7 +255,7 @@ namespace GUI
             }
         }
 
-        private void deleteStudent()
+        private void DeleteStudent()
         {
             if (dataGridStudents.SelectedItem != null)
             {
@@ -277,7 +278,7 @@ namespace GUI
             }
         }
 
-        private void deleteSubject()
+        private void DeleteSubject()
         {
             if (dataGridSubjects.SelectedItem != null)
             {
@@ -335,7 +336,6 @@ namespace GUI
 
         private void OpenAbout(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Version 0.1.7 - Made by passionate developers from CerTech-Solutions®\n\nNemanja Zekanovic \n\t Young developer who has a lot more to learn,\n\t also known as telepnemanja\nNikola Kuslakovic \n\t Legends tell that he is \n\t the greateast programmer of all time");
             AboutWindow aboutWindow = new AboutWindow();
             aboutWindow.ShowDialog();
         }
@@ -394,7 +394,7 @@ namespace GUI
                 totalNumberOfItems = _filteredSubjects.Count;
             }
 
-            TotalNumberOfPages = (int)Math.Ceiling((double)totalNumberOfItems / _maxItemsPerPage);
+            TotalNumberOfPages = (int) Math.Ceiling((double) totalNumberOfItems / _maxItemsPerPage);
         }
 
         private void ApplyPaging(object sender, RoutedEventArgs e)
