@@ -8,6 +8,21 @@
         Title="Student services" Icon="Icons/main_window_icon.ico"
         Height="600" Width="1000" MinHeight="600" MinWidth="1000">
 
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New" Executed="AddNewEntity"/>
+        <CommandBinding Command="ApplicationCommands.Open" Executed="EditEntity"/>
+        <CommandBinding Command="ApplicationCommands.Delete" Executed="DeleteEntity"/>
+        <CommandBinding Command="ApplicationCommands.Save" Executed="Save"/>
+    </Window.CommandBindings>
+    
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="ApplicationCommands.New"/>
+        <KeyBinding Key="E" Modifiers="Control" Command="ApplicationCommands.Open"/>
+        <KeyBinding Key="D" Modifiers="Control" Command="ApplicationCommands.Delete"/>
+        <KeyBinding Key="S" Modifiers="Control" Command="ApplicationCommands.Save"/>
+    </Window.InputBindings>
+    
+
     <Window.Resources>
         <Style x:Key="WaterMarkStyle" TargetType="{x:Type TextBox}">
             <Setter Property="Template">
