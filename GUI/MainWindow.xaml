@@ -15,14 +15,14 @@
         <CommandBinding Command="ApplicationCommands.Delete" Executed="DeleteEntity"/>
         <CommandBinding Command="ApplicationCommands.Save" Executed="Save"/>
     </Window.CommandBindings>
-    
+
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Control" Command="ApplicationCommands.New"/>
         <KeyBinding Key="E" Modifiers="Control" Command="ApplicationCommands.Open"/>
         <KeyBinding Key="D" Modifiers="Control" Command="ApplicationCommands.Delete"/>
         <KeyBinding Key="S" Modifiers="Control" Command="ApplicationCommands.Save"/>
     </Window.InputBindings>
-    
+
 
     <Window.Resources>
         <Style x:Key="WaterMarkStyle" TargetType="{x:Type TextBox}">
@@ -124,8 +124,12 @@
 
             <TabItem x:Name="tabItemStudents" Header="{ns:Loc Students}">
                 <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="95*"/>
+                        <ColumnDefinition Width="859*"/>
+                    </Grid.ColumnDefinitions>
                     <DataGrid x:Name="dataGridStudents" 
-                              AutoGenerateColumns="False" IsReadOnly="True">
+                              AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{ns:Loc INDEX}" Width="*" Binding="{Binding Index}"/>
                             <DataGridTextColumn Header="{ns:Loc NAME}" Width="*" Binding="{Binding Name}"/>
@@ -185,12 +189,12 @@
 
         <!-- Paging control -->
         <DockPanel Margin="20,0,20,30" LastChildFill="False" Grid.ColumnSpan="2" Height="45" VerticalAlignment="Bottom">
-            
+
             <Button x:Name="buttonRightPage" DockPanel.Dock="Right" Click="MoveToRightPage"
                     BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0">
                 <Image Source="Icons/right_arrow.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
             </Button>
-            
+
             <Label x:Name="labelCurrentPage" Height="25" Width="40" DockPanel.Dock="Right"
                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14"/>
 
