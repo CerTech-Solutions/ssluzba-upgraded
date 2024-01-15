@@ -21,7 +21,7 @@ public class Subject : ISerializable, IAccess<Subject>, IConsoleWriteRead
 
     public Subject()
     {
-        Professor = new Professor();
+        Professor = null;
         StudentsPassed = new List<Student>();
         StudentsNotPassed = new List<Student>();
     }
