@@ -9,10 +9,6 @@
         Height="600" Width="1000" MinHeight="600" MinWidth="1000">
 
     <Window.Resources>
-        <CollectionViewSource x:Key="FilteredStudents" Source="{Binding _students}"/>
-        <CollectionViewSource x:Key="FilteredProfessors" Source="{Binding _professors}"/>
-        <CollectionViewSource x:Key="FilteredSubjects" Source="{Binding _subjects}"/>
-
         <Style x:Key="WaterMarkStyle" TargetType="{x:Type TextBox}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -39,12 +35,16 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
-        <StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="501*"/>
+            <ColumnDefinition Width="499*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="2">
             <!-- Menubar -->
             <Menu Height="20" DockPanel.Dock="Top">
-                
+
                 <MenuItem x:Name="menuItemFile" Header="_File">
                     <MenuItem Header="New" InputGestureText="Ctrl+N" Click="AddNewEntity"/>
                     <MenuItem Header="Save" InputGestureText="Ctrl+S" Click="Save"/>
@@ -55,12 +55,12 @@
                     </MenuItem>
                     <MenuItem Header="Close" InputGestureText="Ctrl+X" Click="CloseWindow"/>
                 </MenuItem>
-                
+
                 <MenuItem x:Name="menuItemEdit" Header="_Edit">
                     <MenuItem Header="Edit" InputGestureText="Ctrl+E" Click="EditEntity"/>
                     <MenuItem Header="Delete" InputGestureText="Ctrl+D" Click="DeleteEntity"/>
                 </MenuItem>
-                
+
                 <MenuItem x:Name="menuItemHelp" Header="_Help">
                     <MenuItem Header="About" Click="OpenAbout"/>
                 </MenuItem>
@@ -88,7 +88,7 @@
                 </DockPanel>
 
                 <DockPanel Grid.Column="1" LastChildFill="False">
-                    <Button Margin="5,0,5,0" x:Name="buttonSearch" DockPanel.Dock="Right" BorderBrush="{x:Null}" Background="Transparent" Click="ApplySearch">
+                    <Button Margin="5,0,5,0" x:Name="buttonSearch" DockPanel.Dock="Right"  Click="Search" BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0">
                         <Image Source="Icons/search.png" Height="20" Width="20" Stretch="Fill" Cursor="Hand"/>
                     </Button>
                     <TextBox x:Name="textBoxSearch" Width="300" DockPanel.Dock="Right" Style="{StaticResource WaterMarkStyle}" Tag="Press enter to search"
@@ -96,15 +96,14 @@
                 </DockPanel>
             </Grid>
         </StackPanel>
-        
+
         <!-- Tab control -->
-        <TabControl x:Name="tabControl" RenderTransformOrigin="0.5,0.5" Margin="20,70,20,45"
+        <TabControl x:Name="tabControl" RenderTransformOrigin="0.5,0.5" Margin="20,70,20,75" Grid.ColumnSpan="2"
                     SelectionChanged="TabControlSelectionChanged">
-            
+
             <TabItem x:Name="tabItemStudents" Header="Students">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridStudents" 
-                              ItemsSource="{Binding Source={StaticResource FilteredStudents}}"
                               AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="INDEX" Width="*" Binding="{Binding Index}"/>
@@ -117,11 +116,10 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            
+
             <TabItem x:Name="tabItemProfessors" Header="Professors">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridProfessor" 
-                              ItemsSource="{Binding Source={StaticResource FilteredProfessors}}"
                               AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
@@ -132,11 +130,10 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-    
+
             <TabItem x:Name="tabItemSubjects" Header="Subjects">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridSubjects"
-                              ItemsSource="{Binding Source={StaticResource FilteredSubjects}}"
                               AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="CODE" Width="*" Binding="{Binding Code}"/>
@@ -165,8 +162,25 @@
 
         </TabControl>
 
+        <!-- Paging control -->
+        <DockPanel Margin="20,0,20,30" LastChildFill="False" Grid.ColumnSpan="2" Height="45" VerticalAlignment="Bottom">
+            
+            <Button x:Name="buttonRightPage" DockPanel.Dock="Right" Click="MoveToRightPage"
+                    BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0">
+                <Image Source="Icons/right_arrow.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
+            </Button>
+            
+            <Label x:Name="labelCurrentPage" Height="25" Width="40" DockPanel.Dock="Right"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14"/>
+
+            <Button x:Name="buttonLeftPage" DockPanel.Dock="Right" Click="MoveToLeftPage"
+                    BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0">
+                <Image Source="Icons/left_arrow.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
+            </Button>
+        </DockPanel>
+
         <!-- Status bar -->
-        <StatusBar x:Name="statusBar" Height="25" VerticalAlignment="Bottom">
+        <StatusBar x:Name="statusBar" Height="25" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
             <StatusBarItem x:Name="statusBarItemAppName" HorizontalAlignment="Left">Student services</StatusBarItem>
             <StatusBarItem x:Name="statusBarItemTime" HorizontalAlignment="Right">2023</StatusBarItem>
         </StatusBar>

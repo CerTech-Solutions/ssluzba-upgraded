@@ -15,7 +15,9 @@
     <None Remove="Icons\crud_delete.png" />
     <None Remove="Icons\crud_edit.png" />
     <None Remove="Icons\info.png" />
+    <None Remove="Icons\left_arrow.png" />
     <None Remove="Icons\main_window_icon.ico" />
+    <None Remove="Icons\right_arrow.png" />
     <None Remove="Icons\search.png" />
   </ItemGroup>
 
@@ -38,7 +40,9 @@
     <Resource Include="Icons\crud_delete.png" />
     <Resource Include="Icons\crud_edit.png" />
     <Resource Include="Icons\info.png" />
+    <Resource Include="Icons\left_arrow.png" />
     <Resource Include="Icons\main_window_icon.ico" />
+    <Resource Include="Icons\right_arrow.png" />
     <Resource Include="Icons\search.png" />
   </ItemGroup>
 

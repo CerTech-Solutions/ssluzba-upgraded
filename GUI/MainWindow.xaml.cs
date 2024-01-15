@@ -34,37 +34,60 @@ namespace GUI
     {
         private DispatcherTimer _timer;
         private Controller _controller;
+        private int _currentPageNumber = 1;
+        private int _maxItemsPerPage = 4;
+        private int _totalNumberOfPages = 1;
 
-        private ObservableCollection<ProfessorDTO> _professors;
-        private ObservableCollection<StudentDTO> _students;
-        private ObservableCollection<SubjectDTO> _subjects;
-        private ObservableCollection<DepartmentDTO> _departments;
+        private ObservableCollection<ProfessorDTO> _professors = new ObservableCollection<ProfessorDTO>();
+        private ObservableCollection<StudentDTO> _students = new ObservableCollection<StudentDTO>();
+        private ObservableCollection<SubjectDTO> _subjects = new ObservableCollection<SubjectDTO>();
+        private ObservableCollection<DepartmentDTO> _departments = new ObservableCollection<DepartmentDTO>();
+
+        private ObservableCollection<ProfessorDTO> _filteredProfessors;
+        private ObservableCollection<StudentDTO> _filteredStudents;
+        private ObservableCollection<SubjectDTO> _filteredSubjects;
 
         public MainWindow()
         {
             InitializeComponent();
             SetWindowLocationAndSize();
+            InitTimer();
 
             _controller = new Controller();
             _controller.publisher.Subscribe(this);
 
-            // Initializing timer for statusbar
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromSeconds(1);
-            _timer.Tick += TimeTicker;
-            _timer.Start();
-
-            _professors = new ObservableCollection<ProfessorDTO>();
-            _students = new ObservableCollection<StudentDTO>();
-            _subjects = new ObservableCollection<SubjectDTO>();
-            _departments = new ObservableCollection<DepartmentDTO>();
-
-            dataGridProfessor.ItemsSource = _professors;
-            dataGridStudents.ItemsSource = _students;
-            dataGridSubjects.ItemsSource = _subjects;
-            dataGridDepartments.ItemsSource = _departments;
+            labelCurrentPage.DataContext = this;
 
             Update();
+
+            _filteredProfessors = new ObservableCollection<ProfessorDTO>(_professors);
+            _filteredStudents = new ObservableCollection<StudentDTO>(_students);
+            _filteredSubjects = new ObservableCollection<SubjectDTO>(_subjects);
+
+            dataGridProfessor.ItemsSource = _filteredProfessors;
+            dataGridStudents.ItemsSource = _filteredStudents;
+            dataGridSubjects.ItemsSource = _filteredSubjects;
+            dataGridDepartments.ItemsSource = _departments;
+        }
+
+        public int CurrentPageNumber
+        {
+            get { return _currentPageNumber; }
+            set
+            {
+                _currentPageNumber = value;
+                labelCurrentPage.Content = $"{_currentPageNumber} / {_totalNumberOfPages}";
+            }
+        }
+
+        public int TotalNumberOfPages
+        {
+            get { return _totalNumberOfPages; }
+            set
+            {
+                _totalNumberOfPages = value;
+                labelCurrentPage.Content = $"{_currentPageNumber} / {_totalNumberOfPages}";
+            }
         }
 
         public void SetWindowLocationAndSize()
@@ -78,9 +101,14 @@ namespace GUI
             this.ResizeMode = ResizeMode.NoResize;
         }
 
-        private void TimeTicker(object sender, EventArgs e)
+        private void InitTimer()
         {
-            statusBarItemTime.Content = DateTime.Now.ToString("HH:mm:ss dd-MMM-yyyy");
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Tick += 
+                (object sender, EventArgs e) => statusBarItemTime.Content = DateTime.Now.ToString("HH:mm dd-MMM-yyyy");
+
+            _timer.Start();
         }
 
         private void AddNewEntity(object sender, RoutedEventArgs e)
@@ -259,6 +287,11 @@ namespace GUI
             fillDepartmeDTOList();
 
             ApplySearch(this, new RoutedEventArgs());
+            
+            RestartTotalNumberOfPages();
+            ChangeMovePageButtonsVisibility();
+
+            ApplyPaging(this, new RoutedEventArgs());
         }
 
         private void fillProfessorDTOList()
@@ -332,39 +365,145 @@ namespace GUI
 
         private void ApplySearch(object sender, RoutedEventArgs e)
         {
-            ICollectionView collectionView;
-
             if (tabControl.SelectedItem == null)
                 return;
 
             if(tabControl.SelectedItem == tabItemStudents)
             {
-                collectionView = CollectionViewSource.GetDefaultView(_students);
-                collectionView.Filter = FilterStudent;
+                _filteredStudents = new ObservableCollection<StudentDTO>(_students.Where(x => FilterStudent(x)));
             }
             else if (tabControl.SelectedItem == tabItemProfessors)
             {
-                collectionView = CollectionViewSource.GetDefaultView(_professors);
-                collectionView.Filter = FilterProfessor;
+                _filteredProfessors = new ObservableCollection<ProfessorDTO>(_professors.Where(x => FilterProfessor(x)));
             }
             else if (tabControl.SelectedItem == tabItemSubjects)
             {
-                collectionView = CollectionViewSource.GetDefaultView(_subjects);
-                collectionView.Filter = FilterSubject;
+                _filteredSubjects =  new ObservableCollection<SubjectDTO>(_subjects.Where(x => FilterSubject(x)));
+            }
+        }
+
+        private void RestartTotalNumberOfPages()
+        {
+            int totalNumberOfItems = 1;
+
+            if (tabControl.SelectedItem == null)
+                return;
+
+            if (tabControl.SelectedItem == tabItemStudents)
+            {
+                totalNumberOfItems = _filteredStudents.Count;
+            }
+            else if (tabControl.SelectedItem == tabItemProfessors)
+            {
+                totalNumberOfItems = _filteredProfessors.Count;
+            }
+            else if (tabControl.SelectedItem == tabItemSubjects)
+            {
+                totalNumberOfItems = _filteredSubjects.Count;
+            }
+
+            TotalNumberOfPages = (int)Math.Ceiling((double)totalNumberOfItems / _maxItemsPerPage);
+        }
+
+        private void ApplyPaging(object sender, RoutedEventArgs e)
+        {
+            if (tabControl.SelectedItem == null)
+                return;
+
+            if (tabControl.SelectedItem == tabItemStudents)
+            {
+                dataGridStudents.ItemsSource = _filteredStudents.Skip((CurrentPageNumber - 1) * _maxItemsPerPage).Take(_maxItemsPerPage);
+            }
+            else if (tabControl.SelectedItem == tabItemProfessors)
+            {
+                dataGridProfessor.ItemsSource = _filteredProfessors.Skip((CurrentPageNumber - 1) * _maxItemsPerPage).Take(_maxItemsPerPage);
+            }
+            else if (tabControl.SelectedItem == tabItemSubjects)
+            {
+                dataGridSubjects.ItemsSource = _filteredSubjects.Skip((CurrentPageNumber - 1) * _maxItemsPerPage).Take(_maxItemsPerPage);
+            }
+        }
+
+        private void MoveToLeftPage(object sender, RoutedEventArgs e)
+        {
+            CurrentPageNumber = Math.Max(1, CurrentPageNumber - 1);
+
+            ChangeMovePageButtonsVisibility();
+
+            ApplyPaging(sender, e);
+        }
+
+        private void MoveToRightPage(object sender, RoutedEventArgs e)
+        {
+            CurrentPageNumber = Math.Min(TotalNumberOfPages, CurrentPageNumber + 1);
+
+            ChangeMovePageButtonsVisibility();
+
+            ApplyPaging(sender, e);
+        }
+
+        private void ChangeMovePageButtonsVisibility()
+        {
+            if(TotalNumberOfPages == 1)
+            {
+                buttonLeftPage.IsEnabled = false;
+                buttonLeftPage.Opacity = 0.5;
+
+                labelCurrentPage.IsEnabled = false;
+                labelCurrentPage.Opacity = 0.5;
+
+                buttonRightPage.IsEnabled = false;
+                buttonRightPage.Opacity = 0.5;
+            }
+            else if(CurrentPageNumber == TotalNumberOfPages)
+            {
+                buttonLeftPage.IsEnabled = true;
+                buttonLeftPage.Opacity = 1.0;
+
+                labelCurrentPage.IsEnabled = true;
+                labelCurrentPage.Opacity = 1.0;
+
+                buttonRightPage.IsEnabled = false;
+                buttonRightPage.Opacity = 0.5;
+            }
+            else if (CurrentPageNumber == 1 && TotalNumberOfPages > 1)
+            {
+                buttonLeftPage.IsEnabled = false;
+                buttonLeftPage.Opacity = 0.5;
+
+                labelCurrentPage.IsEnabled = true;
+                labelCurrentPage.Opacity = 1.0;
+
+                buttonRightPage.IsEnabled = true;
+                buttonRightPage.Opacity = 1.0;
             }
             else
             {
-                return;
-            }
+                buttonLeftPage.IsEnabled = true;
+                buttonLeftPage.Opacity = 1.0;
 
-            collectionView.Refresh();
+                labelCurrentPage.IsEnabled = true;
+                labelCurrentPage.Opacity = 1.0;
+
+                buttonRightPage.IsEnabled = true;
+                buttonRightPage.Opacity = 1.0;
+            }
+        }
+
+        private void Search(object sender, RoutedEventArgs e)
+        {
+            ApplySearch(sender, e);
+            CurrentPageNumber = 1;
+            RestartTotalNumberOfPages();
+            ApplyPaging(sender, e);
+            ChangeMovePageButtonsVisibility();
         }
 
         private void TextBoxSearchKeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter)
             {
-                ApplySearch(sender, e);
+                Search(sender, e);
             }
         }
 
@@ -496,6 +635,13 @@ namespace GUI
 
         private void TabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.Source is not TabControl)
+                return;
+
+            CurrentPageNumber = 1;
+            RestartTotalNumberOfPages();
+            ApplyPaging(sender, e);
+
             if(tabControl.SelectedItem == tabItemDepartments)
             {
                 buttonAdd.IsEnabled = false;
@@ -503,6 +649,12 @@ namespace GUI
 
                 buttonDelete.IsEnabled = false;
                 buttonDelete.Opacity = 0.5;
+
+                buttonSearch.IsEnabled = false;
+                buttonSearch.Opacity = 0.5;
+
+                textBoxSearch.IsEnabled = false;
+                textBoxSearch.Opacity = 0.5;
             }
             else
             {
@@ -511,8 +663,15 @@ namespace GUI
 
                 buttonDelete.IsEnabled = true;
                 buttonDelete.Opacity = 1.0;
+
+                buttonSearch.IsEnabled = true;
+                buttonSearch.Opacity = 1.0;
+
+                textBoxSearch.IsEnabled = true;
+                textBoxSearch.Opacity = 1.0;
             }
-            
+
+            ChangeMovePageButtonsVisibility();
         }
     }
 }
