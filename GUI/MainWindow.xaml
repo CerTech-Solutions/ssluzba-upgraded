@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
+        xmlns:ns="clr-namespace:GUI.Localization"
         mc:Ignorable="d"
-        Title="Student services" Icon="Icons/main_window_icon.ico"
+        Title="{ns:Loc Student services}" Icon="Icons/main_window_icon.ico"
         Height="600" Width="1000" MinHeight="600" MinWidth="1000">
 
     <Window.CommandBindings>
@@ -60,24 +61,29 @@
             <!-- Menubar -->
             <Menu Height="20" DockPanel.Dock="Top">
 
-                <MenuItem x:Name="menuItemFile" Header="_File">
-                    <MenuItem Header="New" InputGestureText="Ctrl+N" Click="AddNewEntity"/>
-                    <MenuItem Header="Save" InputGestureText="Ctrl+S" Click="Save"/>
-                    <MenuItem Header="Open">
-                        <MenuItem Header="Students" Click="OpenStudents"/>
-                        <MenuItem Header="Professors" Click="OpenProfessors"/>
-                        <MenuItem Header="Subjects" Click="OpenSubjects"/>
+                <MenuItem x:Name="menuItemFile" Header="{ns:Loc File}">
+                    <MenuItem Header="{ns:Loc New}" InputGestureText="Ctrl+N" Click="AddNewEntity"/>
+                    <MenuItem Header="{ns:Loc Save}" InputGestureText="Ctrl+S" Click="Save"/>
+                    <MenuItem Header="{ns:Loc Open}">
+                        <MenuItem Header="{ns:Loc Students}" Click="OpenStudents"/>
+                        <MenuItem Header="{ns:Loc Professors}" Click="OpenProfessors"/>
+                        <MenuItem Header="{ns:Loc Subjects}" Click="OpenSubjects"/>
                     </MenuItem>
-                    <MenuItem Header="Close" InputGestureText="Ctrl+X" Click="CloseWindow"/>
+                    <MenuItem Header="{ns:Loc Close}" InputGestureText="Ctrl+X" Click="CloseWindow"/>
                 </MenuItem>
 
-                <MenuItem x:Name="menuItemEdit" Header="_Edit">
-                    <MenuItem Header="Edit" InputGestureText="Ctrl+E" Click="EditEntity"/>
-                    <MenuItem Header="Delete" InputGestureText="Ctrl+D" Click="DeleteEntity"/>
+                <MenuItem x:Name="menuItemEdit" Header="{ns:Loc Edit}">
+                    <MenuItem Header="{ns:Loc Edit}" InputGestureText="Ctrl+E" Click="EditEntity"/>
+                    <MenuItem Header="{ns:Loc Delete}" InputGestureText="Ctrl+D" Click="DeleteEntity"/>
                 </MenuItem>
 
-                <MenuItem x:Name="menuItemHelp" Header="_Help">
-                    <MenuItem Header="About" Click="OpenAbout"/>
+                <MenuItem x:Name="menuItemHelp" Header="{ns:Loc Help}">
+                    <MenuItem Header="{ns:Loc About}" Click="OpenAbout"/>
+                </MenuItem>
+
+                <MenuItem x:Name="menuItemLocalization" Header="{ns:Loc Localization}">
+                    <MenuItem Header="{ns:Loc Serbian}" Click="ChangeLangToSerbian" InputGestureText="Ctrl + Q"></MenuItem>
+                    <MenuItem Header="{ns:Loc English}" Click="ChangeLangToEnglish" InputGestureText="Ctrl + W"></MenuItem>
                 </MenuItem>
             </Menu>
 
@@ -85,19 +91,19 @@
             <Grid Height="30" DockPanel.Dock="Top" Margin="5,5,5,0">
                 <DockPanel Grid.Column="0" LastChildFill="False">
                     <Button Margin="5,0,5,0" x:Name="buttonAdd" DockPanel.Dock="Left" Click="AddNewEntity" BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0"
-                            ToolTip="Add selected item">
+                            ToolTip="{ns:Loc Add selected item}">
                         <Image Source="Icons/crud_add.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
                     </Button>
                     <Button Margin="5,0,5,0" x:Name="buttonEdit" DockPanel.Dock="Left" Click="EditEntity" BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0"
-                            ToolTip="Edit selected item">
+                            ToolTip="{ns:Loc Edit selected item}">
                         <Image Source="Icons/crud_edit.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
                     </Button>
                     <Button Margin="5,0,5,0" x:Name="buttonDelete" DockPanel.Dock="Left" Click="DeleteEntity" BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0"
-                            ToolTip="Delete selected item">
+                            ToolTip="{ns:Loc Delete selected item}">
                         <Image Source="Icons/crud_delete.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
                     </Button>
                     <Button Margin="5,0,5,0" x:Name="buttonInfo" DockPanel.Dock="Left" Click="ShowInfo" BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0"
-                            ToolTip="Information about selected item">
+                            ToolTip="{ns:Loc Information about selected item}">
                         <Image Source="Icons/info.png" Height="25" Width="25" Stretch="Fill" Cursor="Hand"/>
                     </Button>
                 </DockPanel>
@@ -106,7 +112,7 @@
                     <Button Margin="5,0,5,0" x:Name="buttonSearch" DockPanel.Dock="Right"  Click="Search" BorderBrush="{x:Null}" Background="Transparent" BorderThickness="0">
                         <Image Source="Icons/search.png" Height="20" Width="20" Stretch="Fill" Cursor="Hand"/>
                     </Button>
-                    <TextBox x:Name="textBoxSearch" Width="300" DockPanel.Dock="Right" Style="{StaticResource WaterMarkStyle}" Tag="Press enter to search"
+                    <TextBox x:Name="textBoxSearch" Width="300" DockPanel.Dock="Right" Style="{StaticResource WaterMarkStyle}" Tag="{ns:Loc Press enter to search}"
                              VerticalContentAlignment="Center" HorizontalContentAlignment="Left" KeyDown="TextBoxSearchKeyDown"/>
                 </DockPanel>
             </Grid>
@@ -116,60 +122,60 @@
         <TabControl x:Name="tabControl" RenderTransformOrigin="0.5,0.5" Margin="20,70,20,75" Grid.ColumnSpan="2"
                     SelectionChanged="TabControlSelectionChanged">
 
-            <TabItem x:Name="tabItemStudents" Header="Students">
+            <TabItem x:Name="tabItemStudents" Header="{ns:Loc Students}">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridStudents" 
                               AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="INDEX" Width="*" Binding="{Binding Index}"/>
-                            <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="SURNAME" Width="*" Binding="{Binding Surname}"/>
-                            <DataGridTextColumn Header="CURRENT YEAR" Width="*" Binding="{Binding CurrentYear}"/>
-                            <DataGridTextColumn Header="STATUS" Width="*" Binding="{Binding Status}"/>
-                            <DataGridTextColumn Header="GPA" Width="*" Binding="{Binding Gpa}"/>
+                            <DataGridTextColumn Header="{ns:Loc INDEX}" Width="*" Binding="{Binding Index}"/>
+                            <DataGridTextColumn Header="{ns:Loc NAME}" Width="*" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="{ns:Loc SURNAME}" Width="*" Binding="{Binding Surname}"/>
+                            <DataGridTextColumn Header="{ns:Loc CURRENT YEAR}" Width="*" Binding="{Binding CurrentYear}"/>
+                            <DataGridTextColumn Header="{ns:Loc STATUS}" Width="*" Binding="{Binding Status}"/>
+                            <DataGridTextColumn Header="{ns:Loc GPA}" Width="*" Binding="{Binding Gpa}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
 
-            <TabItem x:Name="tabItemProfessors" Header="Professors">
+            <TabItem x:Name="tabItemProfessors" Header="{ns:Loc Professors}">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridProfessor" 
                               AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="SURNAME" Width="*" Binding="{Binding Surname}"/>
-                            <DataGridTextColumn Header="TITLE" Width="*" Binding="{Binding Title}"/>
-                            <DataGridTextColumn Header="EMAIL" Width="*" Binding="{Binding Email}"/>
+                            <DataGridTextColumn Header="{ns:Loc NAME}" Width="*" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="{ns:Loc SURNAME}" Width="*" Binding="{Binding Surname}"/>
+                            <DataGridTextColumn Header="{ns:Loc TITLE}" Width="*" Binding="{Binding Title}"/>
+                            <DataGridTextColumn Header="{ns:Loc EMAIL}" Width="*" Binding="{Binding Email}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
 
-            <TabItem x:Name="tabItemSubjects" Header="Subjects">
+            <TabItem x:Name="tabItemSubjects" Header="{ns:Loc Subjects}">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridSubjects"
                               AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="CODE" Width="*" Binding="{Binding Code}"/>
-                            <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="YEAR OF STUDY" Width="*" Binding="{Binding YearOfStudy}"/>
-                            <DataGridTextColumn Header="SEMESTER" Width="*" Binding="{Binding Semester}"/>
-                            <DataGridTextColumn Header="PROFESSOR" Width="*" Binding="{Binding Path=Professor.NameSurname}"/>
-                            <DataGridTextColumn Header="ECTS" Width="*" Binding="{Binding Ects}"/>
+                            <DataGridTextColumn Header="{ns:Loc CODE}" Width="*" Binding="{Binding Code}"/>
+                            <DataGridTextColumn Header="{ns:Loc NAME}" Width="*" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="{ns:Loc YEAR OF STUDY}" Width="*" Binding="{Binding YearOfStudy}"/>
+                            <DataGridTextColumn Header="{ns:Loc SEMESTER}" Width="*" Binding="{Binding Semester}"/>
+                            <DataGridTextColumn Header="{ns:Loc PROFESSOR}" Width="*" Binding="{Binding Path=Professor.NameSurname}"/>
+                            <DataGridTextColumn Header="{ns:Loc ECTS}" Width="*" Binding="{Binding Ects}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
 
-            <TabItem x:Name="tabItemDepartments" Header="Departments">
+            <TabItem x:Name="tabItemDepartments" Header="{ns:Loc Departments}">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridDepartments"
                               AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="CODE" Width="80" Binding="{Binding Code}"/>
-                            <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="CHIEF" Width="*" Binding="{Binding Path=Chief.NameSurname}"/>
+                            <DataGridTextColumn Header="{ns:Loc CODE}" Width="80" Binding="{Binding Code}"/>
+                            <DataGridTextColumn Header="{ns:Loc NAME}" Width="*" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="{ns:Loc CHIEF}" Width="*" Binding="{Binding Path=Chief.NameSurname}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -196,7 +202,7 @@
 
         <!-- Status bar -->
         <StatusBar x:Name="statusBar" Height="25" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
-            <StatusBarItem x:Name="statusBarItemAppName" HorizontalAlignment="Left">Student services</StatusBarItem>
+            <StatusBarItem x:Name="statusBarItemAppName" HorizontalAlignment="Left" Content="{ns:Loc Student services}"></StatusBarItem>
             <StatusBarItem x:Name="statusBarItemTime" HorizontalAlignment="Right">2023</StatusBarItem>
         </StatusBar>
     </Grid>
