@@ -281,10 +281,17 @@ namespace GUI
 
         public void Update()
         {
-            fillStudentDTOList();
-            fillProfessorDTOList();
-            fillSubjectsDTOList();
-            fillDepartmeDTOList();
+            _students.Clear();
+            _controller.GetAllStudents().ForEach(s => _students.Add(new StudentDTO(s)));
+
+            _professors.Clear();
+            _controller.GetAllProfessors().ForEach(p => _professors.Add(new ProfessorDTO(p)));
+
+            _subjects.Clear();
+            _controller.GetAllSubjects().ForEach(s => _subjects.Add(new SubjectDTO(s)));
+
+            _departments.Clear();
+            _controller.GetAllDepartments().ForEach(d => _departments.Add(new DepartmentDTO(d)));
 
             ApplySearch(this, new RoutedEventArgs());
             
@@ -292,42 +299,6 @@ namespace GUI
             ChangeMovePageButtonsVisibility();
 
             ApplyPaging(this, new RoutedEventArgs());
-        }
-
-        private void fillProfessorDTOList()
-        {
-            _professors.Clear();
-            foreach (Professor p in _controller.GetAllProfessors())
-            {
-                _professors.Add(new ProfessorDTO(p));
-            }
-        }
-
-        private void fillStudentDTOList()
-        {
-            _students.Clear();
-            foreach (Student s in _controller.GetAllStudents())
-            {
-                _students.Add(new StudentDTO(s));
-            }
-        }
-
-        private void fillSubjectsDTOList()
-        {
-            _subjects.Clear();
-            foreach (Subject s in _controller.GetAllSubjects())
-            {
-                _subjects.Add(new SubjectDTO(s));
-            }
-        }
-
-        private void fillDepartmeDTOList()
-        {
-            _departments.Clear();
-            foreach (Department d in _controller.GetAllDepartments())
-            {
-                _departments.Add(new DepartmentDTO(d));
-            }
         }
 
         private void Save(object sender, RoutedEventArgs e)
