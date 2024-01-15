@@ -32,6 +32,10 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window, IObserver
     {
+        private App app;
+        private const string SRB = "sr-RS";
+        private const string ENG = "en-US";
+
         private DispatcherTimer _timer;
         private Controller _controller;
         private int _currentPageNumber = 1;
@@ -68,6 +72,19 @@ namespace GUI
             dataGridStudents.ItemsSource = _filteredStudents;
             dataGridSubjects.ItemsSource = _filteredSubjects;
             dataGridDepartments.ItemsSource = _departments;
+
+            app = (App)Application.Current;
+            app.ChangeLanguage(ENG);
+        }
+
+        private void ChangeLangToSerbian(object sender, RoutedEventArgs e)
+        {
+            app.ChangeLanguage(SRB);
+        }
+
+        private void ChangeLangToEnglish(object sender, RoutedEventArgs e)
+        {
+            app.ChangeLanguage(ENG);
         }
 
         public int CurrentPageNumber
