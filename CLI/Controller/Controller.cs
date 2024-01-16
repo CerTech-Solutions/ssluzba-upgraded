@@ -96,6 +96,9 @@ public class Controller
             o.Student = daoStudent.GetObjectById(o.Student.Id);
             o.Subject = daoSubject.GetObjectById(o.Subject.Id);
         }
+
+        // Racunanje prosecne ocene
+        daoStudent.GetAllObjects().ForEach(s => s.CalculateGPA());
     }
 
     public List<Student> GetAllStudents()
@@ -289,7 +292,7 @@ public class Controller
         p.StudentsNotPassed.Add(s);
 
         daoGrade.RemoveObject(grade.Id);
-        daoStudentTakesSubject.AddObject(new StudentTakesSubject(0, grade.Student.Id, grade.Subject.Id, PassedSubjectEnum.PASSED));
+        daoStudentTakesSubject.AddObject(new StudentTakesSubject(0, grade.Student.Id, grade.Subject.Id));
 
         publisher.NotifyObservers();
     }
@@ -302,7 +305,7 @@ public class Controller
         stud.NotPassedSubjects.Add(sub);
         sub.StudentsNotPassed.Add(stud);
 
-        daoStudentTakesSubject.AddObject(new StudentTakesSubject(0, studentId, subjectId, PassedSubjectEnum.NOTPASSED));
+        daoStudentTakesSubject.AddObject(new StudentTakesSubject(0, studentId, subjectId));
 
         publisher.NotifyObservers();
     }

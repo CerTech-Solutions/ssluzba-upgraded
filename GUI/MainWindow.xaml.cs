@@ -40,7 +40,7 @@ namespace GUI
         private DispatcherTimer _timer;
         private Controller _controller;
         private int _currentPageNumber = 1;
-        private int _maxItemsPerPage = 4;
+        private int _maxItemsPerPage = 16;
         private int _totalNumberOfPages = 1;
 
         private ObservableCollection<ProfessorDTO> _professors = new ObservableCollection<ProfessorDTO>();
