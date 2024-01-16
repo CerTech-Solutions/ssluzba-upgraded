@@ -79,7 +79,7 @@ public class Professor : ISerializable, IAccess<Professor>, IConsoleWriteRead
     {
         string[] csvValues =
         {
-            Id.ToString(), Name, Surname, BirthDate.ToString("dd-MM-yyyy"),
+            Id.ToString(), Name, Surname, BirthDate.ToString("yyyy-MM-dd"),
             PhoneNumber, Email, IdNumber,
             Title, ServiceYears.ToString()
         };
@@ -93,7 +93,7 @@ public class Professor : ISerializable, IAccess<Professor>, IConsoleWriteRead
         Id = int.Parse(values[0]);
         Name = values[1];
         Surname = values[2];
-        BirthDate = DateOnly.Parse(values[3]);
+        BirthDate = DateOnly.ParseExact(values[3], "yyyy-MM-dd", null);
         PhoneNumber = values[4];
         Email = values[5];
         IdNumber = values[6];

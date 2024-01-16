@@ -105,9 +105,9 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
     {
         string[] csvValues =
         {
-            Id.ToString(), Name, Surname, BirthDate.ToString("dd-MM-yyyy"),
+            Id.ToString(), Name, Surname, BirthDate.ToString("yyyy-MM-dd"),
             PhoneNumber.ToString(), Email.ToString(), CurrentYear.ToString(),
-            Status.ToString(), GPA.ToString()
+            Status.ToString()
         };
 
         csvValues = csvValues.Concat(Index.ToCSV()).ToArray();
@@ -120,16 +120,14 @@ public class Student : ISerializable, IAccess<Student>, IConsoleWriteRead
         Id = int.Parse(values[0]);
         Name = values[1];
         Surname = values[2];
-        BirthDate = DateOnly.Parse(values[3]);
+        BirthDate = DateOnly.ParseExact(values[3], "yyyy-MM-dd", null);
         PhoneNumber = values[4];
         Email = values[5];
         CurrentYear = int.Parse(values[6]);
 		Status = Enum.Parse<StatusEnum>(values[7]);
-        GPA = double.Parse(values[8]);
 
-        Index.FromCSV(values[9..12]);
-        Address.FromCSV(values[12..]);
-
+        Index.FromCSV(values[8..11]);
+        Address.FromCSV(values[11..]);
     }
 
     public string GenerateClassHeader()
