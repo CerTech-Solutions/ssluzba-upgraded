@@ -26,7 +26,7 @@
                 <Run Text="                 the greatest programmer of all time"/>
             </TextBlock>
         </DockPanel>
-        <Image x:Name="imageCerTechLogo" Source="../Icons/CerTechLogo.gif" Height="125" Width="125" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+        <Image x:Name="imageCerTechLogo" Source="../Icons/CerTechLogo.png" Height="125" Width="125" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <Image.OpacityMask>
               <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">                          
                             <GradientStop Color="#ffffffff" Offset="0.5" />
