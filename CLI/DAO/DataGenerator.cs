@@ -63,7 +63,7 @@ public class DataGenerator
         daoStudent.AddObject(s1);
 
         DAO<StudentTakesSubject> daoStudentTakesSubject = new DAO<StudentTakesSubject>();
-        StudentTakesSubject ssp3 = new StudentTakesSubject(0, 1, 2, PassedSubjectEnum.NOTPASSED);
+        StudentTakesSubject ssp3 = new StudentTakesSubject(0, 1, 2);
         daoStudentTakesSubject.AddObject(ssp3);
 
         DAO<ProfessorWorksAtDepartment> daoProfessorWorksAtDepartment = new DAO<ProfessorWorksAtDepartment>();

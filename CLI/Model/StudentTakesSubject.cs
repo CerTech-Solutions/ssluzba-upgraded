@@ -9,22 +9,15 @@ using CLI.Storage.Serialization;
 
 namespace CLI.Model;
 
-public enum PassedSubjectEnum
-{
-    PASSED,
-    NOTPASSED
-}
-
 public class StudentTakesSubject : ISerializable, IAccess<StudentTakesSubject>, IConsoleWriteRead
 {
     public StudentTakesSubject() { }
 
-    public StudentTakesSubject(int id, int idStud, int idSub, PassedSubjectEnum status)
+    public StudentTakesSubject(int id, int idStud, int idSub)
     {
         Id = id;
-        IdSub = idSub;
         IdStud = idStud;
-        Status = status;
+        IdSub = idSub;
     }
 
     public int Id { get; set; }
@@ -33,13 +26,11 @@ public class StudentTakesSubject : ISerializable, IAccess<StudentTakesSubject>, 
 
     public int IdStud { get; set; }
 
-    public PassedSubjectEnum Status {  get; set; }
-
     public void Copy(StudentTakesSubject obj)
     {
         Id = obj.Id;
-        IdSub = obj.IdSub;
         IdStud = obj.IdStud;
+        IdSub = obj.IdSub;
     }
 
     public string[] ToCSV()
@@ -49,7 +40,6 @@ public class StudentTakesSubject : ISerializable, IAccess<StudentTakesSubject>, 
 			Id.ToString(),
             IdStud.ToString(),
             IdSub.ToString(),
-            Status.ToString(),
         };
         return csvValues;
     }
@@ -59,7 +49,6 @@ public class StudentTakesSubject : ISerializable, IAccess<StudentTakesSubject>, 
         Id = int.Parse(values[0]);
         IdStud = int.Parse(values[1]);
         IdSub = int.Parse(values[2]);
-		Status = Enum.Parse<PassedSubjectEnum>(values[3]);
     }
 
     public string GenerateClassHeader()
