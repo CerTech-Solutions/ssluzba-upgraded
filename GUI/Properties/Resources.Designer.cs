@@ -612,9 +612,9 @@ namespace GUI.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Polozili samo prvi predmet.
         /// </summary>
-        internal static string Passed_only_first_subject {
+        internal static string Passed_only_the_first_subject {
             get {
-                return ResourceManager.GetString("Passed only first subject", resourceCulture);
+                return ResourceManager.GetString("Passed only the first subject", resourceCulture);
             }
         }
         

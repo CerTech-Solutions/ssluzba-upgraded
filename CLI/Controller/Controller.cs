@@ -360,11 +360,14 @@ public class Controller
         Professor prof = daoProfessor.GetObjectById(professorId);
         Department dep = daoDepartment.GetObjectById(departmentId);
 
-        // Add additional check for professor title
-        if(prof.ServiceYears < 5)
-            throw new Exception("Professor must have at least 5 years of service\nto become chief of department!");
-
-        dep.Chief = prof;
+        if(prof.ServiceYears >= 5 && (prof.Title.ToLower().Contains("vanredni") || prof.Title.ToLower().Contains("redovni")) )
+        {
+            dep.Chief = prof;
+        }
+        else
+        {
+            throw new Exception("Professor does not satisfy requirements \nin order to become chief of department!");
+        }
 
         daoDepartment.SaveToStorage();
         publisher.NotifyObservers();
