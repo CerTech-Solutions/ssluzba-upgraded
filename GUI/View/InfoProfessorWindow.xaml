@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
+        xmlns:ns="clr-namespace:GUI.Localization"
         mc:Ignorable="d"
-        Title="Professor info"
+        Title="{ns:Loc Professor info}"
         Height="475" Width="400"
         ResizeMode="NoResize">
     <Window.Resources>
@@ -41,12 +42,12 @@
     
 
     <Grid>
-        <TextBox x:Name="textBoxSearch" Style="{StaticResource WaterMarkStyle}" Tag="Press enter to search" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="200" Margin="0,10,0,0" KeyDown="TextBoxSearchKeyDown"/>
+        <TextBox x:Name="textBoxSearch" Style="{StaticResource WaterMarkStyle}" Tag="{ns:Loc Press enter to search}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="200" Margin="0,10,0,0" KeyDown="TextBoxSearchKeyDown" Cursor="IBeam"/>
         <ListView VerticalAlignment="Top" Margin="10,40,10,0" x:Name="listViewStudents" Height="380">
             <ListView.View>
                 <GridView>
 
-                    <GridViewColumn Header="Index" Width="80" DisplayMemberBinding="{Binding Index}"/>
+                    <GridViewColumn Header="{ns:Loc Index1}" Width="80" DisplayMemberBinding="{Binding Index}"/>
 
                     <GridViewColumn Header="Student" Width="200" DisplayMemberBinding="{Binding NameSurname}"/>
 

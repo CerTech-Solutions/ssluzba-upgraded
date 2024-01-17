@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ns="clr-namespace:GUI.Localization"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Add subject"
+        Title="{ns:Loc Add subject}"
         Height="450" Width="400"
         ResizeMode="NoResize">
     <Grid Margin="0,10,0,0">
@@ -19,7 +20,7 @@
             </ListView.View>
         </ListView>
 
-        <Button Content="Add"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" Height="30" Width="160" Click="AddSubject"/>
-        <Button Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="160" Margin="0,0,10,10" Click="Cancel"/>
+        <Button Content="{ns:Loc Add}"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" Height="30" Width="160" Click="AddSubject"/>
+        <Button Content="{ns:Loc Cancel}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="160" Margin="0,0,10,10" Click="Cancel"/>
     </Grid>
 </Window>

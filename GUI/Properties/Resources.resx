@@ -120,15 +120,52 @@
   <data name="About" xml:space="preserve">
     <value>O programu</value>
   </data>
+  <data name="AboutWindow" xml:space="preserve">
+    <value>O programu</value>
+    <comment>About</comment>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Dodaj</value>
+  </data>
+  <data name="Add chief" xml:space="preserve">
+    <value>Dodaj sefa</value>
+  </data>
+  <data name="Add grade" xml:space="preserve">
+    <value>Dodaj ocenu</value>
+  </data>
+  <data name="Add professor" xml:space="preserve">
+    <value>Dodaj profesora</value>
   </data>
   <data name="Add selected item" xml:space="preserve">
     <value>Dodaj izabrani entitet</value>
   </data>
+  <data name="Add student" xml:space="preserve">
+    <value>Dodaj studenta</value>
+  </data>
+  <data name="Add subject" xml:space="preserve">
+    <value>Dodaj predmet</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adresa</value>
+  </data>
+  <data name="Average grade" xml:space="preserve">
+    <value>Prosecna ocena:</value>
+  </data>
+  <data name="Birth date" xml:space="preserve">
+    <value>Datum rodjenja</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Izadji</value>
+  </data>
+  <data name="Cancel grade" xml:space="preserve">
+    <value>Ponisti ocenu</value>
+  </data>
   <data name="CHIEF" xml:space="preserve">
     <value>ŠEF</value>
     <comment>Polja Katedre</comment>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Grad</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Zatvori</value>
@@ -137,8 +174,25 @@
     <value>SIFRA</value>
     <comment>Polja Predmeta</comment>
   </data>
+  <data name="Code1" xml:space="preserve">
+    <value>Sifra</value>
+    <comment>Dodaj predmet</comment>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Drzava</value>
+  </data>
+  <data name="Course label" xml:space="preserve">
+    <value>Oznaka smera</value>
+  </data>
   <data name="CURRENT YEAR" xml:space="preserve">
     <value>TRENUTNA GODINA</value>
+  </data>
+  <data name="Current year1" xml:space="preserve">
+    <value>Trenutna godina</value>
+    <comment>Dodaj Studenta</comment>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Obrisi</value>
@@ -146,36 +200,84 @@
   <data name="Delete selected item" xml:space="preserve">
     <value>Obrisi izabrani entitet</value>
   </data>
+  <data name="Delete1" xml:space="preserve">
+    <value>Obrisi</value>
+  </data>
+  <data name="Department info" xml:space="preserve">
+    <value>Departman info</value>
+    <comment>Department info i edit</comment>
+  </data>
   <data name="Departments" xml:space="preserve">
     <value>Departmani</value>
   </data>
   <data name="ECTS" xml:space="preserve">
     <value>ESPB</value>
   </data>
+  <data name="Ects1" xml:space="preserve">
+    <value>Espb</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Izmeni</value>
+  </data>
+  <data name="Edit professor" xml:space="preserve">
+    <value>Izmeni profesora</value>
   </data>
   <data name="Edit selected item" xml:space="preserve">
     <value>Izmeni izabrani entitet</value>
   </data>
+  <data name="Edit student" xml:space="preserve">
+    <value>Izmeni studenta</value>
+    <comment>Editovanje studenta</comment>
+  </data>
+  <data name="Edit subject" xml:space="preserve">
+    <value>Izmeni predmet</value>
+  </data>
   <data name="EMAIL" xml:space="preserve">
     <value>EMAIL </value>
+  </data>
+  <data name="Email1" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>Engleski</value>
   </data>
+  <data name="Enrollment year" xml:space="preserve">
+    <value>Godina upisa</value>
+  </data>
   <data name="File" xml:space="preserve">
     <value>Fajl</value>
+  </data>
+  <data name="First subject" xml:space="preserve">
+    <value>Prvi predmet</value>
   </data>
   <data name="GPA" xml:space="preserve">
     <value>PROSEK</value>
   </data>
+  <data name="Grade" xml:space="preserve">
+    <value>Ocena</value>
+  </data>
+  <data name="Grade date" xml:space="preserve">
+    <value>Datum ocene</value>
+  </data>
+  <data name="Grade value" xml:space="preserve">
+    <value>Vrednost ocene</value>
+    <comment>Ocena</comment>
+  </data>
   <data name="Help" xml:space="preserve">
     <value>Pomoc</value>
+  </data>
+  <data name="Id number" xml:space="preserve">
+    <value>Broj licne karte</value>
   </data>
   <data name="INDEX" xml:space="preserve">
     <value>INDEKS</value>
     <comment>Polja Studenta</comment>
+  </data>
+  <data name="Index1" xml:space="preserve">
+    <value>Indeks</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Informacije</value>
   </data>
   <data name="Information about selected item" xml:space="preserve">
     <value>Informacije o izabranom entitetu</value>
@@ -186,11 +288,35 @@
   <data name="NAME" xml:space="preserve">
     <value>IME</value>
   </data>
+  <data name="Name1" xml:space="preserve">
+    <value>Ime</value>
+  </data>
   <data name="New" xml:space="preserve">
     <value>Novo</value>
   </data>
+  <data name="Not passed" xml:space="preserve">
+    <value>Nepolozeni</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Broj</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Otvori</value>
+  </data>
+  <data name="Pass subject" xml:space="preserve">
+    <value>Polozi predmet</value>
+  </data>
+  <data name="Passed" xml:space="preserve">
+    <value>Polozeni</value>
+  </data>
+  <data name="Passed only first subject" xml:space="preserve">
+    <value>Polozili samo prvi predmet</value>
+  </data>
+  <data name="Passed only the second subject" xml:space="preserve">
+    <value>Polozili samo drugi predmet</value>
+  </data>
+  <data name="Phone number" xml:space="preserve">
+    <value>Broj telefona</value>
   </data>
   <data name="Press enter to search" xml:space="preserve">
     <value>Pritisni enter da pretrazis</value>
@@ -198,20 +324,46 @@
   <data name="PROFESSOR" xml:space="preserve">
     <value>PROFESOR</value>
   </data>
+  <data name="Professor info" xml:space="preserve">
+    <value>Profesor info</value>
+    <comment>Editovanje i info profesora</comment>
+  </data>
+  <data name="Professor1" xml:space="preserve">
+    <value>Profesor</value>
+    <comment>Dodaj Profesora</comment>
+  </data>
   <data name="Professors" xml:space="preserve">
     <value>Profesori</value>
+  </data>
+  <data name="Professors1" xml:space="preserve">
+    <value>Professori</value>
+  </data>
+  <data name="Reg number" xml:space="preserve">
+    <value>Broj indeksa</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Sacuvaj</value>
   </data>
+  <data name="Second subject" xml:space="preserve">
+    <value>Drugi predmet</value>
+  </data>
   <data name="SEMESTER" xml:space="preserve">
     <value>SEMESTAR</value>
+  </data>
+  <data name="Semester1" xml:space="preserve">
+    <value>Semestar</value>
   </data>
   <data name="Serbian" xml:space="preserve">
     <value>Srpski</value>
   </data>
+  <data name="Service years" xml:space="preserve">
+    <value>Godine iskustva</value>
+  </data>
   <data name="STATUS" xml:space="preserve">
     <value>STATUS</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Ulica</value>
   </data>
   <data name="Student services" xml:space="preserve">
     <value>Studentska sluzba</value>
@@ -219,17 +371,46 @@
   <data name="Students" xml:space="preserve">
     <value>Studenti</value>
   </data>
+  <data name="Students who take both subjects" xml:space="preserve">
+    <value>Studenti koji slusaju oba predmeta</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Predmet</value>
+  </data>
+  <data name="Subject info" xml:space="preserve">
+    <value>Predmet info</value>
+    <comment>Subject info i editovanje</comment>
+  </data>
   <data name="Subjects" xml:space="preserve">
+    <value>Predmeti</value>
+  </data>
+  <data name="Subjects1" xml:space="preserve">
     <value>Predmeti</value>
   </data>
   <data name="SURNAME" xml:space="preserve">
     <value>PREZIME</value>
   </data>
+  <data name="Surname1" xml:space="preserve">
+    <value>Prezime</value>
+  </data>
   <data name="TITLE" xml:space="preserve">
     <value>ZVANJE</value>
     <comment>Polja Profesora</comment>
   </data>
+  <data name="Title1" xml:space="preserve">
+    <value>Zvanje</value>
+  </data>
+  <data name="Total ECTS" xml:space="preserve">
+    <value>Ukupno ESPB:</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Azuriraj</value>
+  </data>
   <data name="YEAR OF STUDY" xml:space="preserve">
     <value>GODINA STUDIJA</value>
+  </data>
+  <data name="Year of study1" xml:space="preserve">
+    <value>Godina studija</value>
+    <comment>Dodatni za dodaj prozore...</comment>
   </data>
 </root>

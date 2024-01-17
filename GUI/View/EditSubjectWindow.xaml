@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
+        xmlns:ns="clr-namespace:GUI.Localization"
         mc:Ignorable="d"
-        Title="Edit subject" 
+        Title="{ns:Loc Edit subject}" 
         Height="350" Width="400"
         ResizeMode="NoResize">
 
@@ -27,8 +28,8 @@
         <StackPanel x:Name="stackPanel">
 
             <!-- Info input -->
-            <Label HorizontalAlignment="Center" FontWeight="Bold" FontSize="20">Subject</Label>
-            <Grid Height="180" Margin="0,10,0,0">
+            <Label HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Content="{ns:Loc Subject1}"/>
+                <Grid Height="180" Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -42,25 +43,25 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Label HorizontalAlignment="Center" VerticalAlignment="Center">Code</Label>
+                <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="{ns:Loc Code1}"/>
                 <TextBox x:Name="textBoxCode" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
                          Text="{Binding Path=Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
-                <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Name</Label>
+                <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{ns:Loc Name1}"/>
                 <TextBox x:Name="textBoxName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
                          Text="{Binding Path=Name,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
-                <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Semester</Label>
+                <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{ns:Loc Semester1}"/>
                 <ComboBox x:Name="comboBoxSemester" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2">
                     <ComboBoxItem x:Name="comboBoxItemWinter">Winter</ComboBoxItem>
                     <ComboBoxItem x:Name="comboBoxItemSummer">Summer</ComboBoxItem>
                 </ComboBox>
 
-                <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">Year of study</Label>
+                <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{ns:Loc Year of study1}"/>
                 <TextBox x:Name="textBoxYearOfStudy" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
                          Text="{Binding Path=YearOfStudy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
-                <Label Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center">ECTS</Label>
+                <Label Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{ns:Loc Ects1}"/>
                 <TextBox x:Name="textBoxEcts" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0" Grid.ColumnSpan="2"
                          Text="{Binding Path=Ects, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBox_TextChanged"/>
 
@@ -73,7 +74,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label HorizontalAlignment="Center" VerticalAlignment="Center">Professor</Label>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="{ns:Loc Professor1}"/>
                     <TextBox x:Name="textBoxProfessor" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=Professor.NameSurname}" IsReadOnly="True" TextChanged="textBox_TextChanged" Grid.ColumnSpan="2" Margin="0,0,100,0"/>
                     <Button x:Name="buttonAddProfessor" Grid.Column="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" Height="26" Margin="0,2,0,2" Style="{StaticResource SquareButtonStyle}" Click="addProfessorToSubject" FontSize="16">+</Button>
                     <Button x:Name="buttonDeleteProfessor" Grid.Column="2" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" Height="26" Margin="102,2,0,2" Style="{StaticResource SquareButtonStyle}" Click="deleteProfessorFromSubject" FontSize="16">-</Button>
@@ -86,8 +87,8 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="buttonUpdate" HorizontalContentAlignment="Center" Click="Update" Content="Update" Margin="0,10,0,10" HorizontalAlignment="Center" Width="180"/>
-                <Button Grid.Column="1" x:Name="butonCancel" HorizontalContentAlignment="Center" Click="Cancel" Content="Cancel" Margin="10,10,10,10"/>
+                <Button x:Name="buttonUpdate" HorizontalContentAlignment="Center" Click="Update" Content="{ns:Loc Update}" Margin="0,10,0,10" HorizontalAlignment="Center" Width="180"/>
+                <Button Grid.Column="1" x:Name="butonCancel" HorizontalContentAlignment="Center" Click="Cancel" Content="{ns:Loc Cancel}" Margin="10,10,10,10"/>
             </Grid>
         </StackPanel>
 

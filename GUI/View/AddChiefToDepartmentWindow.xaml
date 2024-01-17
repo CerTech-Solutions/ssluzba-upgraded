@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI.View"
+        xmlns:ns="clr-namespace:GUI.Localization"
         mc:Ignorable="d"
-        Title="Add chief"
+        Title="{ns:Loc Add chief}"
         Height="450" Width="400"
         ResizeMode="NoResize">
     <Grid Margin="0,10,0,0">
@@ -13,13 +14,13 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding NameSurname}">
-                        <GridViewColumnHeader IsEnabled="False">Professors</GridViewColumnHeader>
+                        <GridViewColumnHeader IsEnabled="False" Content="{ns:Loc Professors1}"/>
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <Button Content="Add chief"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" Height="30" Width="160" Click="AddChief"/>
-        <Button Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="160" Margin="0,0,10,10" Click="Cancel"/>
+        <Button Content="{ns:Loc Add chief}"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" Height="30" Width="160" Click="AddChief"/>
+        <Button Content="{ns:Loc Cancel}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="160" Margin="0,0,10,10" Click="Cancel"/>
     </Grid>
 </Window>
