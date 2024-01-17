@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
+        xmlns:ns="clr-namespace:GUI.Localization"
         mc:Ignorable="d"
-        Title="Subject info"
+        Title="{ns:Loc Subject info}"
         Height="700" Width="820"
         ResizeMode="NoResize">
 
@@ -23,7 +24,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0"
-               x:Name="labelFirstSubject" Content="First subject" HorizontalContentAlignment="Right"
+               x:Name="labelFirstSubject" Content="{ns:Loc First subject}" HorizontalContentAlignment="Right"
                Height="25"/>
             <TextBox Grid.Column="1"
                  x:Name="textBoxFirstSubject" VerticalContentAlignment="Center"
@@ -35,7 +36,7 @@
                   SelectionChanged="ListViewSubjects_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Second subject" DisplayMemberBinding="{Binding CodeAndName}"/>
+                    <GridViewColumn Header="{ns:Loc Second subject}" DisplayMemberBinding="{Binding CodeAndName}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -47,31 +48,31 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" Content="Students who take both subjects" HorizontalContentAlignment="Center"  FontStyle="Italic"/>
+            <Label Grid.Column="0" Content="{ns:Loc Students who take both subjects}" HorizontalContentAlignment="Center"  FontStyle="Italic"/>
             <ListView Grid.Column="0" x:Name="listViewStudents" Height="250" Width="250" Margin="0,30,0,0">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Index" Width="80" DisplayMemberBinding="{Binding Index}"/>
+                        <GridViewColumn Header="{ns:Loc Index1}" Width="80" DisplayMemberBinding="{Binding Index}"/>
                         <GridViewColumn Header="Student" Width="160" DisplayMemberBinding="{Binding NameSurname}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
 
-            <Label Grid.Column="1" Content="Passed only the first subject" HorizontalContentAlignment="Center" FontStyle="Italic"/>
+            <Label Grid.Column="1" Content="{ns:Loc Passed only the first subject}" HorizontalContentAlignment="Center" FontStyle="Italic"/>
             <ListView Grid.Column="1" x:Name="listViewPassedFirstOnly" Height="250" Width="250" Margin="0,30,0,0">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Index" Width="80" DisplayMemberBinding="{Binding Index}"/>
+                        <GridViewColumn Header="{ns:Loc Index1}" Width="80" DisplayMemberBinding="{Binding Index}"/>
                         <GridViewColumn Header="Student" Width="160" DisplayMemberBinding="{Binding NameSurname}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
 
-            <Label Grid.Column="2" Content="Passed only the second subject" HorizontalContentAlignment="Center" FontStyle="Italic"/>
+            <Label Grid.Column="2" Content="{ns:Loc Passed only the second subject}" HorizontalContentAlignment="Center" FontStyle="Italic"/>
             <ListView Grid.Column="2" x:Name="listViewPassedSecondOnly" Height="250" Width="250" Margin="0,30,0,0">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Index" Width="80" DisplayMemberBinding="{Binding Index}"/>
+                        <GridViewColumn Header="{ns:Loc Index1}" Width="80" DisplayMemberBinding="{Binding Index}"/>
                         <GridViewColumn Header="Student" Width="160" DisplayMemberBinding="{Binding NameSurname}"/>
                     </GridView>
                 </ListView.View>

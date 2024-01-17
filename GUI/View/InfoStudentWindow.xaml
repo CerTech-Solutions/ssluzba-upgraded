@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ns="clr-namespace:GUI.Localization"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
         Title="Student info"
@@ -12,7 +13,7 @@
         <ListView VerticalAlignment="Top" Margin="10,10,10,0" x:Name="listViewProfessors" Height="380">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Professor" DisplayMemberBinding="{Binding NameSurname}"/>
+                    <GridViewColumn Header="{ns:Loc Professor1}" DisplayMemberBinding="{Binding NameSurname}"/>
                 </GridView>
             </ListView.View>
         </ListView>

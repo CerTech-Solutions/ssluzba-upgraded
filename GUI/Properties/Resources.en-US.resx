@@ -120,14 +120,48 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="AboutWindow" xml:space="preserve">
+    <value>AboutWindow</value>
+    <comment>About</comment>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Add</value>
+  </data>
+  <data name="Add chief" xml:space="preserve">
+    <value>Add chief</value>
+  </data>
+  <data name="Add grade" xml:space="preserve">
+    <value>Add grade</value>
+  </data>
+  <data name="Add professor" xml:space="preserve">
+    <value>Add professor</value>
   </data>
   <data name="Add selected item" xml:space="preserve">
     <value>Add selected item</value>
   </data>
+  <data name="Add student" xml:space="preserve">
+    <value>Add student</value>
+  </data>
+  <data name="Add subject" xml:space="preserve">
+    <value>Add subject</value>
+  </data>
+  <data name="Average grade" xml:space="preserve">
+    <value>Average grade:</value>
+  </data>
+  <data name="Birth date" xml:space="preserve">
+    <value>Birth date</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Cancel grade" xml:space="preserve">
+    <value>Cancel grade</value>
+  </data>
   <data name="CHIEF" xml:space="preserve">
     <value>CHIEF</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Zatvori</value>
@@ -135,8 +169,23 @@
   <data name="CODE" xml:space="preserve">
     <value>CODE</value>
   </data>
+  <data name="Code1" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Course label" xml:space="preserve">
+    <value>Course label</value>
+  </data>
   <data name="CURRENT YEAR" xml:space="preserve">
     <value>CURRENT YEAR</value>
+  </data>
+  <data name="Current year1" xml:space="preserve">
+    <value>Current year</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -144,35 +193,82 @@
   <data name="Delete selected item" xml:space="preserve">
     <value>Delete selected item</value>
   </data>
+  <data name="Delete1" xml:space="preserve">
+    <value>Delete1</value>
+  </data>
+  <data name="Department info" xml:space="preserve">
+    <value>Department info</value>
+    <comment>Departman info edit</comment>
+  </data>
   <data name="Departments" xml:space="preserve">
     <value>Departments</value>
   </data>
   <data name="ECTS" xml:space="preserve">
     <value>ECTS</value>
   </data>
+  <data name="Ects1" xml:space="preserve">
+    <value>Ects</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="Edit professor" xml:space="preserve">
+    <value>Edit professor</value>
   </data>
   <data name="Edit selected item" xml:space="preserve">
     <value>Edit selected item</value>
   </data>
+  <data name="Edit student" xml:space="preserve">
+    <value>Edit student</value>
+    <comment>Editovanja...</comment>
+  </data>
+  <data name="Edit subject" xml:space="preserve">
+    <value>Edit subject</value>
+  </data>
   <data name="EMAIL" xml:space="preserve">
     <value>EMAIL</value>
+  </data>
+  <data name="Email1" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="Enrollment year" xml:space="preserve">
+    <value>Enrollment year</value>
+  </data>
   <data name="File" xml:space="preserve">
     <value>File</value>
+  </data>
+  <data name="First subject" xml:space="preserve">
+    <value>First subject</value>
   </data>
   <data name="GPA" xml:space="preserve">
     <value>GPA</value>
   </data>
+  <data name="Grade" xml:space="preserve">
+    <value>Grade</value>
+  </data>
+  <data name="Grade date" xml:space="preserve">
+    <value>Grade date</value>
+  </data>
+  <data name="Grade value" xml:space="preserve">
+    <value>Grade value</value>
+  </data>
   <data name="Help" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="Id number" xml:space="preserve">
+    <value>Id Number</value>
+  </data>
   <data name="INDEX" xml:space="preserve">
     <value>INDEX</value>
+  </data>
+  <data name="Index1" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
   </data>
   <data name="Information about selected item" xml:space="preserve">
     <value>Information about selected item</value>
@@ -183,11 +279,35 @@
   <data name="NAME" xml:space="preserve">
     <value>NAME</value>
   </data>
+  <data name="Name1" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="New" xml:space="preserve">
     <value>Novo</value>
   </data>
+  <data name="Not passed" xml:space="preserve">
+    <value>Not passed</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Otvori</value>
+  </data>
+  <data name="Pass subject" xml:space="preserve">
+    <value>Pass subject</value>
+  </data>
+  <data name="Passed" xml:space="preserve">
+    <value>Passed</value>
+  </data>
+  <data name="Passed only the first subject" xml:space="preserve">
+    <value>Passed only the first subject</value>
+  </data>
+  <data name="Passed only the second subject" xml:space="preserve">
+    <value>Passed only the second subject</value>
+  </data>
+  <data name="Phone number" xml:space="preserve">
+    <value>Phone number</value>
   </data>
   <data name="Press enter to search" xml:space="preserve">
     <value>Press enter to search</value>
@@ -195,11 +315,28 @@
   <data name="PROFESSOR" xml:space="preserve">
     <value>PROFESSOR</value>
   </data>
+  <data name="Professor info" xml:space="preserve">
+    <value>Professor info</value>
+    <comment>Editovanje i info profesora</comment>
+  </data>
+  <data name="Professor1" xml:space="preserve">
+    <value>Professor</value>
+    <comment>Addovanje prozori</comment>
+  </data>
   <data name="Professors" xml:space="preserve">
     <value>Professors</value>
   </data>
+  <data name="Professors1" xml:space="preserve">
+    <value>Professors</value>
+  </data>
+  <data name="Reg number" xml:space="preserve">
+    <value>Reg number</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="Second subject" xml:space="preserve">
+    <value>Second subject</value>
   </data>
   <data name="SEMESTER" xml:space="preserve">
     <value>SEMESTER</value>
@@ -207,8 +344,14 @@
   <data name="Serbian" xml:space="preserve">
     <value>Serbian</value>
   </data>
+  <data name="Service years" xml:space="preserve">
+    <value>Service years</value>
+  </data>
   <data name="STATUS" xml:space="preserve">
     <value>STATUS</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Street</value>
   </data>
   <data name="Student services" xml:space="preserve">
     <value>Student services</value>
@@ -216,16 +359,41 @@
   <data name="Students" xml:space="preserve">
     <value>Students</value>
   </data>
+  <data name="Students who take both subjects" xml:space="preserve">
+    <value>Students who take both subjects</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subjcet</value>
+  </data>
+  <data name="Subject info" xml:space="preserve">
+    <value>Subject info</value>
+    <comment>Subject info i editovanje</comment>
+  </data>
   <data name="Subjects" xml:space="preserve">
+    <value>Subjects</value>
+  </data>
+  <data name="Subjects1" xml:space="preserve">
     <value>Subjects</value>
   </data>
   <data name="SURNAME" xml:space="preserve">
     <value>SURNAME</value>
   </data>
+  <data name="Surname1" xml:space="preserve">
+    <value>Surname</value>
+  </data>
   <data name="TITLE" xml:space="preserve">
     <value>TITLE</value>
   </data>
+  <data name="Total ECTS" xml:space="preserve">
+    <value>Total ECTS:</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
   <data name="YEAR OF STUDY" xml:space="preserve">
     <value>YEAR OF STUDY</value>
+  </data>
+  <data name="Year of study1" xml:space="preserve">
+    <value>Year of study</value>
   </data>
 </root>

@@ -15,6 +15,9 @@
         <CommandBinding Command="ApplicationCommands.Open" Executed="EditEntity"/>
         <CommandBinding Command="ApplicationCommands.Delete" Executed="DeleteEntity"/>
         <CommandBinding Command="ApplicationCommands.Save" Executed="Save"/>
+        <CommandBinding Command="ApplicationCommands.Print" Executed="ChangeLangToSerbian"/>
+        <CommandBinding Command="ApplicationCommands.PrintPreview" Executed="ChangeLangToEnglish"/>
+        <CommandBinding Command="Close" Executed="CloseWindow"/>
     </Window.CommandBindings>
 
     <Window.InputBindings>
@@ -22,6 +25,9 @@
         <KeyBinding Key="E" Modifiers="Control" Command="ApplicationCommands.Open"/>
         <KeyBinding Key="D" Modifiers="Control" Command="ApplicationCommands.Delete"/>
         <KeyBinding Key="S" Modifiers="Control" Command="ApplicationCommands.Save"/>
+        <KeyBinding Key="W" Modifiers="Control" Command="ApplicationCommands.PrintPreview"/>
+        <KeyBinding Key="Q" Modifiers="Control" Command="ApplicationCommands.Print"/>
+        <KeyBinding Key="X" Modifiers="Control" Command="ApplicationCommands.Close"/>
     </Window.InputBindings>
 
 
@@ -114,7 +120,7 @@
                         <Image Source="Icons/search.png" Height="20" Width="20" Stretch="Fill" Cursor="Hand"/>
                     </Button>
                     <TextBox x:Name="textBoxSearch" Width="300" DockPanel.Dock="Right" Style="{StaticResource WaterMarkStyle}" Tag="{ns:Loc Press enter to search}"
-                             VerticalContentAlignment="Center" HorizontalContentAlignment="Left" KeyDown="TextBoxSearchKeyDown"/>
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Left" KeyDown="TextBoxSearchKeyDown" Cursor="IBeam"/>
                 </DockPanel>
             </Grid>
         </StackPanel>
