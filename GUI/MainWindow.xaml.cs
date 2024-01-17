@@ -44,6 +44,9 @@ namespace GUI
         private int _maxItemsPerPage = 16;
         private int _totalNumberOfPages = 1;
 
+        private ListSortDirection _sortDirection = ListSortDirection.Descending;
+        private string _sortPropertyName = "";
+
         private ObservableCollection<ProfessorDTO> _professors = new ObservableCollection<ProfessorDTO>();
         private ObservableCollection<StudentDTO> _students = new ObservableCollection<StudentDTO>();
         private ObservableCollection<SubjectDTO> _subjects = new ObservableCollection<SubjectDTO>();
@@ -316,7 +319,7 @@ namespace GUI
             _controller.GetAllDepartments().ForEach(d => _departments.Add(new DepartmentDTO(d)));
 
             ApplySearch(this, new RoutedEventArgs());
-            
+
             RestartTotalNumberOfPages();
             ChangeMovePageButtonsVisibility();
 
@@ -665,6 +668,70 @@ namespace GUI
             }
 
             ChangeMovePageButtonsVisibility();
+        }
+
+        private void ApplySorting(object sender, DataGridSortingEventArgs e)
+        {
+            string propertyName = e.Column.SortMemberPath;
+
+            if (_sortPropertyName == propertyName)
+            {
+                _sortDirection = _sortDirection == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending;
+            }
+            else
+            {
+                _sortDirection = ListSortDirection.Descending;
+                _sortPropertyName = propertyName;
+            }
+         
+            if(sender == dataGridStudents)
+            {
+                if (_sortDirection == ListSortDirection.Ascending)
+                {
+                    _filteredStudents = new ObservableCollection<StudentDTO>(
+                        _filteredStudents.OrderBy(x => GetPropertyValue(x, _sortPropertyName)));
+                }
+                else
+                {
+                    _filteredStudents = new ObservableCollection<StudentDTO>(
+                        _filteredStudents.OrderByDescending(x => GetPropertyValue(x, _sortPropertyName)));
+                }
+            }
+            else if (sender == dataGridProfessor)
+            {
+                if (_sortDirection == ListSortDirection.Ascending)
+                {
+                    _filteredProfessors = new ObservableCollection<ProfessorDTO >(
+                        _filteredProfessors.OrderBy(x => GetPropertyValue(x, _sortPropertyName)));
+                }
+                else
+                {
+                    _filteredProfessors = new ObservableCollection<ProfessorDTO>(
+                        _filteredProfessors.OrderByDescending(x => GetPropertyValue(x, _sortPropertyName)));
+                }
+            }
+            else if (sender == dataGridSubjects)
+            {
+                if (_sortDirection == ListSortDirection.Ascending)
+                {
+                    _filteredSubjects = new ObservableCollection<SubjectDTO>(
+                        _filteredSubjects.OrderBy(x => GetPropertyValue(x, _sortPropertyName)));
+                }
+                else
+                {
+                    _filteredSubjects = new ObservableCollection<SubjectDTO>(
+                        _filteredSubjects.OrderByDescending(x => GetPropertyValue(x, _sortPropertyName)));
+                }
+            }
+
+            ApplyPaging(sender, new RoutedEventArgs());
+
+            e.Handled = true;
+        }
+
+        private object GetPropertyValue(object obj, string propertyName)
+        {
+            return obj.GetType().GetProperty(propertyName)?.GetValue(obj, null);
         }
     }
 }
