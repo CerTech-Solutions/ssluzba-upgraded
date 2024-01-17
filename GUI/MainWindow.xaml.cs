@@ -25,6 +25,7 @@ using System.Diagnostics.Tracing;
 using System.ComponentModel;
 using GUI.View;
 using System.Windows.Automation.Provider;
+using System.Reflection;
 
 namespace GUI
 {
@@ -39,9 +40,13 @@ namespace GUI
 
         private DispatcherTimer _timer;
         private Controller _controller;
+
         private int _currentPageNumber = 1;
         private int _maxItemsPerPage = 16;
         private int _totalNumberOfPages = 1;
+
+        private ListSortDirection _sortDirection = ListSortDirection.Descending;
+        private string _sortPropertyName = "";
 
         private ObservableCollection<ProfessorDTO> _professors = new ObservableCollection<ProfessorDTO>();
         private ObservableCollection<StudentDTO> _students = new ObservableCollection<StudentDTO>();
@@ -74,7 +79,7 @@ namespace GUI
             dataGridSubjects.ItemsSource = _filteredSubjects;
             dataGridDepartments.ItemsSource = _departments;
 
-            app = (App)Application.Current;
+            app = (App) Application.Current;
             app.ChangeLanguage(ENG);
         }
 
@@ -219,19 +224,19 @@ namespace GUI
 
             if (selectedTab == tabItemStudents)
             {
-                deleteStudent();
+                DeleteStudent();
             }
             else if (selectedTab == tabItemProfessors)
             {
-                deleteProfessor();
+                DeleteProfessor();
             }
             else if (selectedTab == tabItemSubjects)
             {
-                deleteSubject();
+                DeleteSubject();
             }
         }
 
-        private void deleteProfessor()
+        private void DeleteProfessor()
         {
             if (dataGridProfessor.SelectedItem != null)
             {
@@ -254,7 +259,7 @@ namespace GUI
             }
         }
 
-        private void deleteStudent()
+        private void DeleteStudent()
         {
             if (dataGridStudents.SelectedItem != null)
             {
@@ -277,7 +282,7 @@ namespace GUI
             }
         }
 
-        private void deleteSubject()
+        private void DeleteSubject()
         {
             if (dataGridSubjects.SelectedItem != null)
             {
@@ -315,7 +320,8 @@ namespace GUI
             _controller.GetAllDepartments().ForEach(d => _departments.Add(new DepartmentDTO(d)));
 
             ApplySearch(this, new RoutedEventArgs());
-            
+            ApplySorting();
+
             RestartTotalNumberOfPages();
             ChangeMovePageButtonsVisibility();
 
@@ -335,7 +341,6 @@ namespace GUI
 
         private void OpenAbout(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("Version 0.1.7 - Made by passionate developers from CerTech-Solutions®\n\nNemanja Zekanovic \n\t Young developer who has a lot more to learn,\n\t also known as telepnemanja\nNikola Kuslakovic \n\t Legends tell that he is \n\t the greateast programmer of all time");
             AboutWindow aboutWindow = new AboutWindow();
             aboutWindow.ShowDialog();
         }
@@ -394,7 +399,7 @@ namespace GUI
                 totalNumberOfItems = _filteredSubjects.Count;
             }
 
-            TotalNumberOfPages = (int)Math.Ceiling((double)totalNumberOfItems / _maxItemsPerPage);
+            TotalNumberOfPages = (int) Math.Ceiling((double) totalNumberOfItems / _maxItemsPerPage);
         }
 
         private void ApplyPaging(object sender, RoutedEventArgs e)
@@ -665,6 +670,77 @@ namespace GUI
             }
 
             ChangeMovePageButtonsVisibility();
+        }
+
+        private void SortDataGrid(object sender, DataGridSortingEventArgs e)
+        {
+            string propertyName = e.Column.SortMemberPath;
+
+            if (_sortPropertyName == propertyName)
+            {
+                _sortDirection = _sortDirection == ListSortDirection.Ascending ? ListSortDirection.Descending : ListSortDirection.Ascending;
+            }
+            else
+            {
+                _sortDirection = ListSortDirection.Descending;
+                _sortPropertyName = propertyName;
+            }
+         
+            ApplySorting();
+
+            ApplyPaging(sender, new RoutedEventArgs());
+
+            e.Handled = true;
+        }
+
+        private void ApplySorting()
+        {
+            TabItem selectedTab = tabControl.SelectedItem as TabItem;
+
+            if (selectedTab == tabItemStudents)
+            {
+                if (_sortDirection == ListSortDirection.Ascending)
+                {
+                    _filteredStudents = new ObservableCollection<StudentDTO>(
+                        _filteredStudents.OrderBy(x => GetPropertyValue(x, _sortPropertyName)));
+                }
+                else
+                {
+                    _filteredStudents = new ObservableCollection<StudentDTO>(
+                        _filteredStudents.OrderByDescending(x => GetPropertyValue(x, _sortPropertyName)));
+                }
+            }
+            else if (selectedTab == tabItemProfessors)
+            {
+                if (_sortDirection == ListSortDirection.Ascending)
+                {
+                    _filteredProfessors = new ObservableCollection<ProfessorDTO>(
+                        _filteredProfessors.OrderBy(x => GetPropertyValue(x, _sortPropertyName)));
+                }
+                else
+                {
+                    _filteredProfessors = new ObservableCollection<ProfessorDTO>(
+                        _filteredProfessors.OrderByDescending(x => GetPropertyValue(x, _sortPropertyName)));
+                }
+            }
+            else if (selectedTab == tabItemSubjects)
+            {
+                if (_sortDirection == ListSortDirection.Ascending)
+                {
+                    _filteredSubjects = new ObservableCollection<SubjectDTO>(
+                        _filteredSubjects.OrderBy(x => GetPropertyValue(x, _sortPropertyName)));
+                }
+                else
+                {
+                    _filteredSubjects = new ObservableCollection<SubjectDTO>(
+                        _filteredSubjects.OrderByDescending(x => GetPropertyValue(x, _sortPropertyName)));
+                }
+            }
+        }
+
+        private object GetPropertyValue(object obj, string propertyName)
+        {
+            return obj.GetType().GetProperty(propertyName)?.GetValue(obj, null);
         }
     }
 }

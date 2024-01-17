@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:GUI"
         xmlns:ns="clr-namespace:GUI.Localization"
         mc:Ignorable="d"
-        Title="{ns:Loc Student services}" Icon="Icons/main_window_icon.ico"
+        Title="{ns:Loc Student services}"
+        Icon="Icons/main_window_icon.ico"
         Height="600" Width="1000" MinHeight="600" MinWidth="1000">
 
     <Window.CommandBindings>
@@ -129,7 +130,8 @@
                         <ColumnDefinition Width="859*"/>
                     </Grid.ColumnDefinitions>
                     <DataGrid x:Name="dataGridStudents" 
-                              AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="2">
+                              AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="2"
+                              Sorting="SortDataGrid">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{ns:Loc INDEX}" Width="*" Binding="{Binding Index}"/>
                             <DataGridTextColumn Header="{ns:Loc NAME}" Width="*" Binding="{Binding Name}"/>
@@ -145,7 +147,8 @@
             <TabItem x:Name="tabItemProfessors" Header="{ns:Loc Professors}">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridProfessor" 
-                              AutoGenerateColumns="False" IsReadOnly="True">
+                              AutoGenerateColumns="False" IsReadOnly="True"
+                              Sorting="SortDataGrid">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{ns:Loc NAME}" Width="*" Binding="{Binding Name}"/>
                             <DataGridTextColumn Header="{ns:Loc SURNAME}" Width="*" Binding="{Binding Surname}"/>
@@ -159,7 +162,8 @@
             <TabItem x:Name="tabItemSubjects" Header="{ns:Loc Subjects}">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridSubjects"
-                              AutoGenerateColumns="False" IsReadOnly="True">
+                              AutoGenerateColumns="False" IsReadOnly="True"
+                              Sorting="SortDataGrid">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{ns:Loc CODE}" Width="*" Binding="{Binding Code}"/>
                             <DataGridTextColumn Header="{ns:Loc NAME}" Width="*" Binding="{Binding Name}"/>

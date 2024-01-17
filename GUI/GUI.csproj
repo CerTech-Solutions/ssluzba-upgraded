@@ -11,6 +11,7 @@
     <None Remove="crud_edit.png" />
     <None Remove="Icons\cat.gif" />
     <None Remove="Icons\CerTechLogo.gif" />
+    <None Remove="Icons\CerTechLogo.png" />
     <None Remove="Icons\crud_add.png" />
     <None Remove="Icons\crud_delete.png" />
     <None Remove="Icons\crud_edit.png" />
@@ -23,7 +24,7 @@
 
   <ItemGroup>
     <Resource Include="Icons\cat.gif" />
-    <Resource Include="Icons\CerTechLogo.gif" />
+    <Resource Include="Icons\CerTechLogo.png" />
     <Resource Include="Icons\crud_add.png" />
   </ItemGroup>
 
