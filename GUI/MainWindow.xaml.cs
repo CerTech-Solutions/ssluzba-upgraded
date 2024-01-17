@@ -25,6 +25,7 @@ using System.Diagnostics.Tracing;
 using System.ComponentModel;
 using GUI.View;
 using System.Windows.Automation.Provider;
+using System.Reflection;
 
 namespace GUI
 {
@@ -319,6 +320,7 @@ namespace GUI
             _controller.GetAllDepartments().ForEach(d => _departments.Add(new DepartmentDTO(d)));
 
             ApplySearch(this, new RoutedEventArgs());
+            ApplySorting();
 
             RestartTotalNumberOfPages();
             ChangeMovePageButtonsVisibility();
@@ -670,7 +672,7 @@ namespace GUI
             ChangeMovePageButtonsVisibility();
         }
 
-        private void ApplySorting(object sender, DataGridSortingEventArgs e)
+        private void SortDataGrid(object sender, DataGridSortingEventArgs e)
         {
             string propertyName = e.Column.SortMemberPath;
 
@@ -684,7 +686,18 @@ namespace GUI
                 _sortPropertyName = propertyName;
             }
          
-            if(sender == dataGridStudents)
+            ApplySorting();
+
+            ApplyPaging(sender, new RoutedEventArgs());
+
+            e.Handled = true;
+        }
+
+        private void ApplySorting()
+        {
+            TabItem selectedTab = tabControl.SelectedItem as TabItem;
+
+            if (selectedTab == tabItemStudents)
             {
                 if (_sortDirection == ListSortDirection.Ascending)
                 {
@@ -697,11 +710,11 @@ namespace GUI
                         _filteredStudents.OrderByDescending(x => GetPropertyValue(x, _sortPropertyName)));
                 }
             }
-            else if (sender == dataGridProfessor)
+            else if (selectedTab == tabItemProfessors)
             {
                 if (_sortDirection == ListSortDirection.Ascending)
                 {
-                    _filteredProfessors = new ObservableCollection<ProfessorDTO >(
+                    _filteredProfessors = new ObservableCollection<ProfessorDTO>(
                         _filteredProfessors.OrderBy(x => GetPropertyValue(x, _sortPropertyName)));
                 }
                 else
@@ -710,7 +723,7 @@ namespace GUI
                         _filteredProfessors.OrderByDescending(x => GetPropertyValue(x, _sortPropertyName)));
                 }
             }
-            else if (sender == dataGridSubjects)
+            else if (selectedTab == tabItemSubjects)
             {
                 if (_sortDirection == ListSortDirection.Ascending)
                 {
@@ -723,10 +736,6 @@ namespace GUI
                         _filteredSubjects.OrderByDescending(x => GetPropertyValue(x, _sortPropertyName)));
                 }
             }
-
-            ApplyPaging(sender, new RoutedEventArgs());
-
-            e.Handled = true;
         }
 
         private object GetPropertyValue(object obj, string propertyName)

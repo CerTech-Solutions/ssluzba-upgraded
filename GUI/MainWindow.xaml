@@ -131,7 +131,7 @@
                     </Grid.ColumnDefinitions>
                     <DataGrid x:Name="dataGridStudents" 
                               AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="2"
-                              Sorting="ApplySorting">
+                              Sorting="SortDataGrid">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{ns:Loc INDEX}" Width="*" Binding="{Binding Index}"/>
                             <DataGridTextColumn Header="{ns:Loc NAME}" Width="*" Binding="{Binding Name}"/>
@@ -148,7 +148,7 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridProfessor" 
                               AutoGenerateColumns="False" IsReadOnly="True"
-                              Sorting="ApplySorting">
+                              Sorting="SortDataGrid">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{ns:Loc NAME}" Width="*" Binding="{Binding Name}"/>
                             <DataGridTextColumn Header="{ns:Loc SURNAME}" Width="*" Binding="{Binding Surname}"/>
@@ -163,7 +163,7 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="dataGridSubjects"
                               AutoGenerateColumns="False" IsReadOnly="True"
-                              Sorting="ApplySorting">
+                              Sorting="SortDataGrid">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{ns:Loc CODE}" Width="*" Binding="{Binding Code}"/>
                             <DataGridTextColumn Header="{ns:Loc NAME}" Width="*" Binding="{Binding Name}"/>
