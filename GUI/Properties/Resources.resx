@@ -309,7 +309,7 @@
   <data name="Passed" xml:space="preserve">
     <value>Polozeni</value>
   </data>
-  <data name="Passed only first subject" xml:space="preserve">
+  <data name="Passed only the first subject" xml:space="preserve">
     <value>Polozili samo prvi predmet</value>
   </data>
   <data name="Passed only the second subject" xml:space="preserve">

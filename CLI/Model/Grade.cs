@@ -59,7 +59,7 @@ public class Grade : ISerializable, IAccess<Grade>, IConsoleWriteRead
             Student.Id.ToString(),
             Subject.Id.ToString(),
             GradeValue.ToString(),
-            PassDate.ToString()
+            PassDate.ToString("yyyy-MM-dd")
         };
         return csvValues;
     }
@@ -70,7 +70,7 @@ public class Grade : ISerializable, IAccess<Grade>, IConsoleWriteRead
         Student.Id = int.Parse(values[1]);
         Subject.Id = int.Parse(values[2]);
         GradeValue = int.Parse(values[3]);
-        PassDate = DateOnly.Parse(values[4]);
+        PassDate = DateOnly.ParseExact(values[4], "yyyy-MM-dd", null);
     }
 
     public string GenerateClassHeader()
