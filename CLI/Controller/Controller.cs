@@ -365,6 +365,8 @@ public class Controller
             throw new Exception("Professor must have at least 5 years of service\nto become chief of department!");
 
         dep.Chief = prof;
+
+        daoDepartment.SaveToStorage();
         publisher.NotifyObservers();
     }
 
