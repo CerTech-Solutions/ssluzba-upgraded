@@ -309,12 +309,15 @@ namespace GUI
         {
             _students.Clear();
             _controller.GetAllStudents().ForEach(s => _students.Add(new StudentDTO(s)));
+            _filteredStudents = new ObservableCollection<StudentDTO>(_students);
 
             _professors.Clear();
             _controller.GetAllProfessors().ForEach(p => _professors.Add(new ProfessorDTO(p)));
+            _filteredProfessors = new ObservableCollection<ProfessorDTO>(_professors);
 
             _subjects.Clear();
             _controller.GetAllSubjects().ForEach(s => _subjects.Add(new SubjectDTO(s)));
+            _filteredSubjects = new ObservableCollection<SubjectDTO>(_subjects);
 
             _departments.Clear();
             _controller.GetAllDepartments().ForEach(d => _departments.Add(new DepartmentDTO(d)));
@@ -375,7 +378,7 @@ namespace GUI
             }
             else if (tabControl.SelectedItem == tabItemSubjects)
             {
-                _filteredSubjects =  new ObservableCollection<SubjectDTO>(_subjects.Where(x => FilterSubject(x)));
+                _filteredSubjects = new ObservableCollection<SubjectDTO>(_subjects.Where(x => FilterSubject(x)));
             }
         }
 
