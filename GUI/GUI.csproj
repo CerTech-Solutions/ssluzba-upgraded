@@ -12,14 +12,33 @@
     <None Remove="Icons\cat.gif" />
     <None Remove="Icons\CerTechLogo.gif" />
     <None Remove="Icons\CerTechLogo.png" />
+    <None Remove="Icons\closeicon.png" />
     <None Remove="Icons\crud_add.png" />
     <None Remove="Icons\crud_delete.png" />
     <None Remove="Icons\crud_edit.png" />
     <None Remove="Icons\info.png" />
     <None Remove="Icons\left_arrow.png" />
     <None Remove="Icons\main_window_icon.ico" />
+    <None Remove="Icons\openicon.png" />
+    <None Remove="Icons\professors.png" />
     <None Remove="Icons\right_arrow.png" />
+    <None Remove="Icons\saveicon.png" />
     <None Remove="Icons\search.png" />
+    <None Remove="Icons\srbflag.png" />
+    <None Remove="Icons\students.png" />
+    <None Remove="Icons\subjects.png" />
+    <None Remove="Icons\usflag.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\closeicon.png" />
+    <Resource Include="Icons\openicon.png" />
+    <Resource Include="Icons\professors.png" />
+    <Resource Include="Icons\saveicon.png" />
+    <Resource Include="Icons\srbflag.png" />
+    <Resource Include="Icons\students.png" />
+    <Resource Include="Icons\subjects.png" />
+    <Resource Include="Icons\usflag.png" />
   </ItemGroup>
 
   <ItemGroup>
